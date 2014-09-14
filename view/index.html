@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <title>CRATE</title>
+    
+    <link rel="stylesheet"
+	  href="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">
+    <link href="style.css" rel="stylesheet" type="text/css" />
+    <link rel="icon" type="image/png" href="crateicon.png" />
+  </head>
+  
+  <body>
+    
+    <!-- NAVIGATION BAR -->
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle"
+		  data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a id="start" class="navbar-brand" href="#"
+	     onclick="editorController.emit('start',
+		      document.getElementById('localAddress').value,
+		      document.getElementById('mask').value,
+		      document.getElementById('remoteAddress').value);
+		      document.getElementById('start').style.background=
+		      '#c3e191';
+		      editor.focus();">
+	    Start!</a>
+        </div>
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+	    <li> <input id="localAddress" class="form-control" type="text"
+			placeholder="local ip:port"/> </li>
+	    <li> <input id="mask" class="form-control" type="text"
+			placeholder="mask"/> </li>
+          </ul>
+	  
+	  <ul class="nav navbar-nav navbar-right">
+	    <li> <input id="remoteAddress" class="form-control" type="text"
+			placeholder="remote ip:port"/> </li>
+	  </ul>
+        </div>
+      </div>
+    </div>
+    <!-- EDITOR -->
+    <div class="container">
+      <div id="editor"></div>
+    </div>
+    
+    <!-- Include the Quill library -->
+    <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+    <script src="http://cdn.quilljs.com/0.16.0/quill.min.js"></script>
+    <script>
+      var editor = new Quill('#editor');
+      editor.editor.disable();
+      var EditorController = require("../controller.js");
+      var editorController = new EditorController(editor,
+        Math.floor(Math.random()*100));
+    </script>
+    
+  </body>
+  
+</html>
