@@ -11,9 +11,17 @@ Try it out
 
 You can download and try the application for your OS:
 [Windows](https://dl.dropboxusercontent.com/u/21159323/sandedit-win.zip),
-[MacOSX](https://dl.dropboxusercontent.com/u/21159323/sandedit-osx.zip). These
+[MacOSX](https://dl.dropboxusercontent.com/u/21159323/crate-osx.zip). These
 are temporary (or at least, won't be supported on the main track) since we plan
 to make a browser-only editor.
+
+<ol>
+  <li>Unzip and execute the crate file.</li>
+  <li>Fill the first field with your local IP and Port.</li>
+  <li>Fill the second field with the mask corresponding to the local IP.</li>
+  <li>Fill the third field with the address of a know peer.</li>
+  <li>Write ;)</li>
+</ol>
 
 How to build
 ------------
