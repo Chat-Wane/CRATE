@@ -10,7 +10,7 @@ Try it out
 ----------
 
 You can download and try the application for your OS:
-[Windows](https://dl.dropboxusercontent.com/u/21159323/sandedit-win.zip),
+[Windows](https://dl.dropboxusercontent.com/u/21159323/crate-win.zip),
 [MacOSX](https://dl.dropboxusercontent.com/u/21159323/crate-osx.zip). These
 are temporary (or at least, won't be supported on the main track) since we plan
 to make a browser-only editor.
