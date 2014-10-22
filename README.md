@@ -28,7 +28,7 @@ How to build
 
 First, CRATE requires to install some dependencies.
 ```
-npm install netmask smokesignal causaltrack lseqarray
+npm install netmask smokesignal causaltrack lseqtree
 ```
 
 Second, CRATE uses node-webkit to bundle the sources into a working

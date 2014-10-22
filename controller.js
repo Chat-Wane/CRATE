@@ -26,7 +26,8 @@ function EditorController(editor, siteId){
 
 	self._peer._application.on('remoteINS', function(i,e){
 	    if (i>0){
-		editor.insertText(i-1,e);
+		if (e.indexOf("\n")>0) {e='\n';};
+		editor.insertText(i-1, e);
 	    };
 	});
 	
@@ -51,33 +52,22 @@ function EditorController(editor, siteId){
 		var couple = {_e:null, _i:null};
 		if ("value" in delta.ops[0]){
 		    couple._e = delta.ops[0].value
-		    couple._i = 0;
 		};
 		if ("value" in delta.ops[1]){
-		    if (delta.ops.length == 3){
-			couple._i = delta.ops[0].end;
-		    }else{
-			couple._i = delta.ops[0].end - 1;
-		    };
 		    couple._e = delta.ops[1].value;
 		};
+		// handle no breaking space \n
+//		if (couple._e.indexOf("\n")>=0){ couple._e = "\n";};
+		couple._i = editor.getSelection().start-1;
 		self._peer._application.emit('INS',couple);
 	    };
 	    if (delta.startLength > delta.endLength){ // DEL
-		var index;
-		if (delta.ops[0].start > 0){
-		    index=0;
-		} else if(delta.ops[0].end == delta.endLength){
-		    index = delta.ops[0].end - 1;
-		};
-		if (delta.ops.length == 2){
-		    index = delta.ops[0].end;
-		};
-		self._peer._application.emit('DEL',index);
+		self._peer._application.emit('DEL',
+					     editor.getSelection().start);
 	    };
 	};
     });
-
+    
 };
 
 module.exports = EditorController;

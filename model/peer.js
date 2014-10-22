@@ -97,7 +97,7 @@ function Peer(address, port, mask, seedlist, application, siteId){
     // #5 anti-entropy mechanism
     setInterval(function(){
 	var n = self.peers.list;
-	var keys = Object.keys(self._vvwe._v);
+	var keys = Object.keys(self._vvwe._v); // (Object.keys doesnt scale)
 	var result = [];
 	for (var i = 0; i < keys.length; ++i){
 	    var entry = keys[i];

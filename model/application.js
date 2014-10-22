@@ -1,6 +1,7 @@
 var util = require('util');
-require('lseqarray/lib/base.js').getInstance(8);
-var LSEQ = require('lseqarray');
+require('lseqtree/lib/base.js').getInstance(8);
+var LSEQ = require('lseqtree');
+var ID = require('lseqtree/lib/identifier.js');
 var EventEmitter = require('events').EventEmitter;
 util.inherits(Application, EventEmitter);
 
@@ -40,17 +41,24 @@ Application.prototype.setCommunication = function(communication){
     this._communication = communication;
 };
 
+
+// (TODO) fix for application using
+// (TODO) optimize using pack of pairs
 Application.prototype.getOperation = function(couple){
     var found = false;
     var i = this._lseq.length;
     var result = null;
     while (!found && i>0){
-	if ((this._lseq._array[i]._i._s[this._lseq._array[i]._i._s.length-1]==
-	     couple._e) && 
-	    (this._lseq._array[i]._i._c[this._lseq._array[i]._i._c.length-1]== 
-	     couple._c)){
+	var node = this._lseq.get(i);
+	var tempNode = node;
+	while (tempNode.children.length > 0){
+	    tempNode = tempNode.children[0];
+	};
+	if ((node.t.s==couple._e) && (node.t.c==couple._c)){
 	    found = true;
-	    result = this._lseq._array[i];
+	    var i = new ID(null, [], []);
+	    i.fromNode(node);
+	    result = {_i:i, _e:tempNode.e };
 	};
 	--i;
     };
