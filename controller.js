@@ -26,7 +26,7 @@ function EditorController(editor, siteId){
 
 	self._peer._application.on('remoteINS', function(i,e){
 	    if (i>0){
-		if (e.indexOf("\n")>0) {e='\n';};
+		if (e.indexOf("\n")!=-1) { e = '\n'; };
 		editor.insertText(i-1, e);
 	    };
 	});
@@ -57,7 +57,7 @@ function EditorController(editor, siteId){
 		    couple._e = delta.ops[1].value;
 		};
 		// handle no breaking space \n
-//		if (couple._e.indexOf("\n")>=0){ couple._e = "\n";};
+		if (couple._e.indexOf('\n')!=-1){ couple._e = '\n';};
 		couple._i = editor.getSelection().start-1;
 		self._peer._application.emit('INS',couple);
 	    };
