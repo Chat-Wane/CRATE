@@ -3,47 +3,28 @@ CRATE
 
 <i>CRATE is a real-time distributed CollaboRATive Editor. This project aims to
 provide a peer-to-peer editing tool to get rid of service
-providers. Eventually, it will provide all the convenient functionalities of
-common editors.</i>
+providers within your browser only. Eventually, it will provide all the
+convenient functionalities of common editors.</i>
 
 Try it out
 ----------
 
-You can download and try the application for your OS:
-[Windows](https://dl.dropboxusercontent.com/u/21159323/crate-win.zip),
-[MacOSX](https://dl.dropboxusercontent.com/u/21159323/crate-osx.zip). These
-are temporary (or at least, won't be supported on the main track) since we plan
-to make a browser-only editor.
-
+The editor is accessible [here](http://chat-wane.github.io/CRATE). You can
+already start editing. When you want to join someone's authoring session, you
+must follow these steps:
 <ol>
-  <li>Unzip and execute the crate file.</li>
-  <li>Fill the first field with your local IP and Port.</li>
-  <li>Fill the second field with the mask corresponding to the local IP.</li>
-  <li>Fill the third field with the address of a know peer.</li>
-  <li>Write ;)</li>
+  <li>Click on "Network" > "Create ticket".</li> 
+  <li>At the bottom of the page, a link will appear. Copy and send it to your
+  friend.</li>
+<ol>
+Afterward, your friend must:
+<ol>
+  <li>Copy/paste the link into "Network" > "Stamp ticket".</li>
+  <li>Once again, a link will appear at the bottom of the page. He must copy
+  and send it back to you.</li>
 </ol>
-
-How to build
-------------
-
-First, CRATE requires to install some dependencies.
-```
-npm install netmask smokesignal causaltrack lseqtree
-```
-
-Second, CRATE uses node-webkit to bundle the sources into a working
-application. You can download it at [node-webkit
-download](https://github.com/rogerwang/node-webkit#download) . Then, the steps
-to create the application can be found
-[here](https://github.com/rogerwang/node-webkit/wiki/How-to-package-and-distribute-your-apps).
-
-Project Goal
-------------
-
-Ultimately, the goal of this project is to provide a real-time distributed
-collaborative editor using peer-to-peer. Recent developments have allowed the
-use of peer-to-peer directly within the browser thanks to
-[webRTC](http://www.webrtc.org). It is the natural path to follow since it
-makes everything easier for the user (i.e. nothing to install). In the same
-spirit, we want that the user can connect and contribute to a document in one
-click (e.g. only by following a link) in a bittorent fashion.
+Finally, once you get the link back you must:
+<ol>
+  <li>Copy/paste the link into "Network" > "Confirm arrival". The planet near
+  the "Network" button should go from red to green once you are connected.</li>
+</ol>
