@@ -10,9 +10,9 @@ function EditingSession(uid){
     
     var self = this;
     setInterval(function(){
-	if (self.document!==null && self.network!==null){
+        if (self.document!==null && self.network!==null){
             self.antiEntropy();
-	};
+        };
     }, 10000);  
 };
 
@@ -35,61 +35,61 @@ EditingSession.prototype.newDocument = function(name, uid){
     // #2 initialize the network and create a new document
     this.network = new Network(uid);
     this.document = new Document(name, new LSEQTree(uid), new IVV(uid));
-
+    
     /*!
      * \brief Overload the receiving part of membership since the message is 
      * not sent and receive as a broadcast
      */
     var self = this;
     this.network._membership.on("churn", function(origin, message){
-	if (message.type === "MAntiEntropyRequest"){
-	    console.log("received: "+ message.type);
-	    // #1 retrieve the proper document
-	    var document = self.document; // (TODO) search id
-	    var causality = document.causality;
-	    // #2 perform the difference between the two causality structures
-	    var j = 0;
-	    var toSearch = [];
-	    for (var i=0; i<=message.causality.vector.length; ++i){
-		var found = false;
-		while(j < causality.vector.length && !found){
-		    // #2a the entry exists in both vectors, process the
-		    // difference
-		    if (i<message.causality.vector.length &&
-			message.causality.vector[i].e ===
-			causality.vector[j].e ){
-			found = true;
-			for (var k = message.causality.vector[i].v + 1 ;
-			     k <= causality.vector[j].v; ++k){
-			    toSearch.push({_e: causality.vector[j].e,
-					   _c: k})
-			};
-		    } else {
-			//#2b the entry does not exist, must send all elements
-			for (var k=1; k<=causality.vector[j].v; ++k){
-			    toSearch.push({_e: causality.vector[j].e,
-					   _c: k});
-			};
-		    };
-		    ++j;
-		};
-	    };
-	    // #3 get the elements within the difference
-	    // # (TODO) build a tree to send and create merge function in
-	    // LSEQTree
-	    var toSend = document.getElements(toSearch);
-	    // #4 send the elements
-	    origin.send(new MAntiEntropyResponse(message.idDocument,
-						 toSend));
-	};
+        if (message.type === "MAntiEntropyRequest"){
+            console.log("received: "+ message.type);
+            // #1 retrieve the proper document
+            var document = self.document; // (TODO) search id
+            var causality = document.causality;
+            // #2 perform the difference between the two causality structures
+            var j = 0;
+            var toSearch = [];
+            for (var i=0; i<=message.causality.vector.length; ++i){
+                var found = false;
+                while(j < causality.vector.length && !found){
+                    // #2a the entry exists in both vectors, process the
+                    // difference
+                    if (i<message.causality.vector.length &&
+                        message.causality.vector[i].e ===
+                        causality.vector[j].e ){
+                        found = true;
+                        for (var k = message.causality.vector[i].v + 1 ;
+                             k <= causality.vector[j].v; ++k){
+                            toSearch.push({_e: causality.vector[j].e,
+                                           _c: k})
+                        };
+                    } else {
+                        //#2b the entry does not exist, must send all elements
+                        for (var k=1; k<=causality.vector[j].v; ++k){
+                            toSearch.push({_e: causality.vector[j].e,
+                                           _c: k});
+                        };
+                    };
+                    ++j;
+                };
+            };
+            // #3 get the elements within the difference
+            // # (TODO) build a tree to send and create merge function in
+            // LSEQTree
+            var toSend = document.getElements(toSearch);
+            // #4 send the elements
+            origin.send(new MAntiEntropyResponse(message.idDocument,
+                                                 toSend));
+        };
     });
     
     this.network._membership.on("churn", function(peer, message){
-	if (message.type === "MAntiEntropyResponse"){
-	    console.log("received: "+ message.type + "; #"+
-			message.elements.length);
-	    applyAntiEntropy(message.elements);
-	};
+        if (message.type === "MAntiEntropyResponse"){
+            console.log("received: "+ message.type + "; #"+
+                        message.elements.length);
+            applyAntiEntropy(message.elements);
+        };
     });
 };
 
@@ -125,9 +125,9 @@ EditingSession.prototype.antiEntropy = function (){
     // #A get a random peer from the local neighbourhood
     var peers = this.network._membership.getPeers(1);
     if (peers.length >=1){
-	// #B send the anti entropy request
-	peers[0].send(new MAntiEntropyRequest(document.causality.local.e,
-					      document.id,
-					      document.causality));
+        // #B send the anti entropy request
+        peers[0].send(new MAntiEntropyRequest(this.document.causality.local.e,
+                                              this.document.id,
+                                              this.document.causality));
     };
 };
