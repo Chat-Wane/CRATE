@@ -14,7 +14,7 @@ must follow these steps:
   <li>Click on "Network" > "Create ticket".</li> 
   <li>At the bottom of the page, a link will appear. Copy and send it to your
   friend.</li>
-<ol>
+</ol>
 Afterward, your friend must:
 <ol>
   <li>Copy/paste the link into "Network" > "Stamp ticket".</li>
