@@ -7,6 +7,13 @@
 function EditingSession(uid){
     this.network = null;
     this.document = null;
+    
+    var self = this;
+    setInterval(function(){
+	if (self.document!==null && self.network!==null){
+            self.antiEntropy();
+	};
+    }, 10000);  
 };
 
 /*!
@@ -33,6 +40,7 @@ EditingSession.prototype.newDocument = function(name, uid){
      * \brief Overload the receiving part of membership since the message is 
      * not sent and receive as a broadcast
      */
+    var self = this;
     this.network._membership.on("churn", function(origin, message){
 	if (message.type === "MAntiEntropyRequest"){
 	    console.log("received: "+ message.type);
@@ -118,7 +126,7 @@ EditingSession.prototype.antiEntropy = function (){
     var peers = this.network._membership.getPeers(1);
     if (peers.length >=1){
 	// #B send the anti entropy request
-	peers[0].send(new MAntiEntropyRequest(uid,
+	peers[0].send(new MAntiEntropyRequest(document.causality.local.e,
 					      document.id,
 					      document.causality));
     };
