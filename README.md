@@ -1,13 +1,11 @@
-CRATE
-=====
+#CRATE
 
 <i>CRATE is a real-time distributed CollaboRATive Editor. This project aims to
 provide a peer-to-peer editing tool to get rid of service
 providers within your browser only. Eventually, it will provide all the
 convenient functionalities of common editors.</i>
 
-Try it out
-----------
+##Usage
 
 The editor is accessible [here](http://chat-wane.github.io/CRATE). You can
 already start editing. When you want to join someone's authoring session, you
@@ -25,6 +23,7 @@ Afterward, your friend must:
 </ol>
 Finally, once you get the link back you must:
 <ol>
-  <li>Copy/paste the link into "Network" > "Confirm arrival". The planet near
-  the "Network" button should go from red to green once you are connected.</li>
+  <li>Copy/paste the link into "Network" > "Confirm our arrival". The planet
+  near the "Network" button should go from red to green once you are
+  connected.</li>
 </ol>
