@@ -1,0 +1,16 @@
+{
+    "name": "CadavreExquis",
+    "version": "0.0.1",
+    "dependencies": {
+	"jquery": "latest",
+	"bootstrap": "latest",
+	"ace-builds": "latest",
+	"zeroclipboard": "latest",
+	"octicons": "latest",
+	"lseqtree": "latest",
+	"causaltrack": "latest"
+    },
+    "devDependencies": {
+	"less": "latest"
+    }
+}

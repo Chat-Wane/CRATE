@@ -1,0 +1,132 @@
+
+@dark-grey: #242b32;
+@medium-grey: #37424c;
+@light-grey: #ececec;
+@white: #ffffff;
+@red : #cd2626;
+
+
+@font: 'Open Sans', sans-serif;
+@font-title: 'Josefin Slab', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+@font-size: 1.5em;
+@small-font-size: 0.8em;
+
+body {
+  background-color: @light-grey;
+  line-height: 27px;
+  font-family: @font;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-size: @font-size;
+  color: @medium-grey;
+  font-family: @font-title;
+  text-align: center;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  font-variant: small-case;
+  font-weight: 400;
+  &:before, &:after { content:"\ \2020 \ "; };
+}
+
+h1 { font-weight: 300; font-size: @font-size*1.3; }
+
+.emph { font-weight: bold; }
+
+.header(@ptop, @pbot, @bg, @c){
+  padding-top: @ptop;
+  padding-bottom: @pbot;
+  background-color: @bg;
+  color: @c;
+}
+
+#top-header { .header(55px, 55px, @dark-grey, @light-grey) }
+#bottom-header { .header(15px, 15px, @medium-grey, @light-grey) }
+
+#bottom-header.bottom-header-fixed {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 10;
+}
+
+#networkState { color : @red; }
+
+.navbar-container { padding-right: 0px; }
+.nav{
+  li{
+    display: inline-block;
+    margin-left:0px;
+    a{
+      font-size: @font-size*0.75; color: @medium-grey;
+      border-style:solid; border-width:1px; border-color:@medium-grey;
+      margin: 35px 0px 0px 8px;
+      padding: 4px 25px 4px;
+      border-radius: 4px;
+
+      &:active, &:hover { color:@light-grey; background-color: @medium-grey; }
+    }
+  }
+}
+
+#alertGenerateOffer, #alertAcceptOffer, #alertConfirmHandshake{
+  display: none;
+  bottom: -10px;
+  position: fixed;
+  z-index: 10;
+}
+
+.alertNetwork { margin-top: 20px }
+
+.main {
+  box-shadow: inset 1px 3px 1px -2px #ababab;
+  padding-top: 20px;
+}
+
+hr{ border-top-color: @light-grey; }
+
+.post{
+  box-shadow: 0px 1px 5px #ababab;
+  border-radius: 4px;
+  margin-bottom: 20px;
+  padding: 30px 15px;
+  background-color: @white;
+  
+  .footer {
+    font-style: italic;
+    font-size: @small-font-size;
+    margin-bottom: -10px;
+  }
+}
+
+#editor { min-height: 200px }
+
+.progress{
+  #timer {
+    position: absolute;
+    z-index: 2;
+    color: black;
+    width:93%;
+  }
+  margin-bottom:-2px;
+}
+
+
+footer{ .header( 15px, 15px, @medium-grey, @light-grey ) }
+
+.icon(@url, @size){
+  display: inline-block;
+  height: @size;
+  width: @size;
+  margin-left: 10px;
+  background: url(@url) no-repeat center center;
+  background-size: @size @size;
+}
+
+a.cadavreexquis-icon-large { .icon("../img/cadavreexquis.png", 64px); }
+a.cadavreexquis-icon { .icon("../img/cadavreexquis.png", 32px); }
+
+a.twitter-icon { .icon("../img/twitter_white.png", 32px); }
+
+a.github-icon { .icon("../img/github_white.png", 32px); }

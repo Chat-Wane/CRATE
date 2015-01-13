@@ -1,0 +1,268 @@
+<html>
+  <head>
+    <title>Cadavre Exquis</title>
+    <link rel="stylesheet"
+	  href="./bower_components/octicons/octicons/octicons.css" />
+    <link rel="stylesheet"
+	  href="./bower_components/bootstrap/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet"
+	  href="./bower_components/bootstrap/dist/css/bootstrap-theme.min.css"
+	  />
+    <link rel="stylesheet" href="./css/generatedstyle.css"/>
+  </head>
+  
+  <body>
+
+    <header>
+      <div id="top-header">
+	<div class="container">
+	  <a href="#" class="cadavreexquis-icon-large"></a>
+	  <a href="#">
+	    <h1 style="display:inline-block">Cadavre Exquis</h1>
+	  </a>
+	  <nav class="pull-right">
+	    <div class="navbar-container collapse navbar-collapse">
+	      <ul class="nav">
+		<li><a href="#Started">Getting Started</a></li>
+		<li><a href="#About">About</a></li>
+		<li><a href="#Credit">Credit</a></li>
+	      </ul>
+	    </div>
+	  </nav>
+	</div>
+      </div>
+      <div id="bottom-header">
+	<div class="container">
+	  <a id="homeIcon" href="#" class="cadavreexquis-icon"></a>
+	  <div class="pull-right">
+	    <div class="dropdown">
+	      <button type="button" class="btn btn-default dropdown-toggle"
+		      aria-label="Generate offer" data-toggle="dropdown"
+		      id="networkdropdownmenu">
+		<span id="networkState" class="octicon octicon-globe"></span>
+		Network
+		<span class="caret"></span>
+	      </button>
+	      <ul id="dropdowncontainerNetwork" class="dropdown-menu"
+		  role="menu" aria-labelledby="networkdropdownmenu">
+		<li id="test" role="presentation">
+		  <a id="generateOffer" role="menuitem" tabindex="-1">
+		    Get an entrance ticket
+		  </a>
+		</li>
+		<li role="presentation">
+		  <a id="acceptOffer" role="menuitem" tabindex="-1">
+		    Stamp a ticket
+		  </a>
+		</li>
+		<li role="presentation">
+		  <a id="confirmHandshake" role="menuitem" tabindex="-1">
+		    Confirm our arrival
+		  </a>
+		</li>
+	      </ul>
+	    </div>
+	  </div>
+	</div>
+      </div>  
+    </header>
+    
+    <section class="main">
+      
+      <div class="container">
+	<h3>Once apon a time</h3>
+	<div class="row">
+	  <div class="col-md-12">
+	    <div class="post">
+		Fuerit toto in consulatu sine provincia, cui fuerit, antequam
+		designatus est, decreta provincia. Sortietur an non? Nam et non
+		sortiri absurdum est, et, quod sortitus sis, non
+		habere. Proficiscetur paludatus? Quo? Quo pervenire ante certam
+		diem non licebit. ianuario, Februario, provinciam non habebit;
+		Kalendis ei denique Martiis nascetur repente provincia.
+		Martinus agens illas provincias pro praefectis aerumnas
+		innocentium graviter gemens saepeque obsecrans, ut ab omni
+		culpa inmunibus parceretur, cum non inpetraret, minabatur se
+		discessurum: ut saltem id metuens perquisitor malivolus tandem
+		desineret quieti coalitos homines in aperta pericula
+		proiectare.
+		<hr>
+		<div class="footer">
+		  Edited by: miaou
+		  <div class="pull-right">
+		    MM/DD/YY at HH:mm:SS
+		  </div>
+	      	</div>
+	    </div>
+	  </div>
+	</div>
+	<div class="row">
+	  <div class="col-md-12">
+	    <div class="post">
+	      Ultima Syriarum est Palaestina per intervalla magna protenta,
+	      cultis abundans terris et nitidis et civitates habens quasdam
+	      egregias, nullam nulli cedentem sed sibi vicissim velut ad
+	      perpendiculum aemulas: Caesaream, quam ad honorem Octaviani
+	      principis exaedificavit Herodes, et Eleutheropolim et Neapolim
+	      itidemque Ascalonem Gazam aevo superiore exstructas.  Procedente
+	      igitur mox tempore cum adventicium nihil inveniretur, relicta ora
+	      maritima in Lycaoniam adnexam Isauriae se contulerunt ibique
+	      densis intersaepientes itinera praetenturis provincialium et
+	      viatorum opibus pascebantur.  Et eodem impetu Domitianum
+	      praecipitem per scalas itidem funibus constrinxerunt, eosque
+	      coniunctos per ampla spatia civitatis acri raptavere
+	      discursu. iamque artuum et membrorum divulsa conpage
+	      superscandentes corpora mortuorum ad ultimam truncata
+	      deformitatem velut exsaturati mox abiecerunt in flumen
+	      <hr>
+	      <div class="footer">
+		Edited by: miaou, meow, miaw
+		<div class="pull-right">
+		  MM/DD/YY at HH:mm:SS
+		</div>
+	      </div>	      
+	    </div>
+	  </div>
+	</div>
+
+	<h3>The living story goes here</h3>
+	
+	<div class="row">
+	  <div class="col-md-12">
+	    <div class="post">
+	      <div id="editor"></div>
+	      <hr>
+	      <div class="footer">
+		<div class="progress">
+		  <span id="timer" class="text-center"></span>
+		  <div id="progressBarTimer"
+		       class="progress-bar progress-bar-info
+			      progress-bar-striped"
+		       role="progressbar" aria-valuenow="0"
+		       aria-valuemin="0" aria-valuemax="100">
+		  </div>
+		</div>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+      </div>
+    </section>
+
+    <div class="container">
+      <div id="offers" class="row">
+	<!-- Generate offer -->
+	<div id="alertGenerateOffer" class="container">
+	  <div class="alert alert-warning alert-dismissible" role="alert">
+	    <button id="dismissGenerateOffer" type="button" class="close" >
+	      <span  aria-hidden="true">&times;</span><span class="sr-only">
+		Close
+	      </span>
+	    </button>
+	    <div class="container">
+	      <div class="input-group">
+		<input id="fieldGenerateOffer" type="text"
+		       class="form-control"
+		       placeholder="A link will appear in this field, give it to your friend!" readonly="readonly"/>
+		<span class="input-group-btn">
+		  <button id="actionGenerateOffer"
+			  aria-label="Copy to clipboard"
+			  class="btn btn-default"
+			  data-clipboard-target="fieldGenerateOffer"
+			  data-copied-hint="Copied!" type="button">
+		    <span class="octicon octicon-clippy"></span> Copy
+		  </button>
+		</span>
+	      </div>
+	    </div>
+	  </div>
+	</div>      
+	<!-- Accept offer -->      
+	<div id="alertAcceptOffer" class="container">
+	  <div class="alert alert-info alert-dismissible" role="alert">
+	    <button id="dismissAcceptOffer" type="button" class="close" >
+	      <span  aria-hidden="true">&times;</span><span class="sr-only">
+		Close
+	      </span>
+	    </button>
+	    <div class="container">
+	      <div class="input-group">
+		<input id="fieldAcceptOffer" type="text" class="form-control"
+		       placeholder="Enter the received offer here"/>
+		<span class="input-group-btn">
+		  <button id="actionAcceptOffer" aria-label="Go!"
+			  class="btn btn-default" type="button">
+		    Go!
+		  </button>
+		</span>
+	      </div>
+	    </div>
+	  </div>
+	</div>      
+	<!-- Confirm handshake -->
+	<div id="alertConfirmHandshake" class="container">
+	  <div class="alert alert-info alert-dismissible" role="alert">
+	    <button id="dismissConfirmHandshake" type="button"
+		    class="close" >
+	      <span  aria-hidden="true">&times;</span><span class="sr-only">
+		Close
+	      </span>
+	    </button>
+	    <div class="container">
+	      <div class="input-group">
+		<input id="fieldConfirmHandshake" type="text"
+		       class="form-control"
+		       placeholder="Enter the confirming offer here"/>
+		<span class="input-group-btn">
+		  <button id="actionConfirmHandshake" aria-label="Go!"
+			  class="btn btn-default" type="button">
+		    Go!
+		  </button>
+		</span>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+      </div>
+    </div>
+
+    <footer>
+      <div class="container">
+	<div class="pull-right">
+	  <a href="http://github.com/chat-wane/CadavreExquis.git"
+	     class="github-icon"></a>
+	  <a class="twitter-icon"></a>
+	</div>
+      </div>
+    </footer>
+    
+    <script src="./bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="./bower_components/bootstrap/dist/js/bootstrap.min.js">
+    </script>
+
+    <script src="./bower_components/causaltrack/causaltrack.bundle.js">
+    </script>
+    <script> var IVV = require("causaltrack").IVV; </script>
+    
+    <script src="./bower_components/rtc-scamp/build/rtc-scamp.bundle.debug.js">
+    </script>
+    <script src="./bower_components/zeroclipboard/dist/ZeroClipboard.js">
+    </script>
+    <script> var Network = require("rtc-scamp"); </script>
+    
+    <script src="./bower_components/ace-builds/src-min/ace.js"></script>
+    <script src="./bower_components/lseqtree/lseqtree.bundle.js"></script>
+    <script> var LSEQTree = require("lseqtree"); </script>
+
+    <script src="./js/messages.js"></script>
+    <script src="./js/document.js"></script>
+    <script src="./js/cadavre.js"></script>
+    <script>
+      var cadavre = new Cadavre(Math.random()*1337);
+      var currentDocument = cadavre.createDocument();
+      var network = cadavre.network;
+    </script>
+    <script src="./js/network.js"></script>
+    <script src="./js/editor.js"></script>
+  </body>
+</html>
