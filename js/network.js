@@ -1,4 +1,4 @@
-var address = "http://chat-wane.github.io/CadavreExquis/";
+var address = "http://chat-wane.github.io/CRATE/";
 
 var membership = network._membership;
 
@@ -87,21 +87,3 @@ $("#actionConfirmHandshake").click( function() {
     membership.handshake(message);
 });
 
-// #A the menu follows the header on scroll
-$("#homeIcon").hide();
-function scrolled() {
-    var currentScroll = $("body").scrollTop();
-    var topHeader = $("#top-header").outerHeight();
-    if ( topHeader < currentScroll ){
-	$("#bottom-header").addClass("bottom-header-fixed");
-	$("section").css("padding-top",
-			 $("#bottom-header").outerHeight());
-	$("#homeIcon").fadeIn("slow");
-    } else { 
-	$("#bottom-header").removeClass("bottom-header-fixed");
-	$("section").css("padding-top", 0);
-	$("#homeIcon").fadeOut("fast");
-    }
-}
-
-addEventListener("scroll",scrolled,false);

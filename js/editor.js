@@ -2,25 +2,6 @@ var causality = currentDocument.causality;
 var sequence = currentDocument.sequence;
 var buffer = [];
 
-// #0 update the timer
-var diff = new Date(currentDocument.endDate - Date.now());
-var interval = new Date(currentDocument.endDate - currentDocument.startDate);
-setInterval(function(){
-    diff = new Date(Math.max(0,diff - 1000));
-    var percent = Math.min(100, 100-Math.floor(diff/interval*100));
-    $('#progressBarTimer').attr('aria-valuenow', percent);
-    $('#progressBarTimer').css('width', percent+"%");
-    var text = "- ";
-    if(diff.getUTCHours()>0){
-	text += "<span class='emph'>"+ diff.getUTCHours()+"</span> hours "
-    };
-    if (diff.getUTCMinutes()>0 || diff.getUTCHours()>0){
-	text += "<span class='emph'>"+ diff.getUTCMinutes()+"</span> minutes "
-    };
-    text += "<span class='emph'>"+ diff.getUTCSeconds()+"</span> seconds"
-    $("#timer").html(text);
-}, 1000);
-
 // #1 initialize the editor
 var editor = ace.edit("editor");
 editor.setTheme("ace/theme/chrome");

@@ -1,6 +1,7 @@
 <html>
   <head>
-    <title>Cadavre Exquis</title>
+    <title>CRATE</title>
+    <link rel="icon" type="image/png" href="./img/crateicon.png" />
     <link rel="stylesheet"
 	  href="./bower_components/octicons/octicons/octicons.css" />
     <link rel="stylesheet"
@@ -11,29 +12,11 @@
     <link rel="stylesheet" href="./css/generatedstyle.css"/>
   </head>
   
-  <body>
-
+  <body onunload="editingSession.saveDocument()">
     <header>
       <div id="top-header">
 	<div class="container">
-	  <a href="#" class="cadavreexquis-icon-large"></a>
-	  <a href="#">
-	    <h1 style="display:inline-block">Cadavre Exquis</h1>
-	  </a>
-	  <nav class="pull-right">
-	    <div class="navbar-container collapse navbar-collapse">
-	      <ul class="nav">
-		<li><a href="#Started">Getting Started</a></li>
-		<li><a href="#About">About</a></li>
-		<li><a href="#Credit">Credit</a></li>
-	      </ul>
-	    </div>
-	  </nav>
-	</div>
-      </div>
-      <div id="bottom-header">
-	<div class="container">
-	  <a id="homeIcon" href="#" class="cadavreexquis-icon"></a>
+	  <a id="homeIcon" href="#" class="crate-icon"></a>
 	  <div class="pull-right">
 	    <div class="dropdown">
 	      <button type="button" class="btn btn-default dropdown-toggle"
@@ -70,79 +53,10 @@
     <section class="main">
       
       <div class="container">
-	<h3>Once apon a time</h3>
-	<div class="row">
-	  <div class="col-md-12">
-	    <div class="post">
-		Fuerit toto in consulatu sine provincia, cui fuerit, antequam
-		designatus est, decreta provincia. Sortietur an non? Nam et non
-		sortiri absurdum est, et, quod sortitus sis, non
-		habere. Proficiscetur paludatus? Quo? Quo pervenire ante certam
-		diem non licebit. ianuario, Februario, provinciam non habebit;
-		Kalendis ei denique Martiis nascetur repente provincia.
-		Martinus agens illas provincias pro praefectis aerumnas
-		innocentium graviter gemens saepeque obsecrans, ut ab omni
-		culpa inmunibus parceretur, cum non inpetraret, minabatur se
-		discessurum: ut saltem id metuens perquisitor malivolus tandem
-		desineret quieti coalitos homines in aperta pericula
-		proiectare.
-		<hr>
-		<div class="footer">
-		  Edited by: miaou
-		  <div class="pull-right">
-		    MM/DD/YY at HH:mm:SS
-		  </div>
-	      	</div>
-	    </div>
-	  </div>
-	</div>
-	<div class="row">
-	  <div class="col-md-12">
-	    <div class="post">
-	      Ultima Syriarum est Palaestina per intervalla magna protenta,
-	      cultis abundans terris et nitidis et civitates habens quasdam
-	      egregias, nullam nulli cedentem sed sibi vicissim velut ad
-	      perpendiculum aemulas: Caesaream, quam ad honorem Octaviani
-	      principis exaedificavit Herodes, et Eleutheropolim et Neapolim
-	      itidemque Ascalonem Gazam aevo superiore exstructas.  Procedente
-	      igitur mox tempore cum adventicium nihil inveniretur, relicta ora
-	      maritima in Lycaoniam adnexam Isauriae se contulerunt ibique
-	      densis intersaepientes itinera praetenturis provincialium et
-	      viatorum opibus pascebantur.  Et eodem impetu Domitianum
-	      praecipitem per scalas itidem funibus constrinxerunt, eosque
-	      coniunctos per ampla spatia civitatis acri raptavere
-	      discursu. iamque artuum et membrorum divulsa conpage
-	      superscandentes corpora mortuorum ad ultimam truncata
-	      deformitatem velut exsaturati mox abiecerunt in flumen
-	      <hr>
-	      <div class="footer">
-		Edited by: miaou, meow, miaw
-		<div class="pull-right">
-		  MM/DD/YY at HH:mm:SS
-		</div>
-	      </div>	      
-	    </div>
-	  </div>
-	</div>
-
-	<h3>The living story goes here</h3>
-	
 	<div class="row">
 	  <div class="col-md-12">
 	    <div class="post">
 	      <div id="editor"></div>
-	      <hr>
-	      <div class="footer">
-		<div class="progress">
-		  <span id="timer" class="text-center"></span>
-		  <div id="progressBarTimer"
-		       class="progress-bar progress-bar-info
-			      progress-bar-striped"
-		       role="progressbar" aria-valuenow="0"
-		       aria-valuemin="0" aria-valuemax="100">
-		  </div>
-		</div>
-	      </div>
 	    </div>
 	  </div>
 	</div>
@@ -226,16 +140,6 @@
       </div>
     </div>
 
-    <footer>
-      <div class="container">
-	<div class="pull-right">
-	  <a href="http://github.com/chat-wane/CadavreExquis.git"
-	     class="github-icon"></a>
-	  <a class="twitter-icon"></a>
-	</div>
-      </div>
-    </footer>
-    
     <script src="./bower_components/jquery/dist/jquery.min.js"></script>
     <script src="./bower_components/bootstrap/dist/js/bootstrap.min.js">
     </script>
@@ -256,12 +160,18 @@
 
     <script src="./js/messages.js"></script>
     <script src="./js/document.js"></script>
-    <script src="./js/cadavre.js"></script>
+    <script src="./js/editingsession.js"></script>
     <script>
-      var cadavre = new Cadavre(Math.random()*1337);
-      var currentDocument = cadavre.createDocument();
-      var network = cadavre.network;
+      var UID = Math.random()*1337;
+      var editingSession = new EditingSession(UID);
+      localStorage.clear();
+      if (!editingSession.loadDocument("default")){
+        editingSession.newDocument("default", UID);
+      };
+      var currentDocument = editingSession.document;
+      var network = editingSession.network;
     </script>
+    
     <script src="./js/network.js"></script>
     <script src="./js/editor.js"></script>
   </body>
