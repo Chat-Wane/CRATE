@@ -18,38 +18,43 @@
 	<div class="container">
 	  <a id="homeIcon" href="#" class="crate-icon"></a>
 	  <div class="pull-right">
-	    <div class="dropdown">
-	      <button type="button" class="btn btn-default dropdown-toggle"
-		      aria-label="Generate offer" data-toggle="dropdown"
-		      id="networkdropdownmenu">
-		<span id="networkState" class="octicon octicon-globe"></span>
-		Network
-		<span class="caret"></span>
-	      </button>
-	      <ul id="dropdowncontainerNetwork" class="dropdown-menu"
-		  role="menu" aria-labelledby="networkdropdownmenu">
-		<li id="test" role="presentation">
-		  <a id="generateOffer" role="menuitem" tabindex="-1">
-		    Get an entrance ticket
-		  </a>
-		</li>
-		<li role="presentation">
-		  <a id="acceptOffer" role="menuitem" tabindex="-1">
-		    Stamp a ticket
-		  </a>
-		</li>
-		<li role="presentation">
-		  <a id="confirmHandshake" role="menuitem" tabindex="-1">
-		    Confirm our arrival
-		  </a>
-		</li>
-	      </ul>
-	    </div>
+            <div class="btn-group" role="group" aria-label="networking">
+              <button type="button" class="btn btn-default">
+                <span class="octicon octicon-organization"></span> Share
+              </button>
+              <div class="btn-group" role="group">
+	        <button type="button" class="btn btn-default dropdown-toggle"
+		        aria-label="Generate offer" data-toggle="dropdown"
+		        id="networkdropdownmenu">
+		  <span id="networkState" class="octicon octicon-globe"></span>
+		  Network
+		  <span class="caret"></span>
+	        </button>
+	        <ul id="dropdowncontainerNetwork" class="dropdown-menu"
+		    role="menu" aria-labelledby="networkdropdownmenu">
+		  <li id="test" role="presentation">
+		    <a id="generateOffer" role="menuitem" tabindex="-1">
+		      Get an entrance ticket
+		    </a>
+		  </li>
+		  <li role="presentation">
+		    <a id="acceptOffer" role="menuitem" tabindex="-1">
+		      Stamp a ticket
+		    </a>
+		  </li>
+		  <li role="presentation">
+		    <a id="confirmHandshake" role="menuitem" tabindex="-1">
+		      Confirm our arrival
+		    </a>
+		  </li>
+	        </ul>
+	      </div>
+            </div>
 	  </div>
 	</div>
       </div>  
     </header>
-
+    
     <section class="main">
       
       <div class="container">
@@ -174,5 +179,23 @@
     
     <script src="./js/network.js"></script>
     <script src="./js/editor.js"></script>
+
+
+    <script>
+      $(document).ready(function() {
+      $.ajax({
+        url: 'http://0.0.0.0:8081',
+        data: '{"data": "TEST"}',
+        type: 'POST',
+        success: function (data) {
+          console.log("MIAOU3 : " + data);
+        },
+        error: function (xhr, status, error) {
+          console.log('Error: ' + error.message);
+        }
+      });
+      });
+    </script>
+    
   </body>
 </html>
