@@ -10,6 +10,7 @@
 	  href="./bower_components/bootstrap/dist/css/bootstrap-theme.min.css"
 	  />
     <link rel="stylesheet" href="./css/generatedstyle.css"/>
+    <script src="./bower_components/socket.io-client/socket.io.js"></script>
   </head>
   
   <body onunload="editingSession.saveDocument()">
@@ -19,7 +20,7 @@
 	  <a id="homeIcon" href="#" class="crate-icon"></a>
 	  <div class="pull-right">
             <div class="btn-group" role="group" aria-label="networking">
-              <button type="button" class="btn btn-default">
+              <button id="share" type="button" class="btn btn-default">
                 <span class="octicon octicon-organization"></span> Share
               </button>
               <div class="btn-group" role="group">
@@ -179,23 +180,6 @@
     
     <script src="./js/network.js"></script>
     <script src="./js/editor.js"></script>
-
-
-    <script>
-      $(document).ready(function() {
-      $.ajax({
-        url: 'http://0.0.0.0:8081',
-        data: '{"data": "TEST"}',
-        type: 'POST',
-        success: function (data) {
-          console.log("MIAOU3 : " + data);
-        },
-        error: function (xhr, status, error) {
-          console.log('Error: ' + error.message);
-        }
-      });
-      });
-    </script>
     
   </body>
 </html>

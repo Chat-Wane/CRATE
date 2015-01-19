@@ -1,6 +1,41 @@
 var address = "http://chat-wane.github.io/CRATE/";
-
 var membership = network._membership;
+
+// socket io signaling, connect part
+if ((document.URL.split("?")).length>1){
+    var uid=document.URL.split("?")[1];
+    console.log("MIAOUEFEZOFHZEOFH " + uid );
+    var socket = io("http://localhost:8080");
+    membership.launch(
+        function(message){
+            setTimeout(function(){
+                socket.emit("launch",uid, message);
+            }, 1500);
+        }
+    );
+
+    socket.on("answerResponse", function(message){
+        membership.handshake(message);
+    });
+};
+
+// socket io for signaling, share PART
+$("#share").click( function(){
+    var socket = io("http://localhost:8080");
+    socket.emit("launch", UID);
+    $("#dropdownNetwork").toggle();
+    $("#fieldGenerateOffer").val("");
+    $("#alertGenerateOffer").show();
+    $("#alertAcceptOffer").hide();
+    $("#alertConfirmHandshake").hide();            
+    $("#fieldGenerateOffer").val("http://localhost:8080?"+UID);
+    socket.on("launchResponse", function(message){
+        membership.answer(message);
+    });
+    membership.on("answer", function(message){
+        socket.emit("answer", UID, message);
+    });
+});
 
 // #0 manual part of the membership && state of membership management
 membership.on("launch", function(message){
@@ -13,13 +48,13 @@ membership.on("answer", function(message){
 });
 membership.on("statechange", function(state){
     if (state === "connect"){
-	$("#networkState").css("color", "#228b22"); // green
+        $("#networkState").css("color", "#228b22"); // green
     }
     if (state === "partial"){
-	$("#networkState").css("color", "#eead0e"); // yellow
+        $("#networkState").css("color", "#eead0e"); // yellow
     }
     if (state === "disconnect"){
-	$("#networkState").css("color", "#cd2626"); // red
+        $("#networkState").css("color", "#cd2626"); // red
     }
 
 });
@@ -45,8 +80,8 @@ var client = new ZeroClipboard( $("#actionGenerateOffer") );
 
 client.on("ready", function(event){
     client.on( "copy", function( event ){
-	var clipboard = event.clipboardData;
-	clipboard.setData( "text/plain", $("#fieldGenerateOffer").val() );
+        var clipboard = event.clipboardData;
+        clipboard.setData( "text/plain", $("#fieldGenerateOffer").val() );
     });
 });
 
@@ -64,6 +99,7 @@ $("#actionAcceptOffer").click( function() {
     $("#alertAcceptOffer").hide();
     $("#fieldGenerateOffer").val("");
     $("#alertGenerateOffer").show();
+
     var data = decodeURIComponent($("#fieldAcceptOffer").val().split("?")[1]);
     var message = JSON.parse(data);
     membership.answer(message);
@@ -82,7 +118,7 @@ $("#dismissConfirmHandshake").click( function(){
 $("#actionConfirmHandshake").click( function() {
     $("#alertConfirmHandshake").hide();
     var data = decodeURIComponent($("#fieldConfirmHandshake")
-				  .val().split("?")[1]);
+                                  .val().split("?")[1]);
     var message = JSON.parse(data);
     membership.handshake(message);
 });
