@@ -30,7 +30,7 @@ function httpHandler(req, res) {
  * does not hold the data forever, it must delete over time 
  */
 //var signalStore = LRU(500);
-var signalStore;
+var signalStore = LRU(500);
 io.on('connection', function(socket){
     console.log("A peer is connected");
     socket.on("disconnect", function(){
@@ -39,19 +39,16 @@ io.on('connection', function(socket){
 
     socket.on("launch", function(uid, message){
         if (message===undefined || message===null){
-            var key = JSON.stringify(uid);
-            console.log("UIIDUDUDUDI = "  + key);
-            signalStore = socket;
-        } else {
-            var key = JSON.stringify(uid);
-            var targetSocket = signalStore;
+            signalStore.set(JSON.stringify(uid),socket)
+        } else {           
+            var targetSocket = signalStore.get(uid);
             targetSocket.emit("launchResponse", message);
-            signalStore = socket;
+            signalStore.set(uid, socket);
         };
     });
     
     socket.on("answer", function(uid, message){
-        var targetSocket = signalStore;
+        var targetSocket = signalStore.get(JSON.stringify(uid));
         targetSocket.emit("answerResponse", message);
     });
 
