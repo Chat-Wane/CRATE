@@ -3,9 +3,9 @@ var membership = network._membership;
 
 // socket io signaling, connect part
 if ((document.URL.split("?")).length>1){
-    var uid=document.URL.split("?")[1];
-    console.log("MIAOUEFEZOFHZEOFH " + uid );
-    var socket = io("http://localhost:8080");
+    var uid = document.URL.split("?")[1];
+    var socket = io("https://ancient-shelf-9067.herokuapp.com",
+                    {'force new connection': true});
     membership.launch(
         function(message){
             setTimeout(function(){
@@ -16,24 +16,27 @@ if ((document.URL.split("?")).length>1){
 
     socket.on("answerResponse", function(message){
         membership.handshake(message);
+        socket.disconnect();
     });
 };
 
 // socket io for signaling, share PART
 $("#share").click( function(){
-    var socket = io("http://localhost:8080");
+    socket
+    var socket = io("https://ancient-shelf-9067.herokuapp.com",{'force new connection': true});
     socket.emit("launch", UID);
     $("#dropdownNetwork").toggle();
     $("#fieldGenerateOffer").val("");
     $("#alertGenerateOffer").show();
     $("#alertAcceptOffer").hide();
     $("#alertConfirmHandshake").hide();            
-    $("#fieldGenerateOffer").val("http://localhost:8080?"+UID);
+    $("#fieldGenerateOffer").val("http://localhost:8081?"+UID);
     socket.on("launchResponse", function(message){
         membership.answer(message);
     });
     membership.on("answer", function(message){
         socket.emit("answer", UID, message);
+        socket.disconnect();
     });
 });
 

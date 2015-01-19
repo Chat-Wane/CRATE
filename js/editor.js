@@ -107,11 +107,14 @@ function applyRemove(message){
 
 
 function applyAntiEntropy(elements){
+    console.log("A");
     var LSEQNodePrototype = Object.getPrototypeOf(sequence.get(0));
     var TriplePrototype = Object.getPrototypeOf(sequence.get(0).t);
 
     var document = editor.getSession().getDocument();
+    console.log("B");
     for (var i = 0; i<elements.length;++i){
+        console.log("C");
 	// #1 convert the json object to an lseqnode
 	// (TODO) stop ugly things
         var tempNode = elements[i];
@@ -125,7 +128,9 @@ function applyAntiEntropy(elements){
 	// #2 integrate the element if it has not been received before
 	var pair = {_e : tempNode.t.s, _c: tempNode.t.c};
 	var index = -1;
+        console.log("D");
 	if (!causality.isLower(pair)){
+            console.log("E");
 	    causality.incrementFrom(pair);	
 	    var result = sequence.root.add(elements[i]);
 	    if (result !== -1){
@@ -134,14 +139,14 @@ function applyAntiEntropy(elements){
 	    };
 	    if (index !== -1){
 		var delta = {action: 'insertText',
-			     range: { start: document.indexToPosition(index-1),
-				      end: document.indexToPosition(index)},
-			     text: tempNode.e};
-		var tempFromRemote = fromRemote;
-		fromRemote = true;
-		document.applyDeltas([delta]);
-		fromRemote = tempFromRemote;
-	    };
-	};
+	                     range: { start: document.indexToPosition(index-1),
+                                      end: document.indexToPosition(index)},
+                             text: tempNode.e};
+                var tempFromRemote = fromRemote;
+                fromRemote = true;
+                document.applyDeltas([delta]);
+                fromRemote = tempFromRemote;
+            };
+        };
     };
 };

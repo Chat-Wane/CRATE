@@ -30,14 +30,14 @@ Document.prototype.getElements = function(toSearch){
 	while (j < toSearch.length && !found){
 	    if (tempNode.t.s === toSearch[j]._e &&
 		tempNode.t.c === toSearch[j]._c){
-		found = true;
-		toSearch.splice(j,1);
-		result.push(node);
-	    } else {
-		++j;
-	    };
-	};
-	++i;
+	        found = true;
+                toSearch.splice(j,1);
+                result.push(node);
+            } else {
+                ++j;
+            };
+        };
+        ++i;
     };
     return result;
 };
