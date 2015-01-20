@@ -88,9 +88,7 @@ EditingSession.prototype.newDocument = function(name, uid){
         if (message.type === "MAntiEntropyResponse"){
             console.log("received: "+ message.type + "; #"+
                         message.elements.length);
-            console.log("BEFORE");
             applyAntiEntropy(message.elements);
-            console.log("AFTAR");
         };
     });
 };

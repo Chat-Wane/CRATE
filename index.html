@@ -168,7 +168,7 @@
     <script src="./js/document.js"></script>
     <script src="./js/editingsession.js"></script>
     <script>
-      var UID = Math.random()*1337;
+      var UID = Math.floor(Math.random()*1337421337);
       var editingSession = new EditingSession(UID);
       localStorage.clear();
       if (!editingSession.loadDocument("default")){
@@ -179,7 +179,11 @@
     </script>
     
     <script src="./js/network.js"></script>
-    <script src="./js/editor.js"></script>
+    <script src="./js/distributededitor.js"></script>
+    <script>
+      var distributedEditor = new DistributedEditor("editor", editingSession);
+    </script>
+       
     
   </body>
 </html>

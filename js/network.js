@@ -1,43 +1,57 @@
 var address = "http://chat-wane.github.io/CRATE/";
 var membership = network._membership;
+var socketIOConfig = {
+    'force new connection': true,
+    "reconnect" : false,
+    "connect timeout" : 5000
+};
+var signalingAddresses = "https://ancient-shelf-9067.herokuapp.com";
+var startSocket = false;
 
-// socket io signaling, connect part
-if ((document.URL.split("?")).length>1){
-    var uid = document.URL.split("?")[1];
-    var socket = io("https://ancient-shelf-9067.herokuapp.com",
-                    {'force new connection': true});
-    membership.launch(
-        function(message){
-            setTimeout(function(){
-                socket.emit("launch",uid, message);
-            }, 1500);
-        }
-    );
-
-    socket.on("answerResponse", function(message){
-        membership.handshake(message);
+function createSocket(uid, initialize){
+    socket = io(signalingAddresses, socketIOConfig);
+    startSocket = true;
+    if (initialize){
+        socket.emit("launch", UID);
+    } else {
+        membership.launch(
+            function(message){
+                setTimeout(function(){
+                    socket.emit("launch",uid, message);
+                }, 1500);
+            }
+        );
+    };
+    socket.on("launchResponse", function(message){
+        membership.answer(message);
+    });
+    membership.on("answer", function(message){
+        if (startSocket){
+            $("#alertGenerateOffer").hide() // (TODO) fix the uglyness
+        };
+        socket.emit("answer", UID, message);
+        startSocket = false;
         socket.disconnect();
     });
+    socket.on("answerResponse", function(message){
+        membership.handshake(message);
+        startSocket = false;
+        socket.disconnect();
+    });    
 };
 
-// socket io for signaling, share PART
+if ((document.URL.split("?")).length>1){
+    createSocket(document.URL.split("?")[1], false);
+};
+
 $("#share").click( function(){
-    socket
-    var socket = io("https://ancient-shelf-9067.herokuapp.com",{'force new connection': true});
-    socket.emit("launch", UID);
     $("#dropdownNetwork").toggle();
     $("#fieldGenerateOffer").val("");
     $("#alertGenerateOffer").show();
     $("#alertAcceptOffer").hide();
     $("#alertConfirmHandshake").hide();            
-    $("#fieldGenerateOffer").val("http://localhost:8081?"+UID);
-    socket.on("launchResponse", function(message){
-        membership.answer(message);
-    });
-    membership.on("answer", function(message){
-        socket.emit("answer", UID, message);
-        socket.disconnect();
-    });
+    $("#fieldGenerateOffer").val(address+"index.html?"+UID);
+    createSocket(UID, true);
 });
 
 // #0 manual part of the membership && state of membership management

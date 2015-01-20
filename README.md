@@ -11,7 +11,7 @@ The editor is accessible [here](http://chat-wane.github.io/CRATE). You can
 already start editing. When you want to join someone's authoring session, you
 must follow these steps:
 <ol>
-  <li>Click on "Network" > "Create ticket".</li> 
+  <li>Click on "Network" > "Get an entrance ticket".</li> 
   <li>At the bottom of the page, a link will appear. Copy and send it to your
   friend.</li>
 </ol>

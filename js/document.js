@@ -17,16 +17,21 @@ function Document(id, sequence, causality){
  * \returns an array of nodes
  */
 Document.prototype.getElements = function(toSearch){
-    var result = [];
-    var i = 0;
+    var result = [], found, node, tempNode, i=0, j=0;
+    // (TODO) improve research by exploiting the fact that if a node is
+    // missing, all its children are missing too.
+    // (TODO) improve the returned representation: either a tree to factorize
+    // common parts of the structure or identifiers to get the polylog size
+    // (TODO) improve the search by using the fact that toSearch is a sorted
+    // array, possibly restructure this argument to be even more efficient
     while (toSearch.length > 0 && i<this.sequence.length){
-	var node = this.sequence.get(i+1);
-	var tempNode = node;
+	node = this.sequence.get(i+1);
+	tempNode = node;
 	while( tempNode.children.length > 0){
 	    tempNode = tempNode.children[0];
 	};
-	var j = 0;
-	var found = false;
+	j = 0;
+	found = false;
 	while (j < toSearch.length && !found){
 	    if (tempNode.t.s === toSearch[j]._e &&
 		tempNode.t.c === toSearch[j]._c){
