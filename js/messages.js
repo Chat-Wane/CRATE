@@ -24,3 +24,4 @@ function MAntiEntropyResponse(idDocument, elements){
     this.idDocument = idDocument;
     this.elements = elements;
 };
+

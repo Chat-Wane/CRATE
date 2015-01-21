@@ -9,7 +9,9 @@ var signalingAddresses = "https://ancient-shelf-9067.herokuapp.com";
 var startSocket = false;
 
 function createSocket(uid, initialize){
-    socket = io(signalingAddresses, socketIOConfig);
+    if (!startSocket){
+        socket = io(signalingAddresses, socketIOConfig);
+    };
     startSocket = true;
     if (initialize){
         socket.emit("launch", UID);

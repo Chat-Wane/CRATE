@@ -34,7 +34,7 @@ EditingSession.prototype.newDocument = function(name, uid){
     // #1 (TODO) close the current document
     // #2 initialize the network and create a new document
     this.network = new Network(uid);
-    this.document = new Document(name, new LSEQTree(uid), new IVV(uid));
+    this.document = new Document(name, new LSEQTree(uid), new VVwE(uid));
     
     /*!
      * \brief Overload the receiving part of membership since the message is 
@@ -50,30 +50,63 @@ EditingSession.prototype.newDocument = function(name, uid){
             // #2 perform the difference between the two causality structures
             var j = 0;
             var toSearch = [];
-            for (var i=0; i<=message.causality.vector.length; ++i){
+            for (var i=0; i<message.causality.vector.length; ++i){
                 var found = false;
-                while(j < causality.vector.length && !found){
-                    // #2a the entry exists in both vectors, process the
-                    // difference
-                    if (i<message.causality.vector.length &&
-                        message.causality.vector[i].e ===
-                        causality.vector[j].e ){
-                        found = true;
-                        for (var k = message.causality.vector[i].v + 1 ;
-                             k <= causality.vector[j].v; ++k){
-                            toSearch.push({_e: causality.vector[j].e,
-                                           _c: k})
-                        };
-                    } else {
-                        //#2b the entry does not exist, must send all elements
+                while(j<causality.vector.length && !found){
+                    // #A the entry in our vector does not exist un message
+                    if (message.causality.vector[i].e>causality.vector[j].e){
                         for (var k=1; k<=causality.vector[j].v; ++k){
-                            toSearch.push({_e: causality.vector[j].e,
-                                           _c: k});
+                            if (causality.vector[j].x.indexOf(k) < 0){
+                                toSearch.push({_e: causality.vector[j].e,
+                                               _c: k});
+                            };
+                        };
+                        ++j;
+                    } else {
+                        // #B exist in both vectors
+                        if (message.causality.vector[i].e===
+                            causality.vector[j].e){
+                            for (var k = message.causality.vector[i].v + 1 ;
+                                 k <= causality.vector[j].v; ++k){
+                                if (causality.vector[j].x.indexOf(k) < 0){
+                                    toSearch.push({_e: causality.vector[j].e,
+                                                   _c: k})
+                                };
+                            };
+                            var l = 0, k = 0;
+                            while ( l < causality.vector[j].v &&
+                                    k < message.causality.vector[i].x.length ){
+                                l = message.causality.vector[i].x[k];
+                                if (l<causality.vector[j].v &&
+                                    causality.vector[j].x.indexOf(l) < 0) {
+                                    toSearch.push({_e: causality.vector[j].e,
+                                                   _c: l})
+                                };
+                                ++k;
+                            };                            
+                            ++j;
+                            found = true;
+                        } else {
+                            if (message.causality.vector[i].e<
+                                causality.vector[j].e){
+                                found = true;
+                            };
                         };
                     };
-                    ++j;
                 };
             };
+            while(j<causality.vector.length){
+                // #A the entry in our vector does not exist un message
+                for (var k=1; k<=causality.vector[j].v; ++k){
+                    if (causality.vector[j].x.indexOf(k) < 0){
+                        toSearch.push({_e: causality.vector[j].e,
+                                       _c: k});
+                    };
+                };
+                ++j;
+            };
+            console.log("mine = " + JSON.stringify(causality));
+            console.log("other = " + JSON.stringify(message.causality));
             // #3 get the elements within the difference
             // # (TODO) build a tree to send and create merge function in
             // LSEQTree

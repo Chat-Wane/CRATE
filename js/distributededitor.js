@@ -21,10 +21,6 @@ DistributedEditor.prototype.initEditorStyle = function(){
     this.editor.setShowPrintMargin(false); // no 80 column margin
     this.editor.renderer.setShowGutter(false); // no line numbers
     this.editor.resize(); // adapt to the content
-    this.editor.setOptions({
-        fontFamily: "tahoma",
-        fontSize: "10pt"
-    });
 };
 
 DistributedEditor.prototype.initEditorBehaviour = function(){
