@@ -105,8 +105,6 @@ EditingSession.prototype.newDocument = function(name, uid){
                 };
                 ++j;
             };
-            console.log("mine = " + JSON.stringify(causality));
-            console.log("other = " + JSON.stringify(message.causality));
             // #3 get the elements within the difference
             // # (TODO) build a tree to send and create merge function in
             // LSEQTree
