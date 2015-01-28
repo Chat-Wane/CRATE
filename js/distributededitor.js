@@ -7,11 +7,29 @@ function DistributedEditor(id, editingSession){
     this.network = editingSession.network;
     this.sequence = editingSession.document.sequence;
     this.causality = editingSession.document.causality;
+
+    this.initSequence();
+    
     this.fromRemote = false;
     this.initEditorBehaviour();
 
     this.buffer = [];
     this.initNetworkBehaviour();
+};
+
+DistributedEditor.prototype.initSequence = function(){
+    if (this.sequence.length === 0){ return; };
+    function getStringChildNode(childNode){
+        var result = "";
+        if (childNode.e !== null){ result = childNode.e; };
+        for (var i=0; i<childNode.children.length; ++i){
+            result += getStringChildNode(childNode.children[i]);
+        };
+        return result;
+    };
+    var string = getStringChildNode(this.sequence.root);
+    this.editor.setValue(string);
+    console.log(string);
 };
 
 DistributedEditor.prototype.initEditorStyle = function(){
@@ -58,7 +76,8 @@ DistributedEditor.prototype.initNetworkBehaviour = function(){
                     _c: message._i._c[message._i._c.length-1] };
             self.causality.incrementFrom(pair);
             self.applyInsert(message);
-        } else if (message._d !== null && message._d !== undefined){           
+        } else if (message._d !== null && message._d !== undefined){
+            // (TODO) remove unecessary waiting buffer
             self.buffer.push(message);
         };
         i = 0;

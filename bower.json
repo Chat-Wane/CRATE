@@ -8,7 +8,9 @@
 	"zeroclipboard": "latest",
 	"octicons": "latest",
 	"lseqtree": "latest",
-	"causaltrack": "latest"
+	"causaltrack": "latest",
+        "socket.io-client": "latest",
+        "rtc-scamp": "latest"        
     },
     "devDependencies": {
 	"less": "latest"

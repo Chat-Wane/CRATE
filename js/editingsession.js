@@ -13,16 +13,32 @@ function EditingSession(uid){
         if (self.document!==null && self.network!==null){
             self.antiEntropy();
         };
-    }, 10000);  
+    }, 10000);
+
+    this.initMenu(uid);
+};
+
+EditingSession.prototype.initMenu = function(uid){
+    // (TODO) refactor everywhere
+    var self = this;
+    $("#saveFile").click(function(){ self.saveDocument(); });
+    $("#newFile").click(function(){ self.newDocument("default", uid); });
+    $("#deleteFile").click(function(){ self.deleteDocument(); });
 };
 
 /*!
  * \brief close the current document and disconnect from the network
  */
 EditingSession.prototype.closeDocument = function(){
-    // #1 (TODO) close the network properly
+     // #1 (TODO) close the network properly
     this.network = null;
     this.document = null;
+};
+
+EditingSession.prototype.deleteDocument = function(){
+    localStorage.removeItem(this.document.id);
+    // (TODO) clear output
+    // (TODO) close network ?
 };
 
 /*!
@@ -35,7 +51,6 @@ EditingSession.prototype.newDocument = function(name, uid){
     // #2 initialize the network and create a new document
     this.network = new Network(uid);
     this.document = new Document(name, new LSEQTree(uid), new VVwE(uid));
-    
     /*!
      * \brief Overload the receiving part of membership since the message is 
      * not sent and receive as a broadcast
@@ -132,13 +147,45 @@ EditingSession.prototype.newDocument = function(name, uid){
  */
 EditingSession.prototype.loadDocument = function(name){
     console.log("o= ",JSON.parse(localStorage.getItem(name)));
-    // #0 (TODO) close the current network
+    // #0 (TODO) make it not ugly
+    var tempLSEQTree = new LSEQTree(UID);
+    var protoLSEQTree = Object.getPrototypeOf(tempLSEQTree);
+    var protoLSEQNode = Object.getPrototypeOf(tempLSEQTree.root);
+    var protoTriple = Object.getPrototypeOf(tempLSEQTree.root.children[0].t);
+    var tempVVwE = new VVwE(UID);
+    var protoVVwE = Object.getPrototypeOf(tempVVwE);
+    var protoVVwEEntry = Object.getPrototypeOf(tempVVwE.local);
     // #1 get the proper document from the local storage
-    var object = localStorage.getItem(name);
+    var object = JSON.parse(localStorage.getItem(name));
     if (object === null){ return false;};
-    // #2 (TODO) cast everyting to the good prototype
-    this.document = new Document(name, object.sequence, object.causality);
-    // #3 (TODO) create the network
+    // #2 (TODO) make it not ugly
+    // #2A cast the causality vector to the proper prototype
+    var causality = object.causality;
+    Object.setPrototypeOf(causality, protoVVwE);
+    Object.setPrototypeOf(causality.local, protoVVwEEntry);
+    for (var i=0; i<causality.vector.length; ++i){
+        Object.setPrototypeOf(causality.vector[i], protoVVwEEntry);
+    };
+    // #2B cast the sequence to the proper prototype
+    var sequence = object.sequence;
+    sequence._hash = tempLSEQTree._hash; // ugliest thing ever
+    Object.setPrototypeOf(sequence, protoLSEQTree);
+    Object.setPrototypeOf(sequence.root, protoLSEQNode);
+    function castChildNode(childNode){
+        Object.setPrototypeOf(childNode, protoLSEQNode);
+        Object.setPrototypeOf(childNode.t, protoTriple);
+        if (childNode.children.length === 0){return;}
+        for (var i = 0; i<childNode.children.length; ++i){
+            castChildNode(childNode[i]);
+        };
+    };
+    for (var i=0; i<sequence.root.children.length; ++i){
+        castChildNode(sequence.root.children[i]);
+    };
+    // #3 create the document
+    this.document = new Document(name, sequence, causality);
+    console.log("document = ", this.document);
+    // #4 create the network
     this.network = new Network(UID);
     return true;
 };
@@ -148,7 +195,7 @@ EditingSession.prototype.loadDocument = function(name){
  */
 EditingSession.prototype.saveDocument = function(){
     localStorage.setItem(this.document.id, JSON.stringify(this.document));
-}
+};
 
 // #2a antiEntropy on the current document
 EditingSession.prototype.antiEntropy = function (){

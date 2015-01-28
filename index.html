@@ -3,146 +3,202 @@
     <title>CRATE</title>
     <link rel="icon" type="image/png" href="./img/crateicon.png" />
     <link rel="stylesheet"
-	  href="./bower_components/octicons/octicons/octicons.css" />
+          href="./bower_components/octicons/octicons/octicons.css" />
     <link rel="stylesheet"
-	  href="./bower_components/bootstrap/dist/css/bootstrap.min.css"/>
+          href="./bower_components/bootstrap/dist/css/bootstrap.min.css"/>
     <link rel="stylesheet"
-	  href="./bower_components/bootstrap/dist/css/bootstrap-theme.min.css"
-	  />
+          href="./bower_components/bootstrap/dist/css/bootstrap-theme.min.css"
+          />
     <link rel="stylesheet" href="./css/generatedstyle.css"/>
     <script src="./bower_components/socket.io-client/socket.io.js"></script>
   </head>
   
-  <body onunload="editingSession.saveDocument()">
+  <body>
     <header>
       <div id="top-header">
-	<div class="container">
-	  <a id="homeIcon" href="#" class="crate-icon"></a>
-	  <div class="pull-right">
-            <div class="btn-group" role="group" aria-label="networking">
-              <button id="share" type="button" class="btn btn-default">
-                <span class="octicon octicon-organization"></span> Share
+        <div class="container">
+          
+          <div class="text-center" style="display:inline">
+            <a id="homeIcon" href="#" class="crate-icon"></a>
+          </div>
+
+          <div class="pull-right">
+            <div class="btn-group" role="group" aria-label="menu bar">
+              <!-- editor menu bar //-->
+              <button type="button" class="btn btn-default dropdown-toggle"
+                      aria-label="File text" data-toggle="dropdown">
+                <span class="octicon octicon-file-text"></span>
+                File
+                <span class="caret"></span>
               </button>
-              <div class="btn-group" role="group">
-	        <button type="button" class="btn btn-default dropdown-toggle"
-		        aria-label="Generate offer" data-toggle="dropdown"
-		        id="networkdropdownmenu">
-		  <span id="networkState" class="octicon octicon-globe"></span>
-		  Network
-		  <span class="caret"></span>
-	        </button>
-	        <ul id="dropdowncontainerNetwork" class="dropdown-menu"
-		    role="menu" aria-labelledby="networkdropdownmenu">
-		  <li id="test" role="presentation">
-		    <a id="generateOffer" role="menuitem" tabindex="-1">
-		      Get an entrance ticket
-		    </a>
-		  </li>
-		  <li role="presentation">
-		    <a id="acceptOffer" role="menuitem" tabindex="-1">
-		      Stamp a ticket
-		    </a>
-		  </li>
-		  <li role="presentation">
-		    <a id="confirmHandshake" role="menuitem" tabindex="-1">
-		      Confirm our arrival
-		    </a>
-		  </li>
-	        </ul>
-	      </div>
+              <ul id="dropdowncontainerNetwork" class="dropdown-menu"
+                  role="menu" aria-labelledby="networkdropdownmenu">
+                <li id="test" role="presentation">
+                  <a id="newFile" role="menuitem" tabindex="-1">
+                    New file
+                  </a>
+                </li>
+                <li role="presentation">
+                  <a id="openFile" role="menuitem" tabindex="-1">
+                    Open file
+                  </a>
+                </li>
+                <li role="presentation">
+                  <a id="saveFile" role="menuitem" tabindex="-1">
+                    Save file
+                  </a>
+                </li>
+                <li role="presentation">
+                  <a id="deleteFile" role="menuitem" tabindex="-1">
+                    Delete file
+                  </a>
+                </li>
+              </ul>
             </div>
-	  </div>
-	</div>
+            <div class="btn-group" role="group">
+              <button id="share" type="button" class="btn btn-default">
+                <span class="octicon octicon-link"></span> Share
+              </button>
+              <button type="button" class="btn dropdown-toggle btn-default"
+                      data-toggle="dropdown" aria-expanded="false">
+                <span class="caret"></span>&nbsp;
+                <span class="sr-only">Toggle Dropdown</span>
+              </button>
+              <ul id="dropdowncontainerNetwork" class="dropdown-menu"
+                  role="menu" aria-labelledby="networkdropdownmenu">
+                <li id="test" role="presentation">
+                  <a id="generateOffer" role="menuitem" tabindex="-1">
+                    Get an entrance ticket
+                  </a>
+                </li>
+                <li role="presentation">
+                  <a id="acceptOffer" role="menuitem" tabindex="-1">
+                    Stamp a ticket
+                  </a>
+                </li>
+                <li role="presentation">
+                  <a id="confirmHandshake" role="menuitem" tabindex="-1">
+                    Confirm our arrival
+                  </a>
+                </li>
+              </ul>
+            </div>
+            <div class="btn-group">
+              <button type="button" class="btn btn-default dropdown-toggle"
+                      aria-label="Generate offer" data-toggle="dropdown"
+                      id="settingsdropdownmenu">
+                <span id="networkState" class="octicon octicon-gear">
+                </span>
+                Settings
+                <span class="caret"></span>
+              </button>
+              <ul class="dropdown-menu"
+                  role="menu" aria-labelledby="networkdropdownmenu">
+                <li role="presentation">
+                  <a id="settingsEditor" role="menuitem" tabindex="-1">
+                    Editor
+                  </a>
+                </li>
+                <li class="divider"></li>
+                <li role="presentation">
+                  <a id="settingsNetwork" role="menuitem" tabindex="-1">
+                    Network
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
       </div>  
     </header>
     
     <section class="main">
       
       <div class="container">
-	<div class="row">
-	  <div class="col-md-12">
-	    <div class="post">
-	      <div id="editor"></div>
-	    </div>
-	  </div>
-	</div>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="post">
+              <div id="editor"></div>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
 
     <div class="container">
       <div id="offers" class="row">
-	<!-- Generate offer -->
-	<div id="alertGenerateOffer" class="container">
-	  <div class="alert alert-warning alert-dismissible" role="alert">
-	    <button id="dismissGenerateOffer" type="button" class="close" >
-	      <span  aria-hidden="true">&times;</span><span class="sr-only">
-		Close
-	      </span>
-	    </button>
-	    <div class="container">
-	      <div class="input-group">
-		<input id="fieldGenerateOffer" type="text"
-		       class="form-control"
-		       placeholder="A link will appear in this field, give it to your friend!" readonly="readonly"/>
-		<span class="input-group-btn">
-		  <button id="actionGenerateOffer"
-			  aria-label="Copy to clipboard"
-			  class="btn btn-default"
-			  data-clipboard-target="fieldGenerateOffer"
-			  data-copied-hint="Copied!" type="button">
-		    <span class="octicon octicon-clippy"></span> Copy
-		  </button>
-		</span>
-	      </div>
-	    </div>
-	  </div>
-	</div>      
-	<!-- Accept offer -->      
-	<div id="alertAcceptOffer" class="container">
-	  <div class="alert alert-info alert-dismissible" role="alert">
-	    <button id="dismissAcceptOffer" type="button" class="close" >
-	      <span  aria-hidden="true">&times;</span><span class="sr-only">
-		Close
-	      </span>
-	    </button>
-	    <div class="container">
-	      <div class="input-group">
-		<input id="fieldAcceptOffer" type="text" class="form-control"
-		       placeholder="Enter the received offer here"/>
-		<span class="input-group-btn">
-		  <button id="actionAcceptOffer" aria-label="Go!"
-			  class="btn btn-default" type="button">
-		    Go!
-		  </button>
-		</span>
-	      </div>
-	    </div>
-	  </div>
-	</div>      
-	<!-- Confirm handshake -->
-	<div id="alertConfirmHandshake" class="container">
-	  <div class="alert alert-info alert-dismissible" role="alert">
-	    <button id="dismissConfirmHandshake" type="button"
-		    class="close" >
-	      <span  aria-hidden="true">&times;</span><span class="sr-only">
-		Close
-	      </span>
-	    </button>
-	    <div class="container">
-	      <div class="input-group">
-		<input id="fieldConfirmHandshake" type="text"
-		       class="form-control"
-		       placeholder="Enter the confirming offer here"/>
-		<span class="input-group-btn">
-		  <button id="actionConfirmHandshake" aria-label="Go!"
-			  class="btn btn-default" type="button">
-		    Go!
-		  </button>
-		</span>
-	      </div>
-	    </div>
-	  </div>
-	</div>
+        <!-- Generate offer -->
+        <div id="alertGenerateOffer" class="container">
+          <div class="alert alert-warning alert-dismissible" role="alert">
+            <button id="dismissGenerateOffer" type="button" class="close" >
+              <span  aria-hidden="true">&times;</span><span class="sr-only">
+                Close
+              </span>
+            </button>
+            <div class="container">
+              <div class="input-group">
+                <input id="fieldGenerateOffer" type="text"
+                       class="form-control"
+                       placeholder="A link will appear in this field, give it to your friend!" readonly="readonly"/>
+                <span class="input-group-btn">
+                  <button id="actionGenerateOffer"
+                          aria-label="Copy to clipboard"
+                          class="btn btn-default"
+                          data-clipboard-target="fieldGenerateOffer"
+                          data-copied-hint="Copied!" type="button">
+                    <span class="octicon octicon-clippy"></span> Copy
+                  </button>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>      
+        <!-- Accept offer -->      
+        <div id="alertAcceptOffer" class="container">
+          <div class="alert alert-info alert-dismissible" role="alert">
+            <button id="dismissAcceptOffer" type="button" class="close" >
+              <span  aria-hidden="true">&times;</span><span class="sr-only">
+                Close
+              </span>
+            </button>
+            <div class="container">
+              <div class="input-group">
+                <input id="fieldAcceptOffer" type="text" class="form-control"
+                       placeholder="Enter the received offer here"/>
+                <span class="input-group-btn">
+                  <button id="actionAcceptOffer" aria-label="Go!"
+                          class="btn btn-default" type="button">
+                    Go!
+                  </button>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>      
+        <!-- Confirm handshake -->
+        <div id="alertConfirmHandshake" class="container">
+          <div class="alert alert-info alert-dismissible" role="alert">
+            <button id="dismissConfirmHandshake" type="button"
+                    class="close" >
+              <span  aria-hidden="true">&times;</span><span class="sr-only">
+                Close
+              </span>
+            </button>
+            <div class="container">
+              <div class="input-group">
+                <input id="fieldConfirmHandshake" type="text"
+                       class="form-control"
+                       placeholder="Enter the confirming offer here"/>
+                <span class="input-group-btn">
+                  <button id="actionConfirmHandshake" aria-label="Go!"
+                          class="btn btn-default" type="button">
+                    Go!
+                  </button>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -170,7 +226,6 @@
     <script>
       var UID = Math.floor(Math.random()*1337421337);
       var editingSession = new EditingSession(UID);
-      localStorage.clear();
       if (!editingSession.loadDocument("default")){
         editingSession.newDocument("default", UID);
       };
@@ -183,7 +238,7 @@
     <script>
       var distributedEditor = new DistributedEditor("editor", editingSession);
     </script>
-       
+    
     
   </body>
 </html>
