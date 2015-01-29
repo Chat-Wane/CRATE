@@ -67,13 +67,13 @@ membership.on("answer", function(message){
 });
 membership.on("statechange", function(state){
     if (state === "connect"){
-        $("#networkState").css("color", "#228b22"); // green
+        $("#share").css("color", "#228b22"); // green
     }
     if (state === "partial"){
-        $("#networkState").css("color", "#eead0e"); // yellow
+        $("#share").css("color", "#eead0e"); // yellow
     }
     if (state === "disconnect"){
-        $("#networkState").css("color", "#cd2626"); // red
+        $("#share").css("color", "#333333"); // red
     }
 
 });

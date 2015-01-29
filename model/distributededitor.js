@@ -28,8 +28,7 @@ DistributedEditor.prototype.initSequence = function(){
         return result;
     };
     var string = getStringChildNode(this.sequence.root);
-    this.editor.setValue(string);
-    console.log(string);
+    this.editor.setValue(string,1);
 };
 
 DistributedEditor.prototype.initEditorStyle = function(){
