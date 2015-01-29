@@ -15,7 +15,7 @@ function ShareButtonController(model, shareBtn, container, alert, action,
     shareBtn.click(
         function(){
             // #0 create the proper call to the server
-            var address = model.signaling.start();
+            var address = model.signaling.startSharing();
             // #1 modify the view
             container.show();
             alert.removeClass("alert-info").addClass("alert-warning");

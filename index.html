@@ -189,7 +189,12 @@
     <script src="./controller/networkstatecontroller.js"></script>
     <script>
       // #1 initialize the model
-      var m = new Model();
+      var argUid = null;
+      if ((document.URL.split("?")).length>1){
+        argUid = document.URL.split("?")[1];
+      };
+
+      var m = new Model(argUid);
       // #2 initialize the controllers
       var cShare = new ShareButtonController(m, $("#share"),
       $("#containerLink"), $("#alertLink"), $("#actionLink"), $("#inputLink"),
@@ -204,6 +209,12 @@
       $("#containerLink"), $("#alertLink"),$("#actionLink"),$("#inputLink"),
       $("#dismissLink"));
       var cNetworkState = new NetworkStateController(m, $("#networkState"));
+
+      // #3 if argument has been passed launch a connection through signaling
+      if (m.signaling.remoteUid !== null){
+        m.signaling.startJoining(m.signaling.remoteUid);
+      };
+      
     </script>
  
 

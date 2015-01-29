@@ -49,12 +49,23 @@ function AnswerButtonController(model, launchBtn, container, alert, action,
                                            input.val() );
                     });
                 });
-                
-                model.network._membership.on("answer", function(message){
-                    input.val(model.address+"confirmarrival.html?"+
-                              encodeURIComponent(JSON.stringify(message)));
-                });
             });
         }
     );
+    
+    model.network._membership.on("answer", function(message){
+        // (TODO) fix this in rtc-scamp-mbr: callback working
+        // on each answer
+        if (model.signaling.startedSocket){ // priorize server
+            console.log("answer");
+            model.signaling.socket.emit("answer",
+                                        model.signaling.uid,
+                                        message);
+            model.signaling.startedSocket = false;
+            model.signaling.socket.disconnect();
+        } else {
+        input.val(model.address+"confirmarrival.html?"+
+                  encodeURIComponent(JSON.stringify(message)));
+        };
+    });  
 };

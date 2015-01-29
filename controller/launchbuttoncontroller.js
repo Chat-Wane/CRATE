@@ -36,11 +36,19 @@ function LaunchButtonController(model, launchBtn, container, alert, action,
                                        input.val() );
                 });
             });
-
-            model.network._membership.on("launch", function(message){
-                input.val(model.address+"acceptticket.html?"+
-                          encodeURIComponent(JSON.stringify(message)));
-            });
         }
     );
+
+    model.network._membership.on("launch", function(message){
+        // (TODO) fix the ugliness into rtc-scamp-mbr to have appropriate cb
+        if (model.signaling.startedSocket){ // prorize signaling
+            console.log("launch");
+            model.signaling.socket.emit("launch",
+                                        model.signaling.remoteUid,
+                                        message);
+        } else {
+            input.val(model.address+"acceptticket.html?"+
+                      encodeURIComponent(JSON.stringify(message)));
+        };
+    });
 };
