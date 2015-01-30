@@ -23,13 +23,19 @@
           </div>
 
           <div class="pull-right">
-            <span id="networkState"
-                  class="mega-octicon octicon-globe text-header">&nbsp;</span>
+            <abbr id="abbrNetworkState" title="disconnected">
+              <span id="networkState"
+                    class="mega-octicon octicon-globe text-header">&nbsp;
+              </span>
+            </abbr>
+            
             <div class="btn-group btn-header" role="group"
                  aria-label="menu bar">
               <!-- editor menu bar //-->
-              <button type="button" class="btn btn-default dropdown-toggle"
-                      aria-label="File text" data-toggle="dropdown">
+              <button type="button"
+                      class="btn btn-default dropdown-toggle"
+                      aria-label="File text" data-toggle="dropdown"
+                      disabled="disabled">
                 <span class="octicon octicon-file-text"></span>File
                 <span class="caret"></span>
               </button>
@@ -70,7 +76,7 @@
                   <a id="handshake">Confirm our arrival</a>
                 </li>
                 <li class="divider"></li>
-                <li role="presentation">
+                <li role="presentation" class="disabled">
                   <a id="disconnect">Disconnect</a>
                 </li>
               </ul>
@@ -78,7 +84,8 @@
             <div class="btn-group btn-header">
               <button type="button" class="btn btn-default dropdown-toggle"
                       aria-label="Generate offer" data-toggle="dropdown"
-                      id="settingsdropdownmenu">
+                      id="settingsdropdownmenu"
+                      disabled="disabled">
                 <span class="octicon octicon-gear"></span> Settings
                 <span class="caret"></span>
               </button>
@@ -161,33 +168,17 @@
     <script> var LSEQTree = require("lseqtree"); </script>
 
     <script src="./model/messages.js"></script>
-<!--    <script src="./model/document.js"></script>
-    <script src="./model/editingsession.js"></script>
-    <script>
-      var UID = Math.floor(Math.random()*1337421337);
-      var editingSession = new EditingSession(UID);
-      if (!editingSession.loadDocument("default")){
-        editingSession.newDocument("default", UID);
-      };
-      var currentDocument = editingSession.document;
-      var network = editingSession.network;
-    </script>
-    
-    <script src="./model/network.js"></script>
-    <script src="./model/distributededitor.js"></script>
-    <script>
-     var distributedEditor = new DistributedEditor("editor", editingSession);
-    </script>
-//-->
     <script src="./model/document.js"></script>
     <script src="./model/signaling.js"></script>
     <script src="./model/model.js"></script>
+    
     <script src="./controller/sharebuttoncontroller.js"></script>
     <script src="./controller/launchbuttoncontroller.js"></script>
     <script src="./controller/answerbuttoncontroller.js"></script>
     <script src="./controller/handshakebuttoncontroller.js"></script>
     <script src="./controller/networkstatecontroller.js"></script>
     <script src="./controller/editorcontroller.js"></script>
+    
     <script>
       // #1 initialize the model
       var argUid = null;
@@ -209,7 +200,8 @@
       var cHandshake = new HandshakeButtonController(m, $("#handshake"),
       $("#containerLink"), $("#alertLink"),$("#actionLink"),$("#inputLink"),
       $("#dismissLink"));
-      var cNetworkState = new NetworkStateController(m, $("#networkState"));
+      var cNetworkState = new NetworkStateController(m, $("#networkState"),
+      $("#abbrNetworkState"));
       var cEditor = new EditorController(m, $("#editor"));
 
       
