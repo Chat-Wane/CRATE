@@ -57,7 +57,6 @@ function AnswerButtonController(model, launchBtn, container, alert, action,
         // (TODO) fix this in rtc-scamp-mbr: callback working
         // on each answer
         if (model.signaling.startedSocket){ // priorize server
-            console.log("answer");
             model.signaling.socket.emit("answer",
                                         model.signaling.uid,
                                         message);

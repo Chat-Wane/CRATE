@@ -21,11 +21,9 @@ Signaling.prototype.createSocket = function(){
         this.socket = io(this.signalingServer, this.socketIOConfig);        
         this.startedSocket = true;
         this.socket.on("launchResponse", function(message){
-            console.log("launchResponse");
             self.network._membership.answer(message);
         });
         this.socket.on("answerResponse", function(message){
-            console.log("answerResponse");
             self.network._membership.handshake(message);
             self.startSocket = false;
             self.socket.disconnect();

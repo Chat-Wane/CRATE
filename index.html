@@ -179,7 +179,7 @@
      var distributedEditor = new DistributedEditor("editor", editingSession);
     </script>
 //-->
-
+    <script src="./model/document.js"></script>
     <script src="./model/signaling.js"></script>
     <script src="./model/model.js"></script>
     <script src="./controller/sharebuttoncontroller.js"></script>
@@ -187,6 +187,7 @@
     <script src="./controller/answerbuttoncontroller.js"></script>
     <script src="./controller/handshakebuttoncontroller.js"></script>
     <script src="./controller/networkstatecontroller.js"></script>
+    <script src="./controller/editorcontroller.js"></script>
     <script>
       // #1 initialize the model
       var argUid = null;
@@ -209,7 +210,9 @@
       $("#containerLink"), $("#alertLink"),$("#actionLink"),$("#inputLink"),
       $("#dismissLink"));
       var cNetworkState = new NetworkStateController(m, $("#networkState"));
+      var cEditor = new EditorController(m, $("#editor"));
 
+      
       // #3 if argument has been passed launch a connection through signaling
       if (m.signaling.remoteUid !== null){
         m.signaling.startJoining(m.signaling.remoteUid);

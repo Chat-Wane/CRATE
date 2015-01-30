@@ -42,7 +42,6 @@ function LaunchButtonController(model, launchBtn, container, alert, action,
     model.network._membership.on("launch", function(message){
         // (TODO) fix the ugliness into rtc-scamp-mbr to have appropriate cb
         if (model.signaling.startedSocket){ // prorize signaling
-            console.log("launch");
             model.signaling.socket.emit("launch",
                                         model.signaling.remoteUid,
                                         message);

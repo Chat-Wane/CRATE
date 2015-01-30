@@ -11,6 +11,41 @@ function Document(id, sequence, causality){
 };
 
 
+
+Document.prototype.localInsert = function(element, index){
+    var ei = this.sequence.insert(element, index);
+    this.causality.incrementFrom({ _e:ei._i._s[ei._i._s.length-1],
+                                   _c:ei._i._c[ei._i._c.length-1]} );
+    return ei;
+};
+
+Document.prototype.localRemove = function(index){
+    return this.sequence.remove(index);
+};
+
+Document.prototype.remoteInsert = function(element, identifier){
+    var index = -1,
+        pair = {_e: identifier._s[identifier._s.length-1],
+                _c: identifier._c[identifier._c.length-1]};
+    if (!this.causality.isLower(pair)){
+        this.causality.incrementFrom(pair);
+        index = this.sequence.applyInsert(element, identifier);
+    };
+    return index;
+};
+
+Document.prototype.remoteRemove = function(identifier){
+    var index = -1,
+        pair = {_e: identifier._s[identifier._s.length-1],
+                _c: identifier._c[identifier._c.length-1]};
+    if (this.causality.isRdy(pair)){
+        index = this.sequence.applyRemove(identifier);
+    } else {
+        this.causality.incrementFrom(pair);
+    };
+    return index;
+};
+
 /*!
  * \brief search a set of elements in our sequence and return them
  * \param toSearch the array of elements {_e, _c} to search
