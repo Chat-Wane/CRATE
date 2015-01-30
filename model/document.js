@@ -46,6 +46,21 @@ Document.prototype.remoteRemove = function(identifier){
     return index;
 };
 
+Document.prototype.antiEntropyInsert = function(node, pair){
+    // (TODO) add it into LSEQTree module
+    var result = -1, index = -1;
+    if (!this.causality.isLower(pair)){
+        this.causality.incrementFrom(pair);
+        result = this.sequence.root.add(node);
+        if (result !== -1){
+            this.sequence.length += 1;
+            index = this.sequence.root.indexOf(node);
+        };        
+    };
+    return index;
+};
+
+
 /*!
  * \brief search a set of elements in our sequence and return them
  * \param toSearch the array of elements {_e, _c} to search
