@@ -32,7 +32,7 @@ function EditorController(model, editorElement){
 
     // #C handle the local changes
     editor.getSession().on('change', function(e) {
-        var position, index;
+        var begin, end, j=0;
         editorElement.css("height",
                           editor.getSession().getDocument().getLength() *
                           editor.renderer.lineHeight);
@@ -40,15 +40,22 @@ function EditorController(model, editorElement){
         
         if ((e.data.action==='insertText' || e.data.action==='removeText') &&
             !self.fromRemote){
-            position = editor.selection.getCursor();
-            index=editor.getSession().getDocument().positionToIndex(position);
-            switch (e.data.action){
-            case "insertText":
-                model.network.broadcast(
-                    model.document.localInsert(e.data.text, index)); break;
-            case "removeText":
-                model.network.broadcast(
-                    model.document.localRemove(index)); break;
+            begin = editor.getSession().getDocument().positionToIndex(
+                e.data.range.start);
+            end = editor.getSession().getDocument().positionToIndex(
+                e.data.range.end);
+            j = 0;
+            for (var i=begin; i<end; ++i){
+                switch (e.data.action){
+                case "insertText":
+                    model.network.broadcast(
+                        model.document.localInsert(e.data.text[j], i));
+                    break;
+                case "removeText":
+                    model.network.broadcast(
+                        model.document.localRemove(begin)); break;
+                };
+                ++j
             };
         };
     });

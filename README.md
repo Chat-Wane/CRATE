@@ -29,7 +29,7 @@ collaborators, there are two ways described in this section.
 The globe inside the header gives information about the state of the connection
 , i.e., whether you are connected (green), partially connected (yellow), or
 disconnected (red, or white). If the globe does not change its colour after
-the above procedure, it means that there might be some issues with establishing
+the procedure below, it means that there might be some issues with establishing
 a WebRTC connection. 
 
 ###Share
