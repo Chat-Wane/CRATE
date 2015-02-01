@@ -32,29 +32,62 @@ function EditorController(model, editorElement){
 
     // #C handle the local changes
     editor.getSession().on('change', function(e) {
-        var begin, end, j=0;
+        var begin, end, text, j=0;
         editorElement.css("height",
                           editor.getSession().getDocument().getLength() *
                           editor.renderer.lineHeight);
         editor.resize();
-        
-        if ((e.data.action==='insertText' || e.data.action==='removeText') &&
-            !self.fromRemote){
+        if (!self.fromRemote){
+            // #1 process the boundaries from range to index and text
             begin = editor.getSession().getDocument().positionToIndex(
                 e.data.range.start);
-            end = editor.getSession().getDocument().positionToIndex(
-                e.data.range.end);
-            j = 0;
+            
+            switch (e.data.action){
+            case 'removeLines':
+                end = begin;
+                for (var i=0; i<e.data.lines.length;++i){
+                    end += e.data.lines[i].length+1; // +1 because of \n
+                };
+                break;
+            case 'removeText':
+                if (e.data.text.length === 1){
+                    end = begin+1;
+                } else {
+                    end = editor.getSession().getDocument().positionToIndex(
+                        e.data.range.end);
+                };
+                break;
+            case 'insertLines':
+                text = "";
+                for (var i=0; i<e.data.lines.length;++i){
+                    text = text + (e.data.lines[i]) + "\n";
+                };
+                end = begin + text.length;
+                break;
+            case 'insertText':
+                text = e.data.text;
+                end = editor.getSession().getDocument().positionToIndex(
+                    e.data.range.end);
+                break;
+            };
+            // #2 update the underlying CRDT model and broadcast the results
             for (var i=begin; i<end; ++i){
                 switch (e.data.action){
                 case "insertText":
                     model.network.broadcast(
-                        model.document.localInsert(e.data.text[j], i));
+                        model.document.localInsert(text[j], i));
+                    break;
+                case "insertLines":
+                    model.network.broadcast(
+                        model.document.localInsert(text[j], i));
                     break;
                 case "removeText":
                     model.network.broadcast(
                         model.document.localRemove(begin)); break;
-                };
+                case "removeLines":
+                    model.network.broadcast(
+                        model.document.localRemove(begin)); break;
+                };            
                 ++j
             };
         };
