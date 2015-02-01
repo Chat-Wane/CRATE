@@ -34,24 +34,26 @@
               <!-- editor menu bar //-->
               <button type="button"
                       class="btn btn-default dropdown-toggle"
-                      aria-label="File text" data-toggle="dropdown"
-                      disabled="disabled">
+                      aria-label="File text" data-toggle="dropdown">
                 <span class="octicon octicon-file-text"></span>File
                 <span class="caret"></span>
               </button>
               <ul id="dropdowncontainerNetwork" class="dropdown-menu"
                   role="menu" aria-labelledby="networkdropdownmenu">
-                <li id="test" role="presentation">
-                  <a id="newFile">New file</a>
+                <li role="presentation" class="disabled">
+                  <a id="new">New</a>
+                </li>
+                <li role="presentation" class="disabled">
+                  <a id="open">Open...</a>
                 </li>
                 <li role="presentation">
-                  <a id="openFile">Open file</a>
+                  <a id="save">Save</a>
                 </li>
-                <li role="presentation">
-                  <a id="saveFile">Save file</a>
+                <li role="prensentation" class="disabled">
+                  <a id="saveAs">Save as...</a>
                 </li>
-                <li role="presentation">
-                  <a id="deleteFile">Delete file</a>
+                <li role="presentation" class="disabled">
+                  <a id="deleteFile">Delete</a>
                 </li>
               </ul>
             </div>
@@ -171,23 +173,27 @@
     <script src="./model/document.js"></script>
     <script src="./model/signaling.js"></script>
     <script src="./model/model.js"></script>
+
+    <script src="./controller/savebuttoncontroller.js"></script>
     
     <script src="./controller/sharebuttoncontroller.js"></script>
     <script src="./controller/launchbuttoncontroller.js"></script>
     <script src="./controller/answerbuttoncontroller.js"></script>
     <script src="./controller/handshakebuttoncontroller.js"></script>
+
     <script src="./controller/networkstatecontroller.js"></script>
     <script src="./controller/editorcontroller.js"></script>
-    
     <script>
       // #1 initialize the model
       var argUid = null;
       if ((document.URL.split("?")).length>1){
         argUid = document.URL.split("?")[1];
       };
-
-      var m = new Model(argUid);
+      var m = new Model(argUid, JSON.parse(localStorage.getItem("default")));
+           
       // #2 initialize the controllers
+      var cSave = new SaveButtonController(m, $("#save"));      
+      
       var cShare = new ShareButtonController(m, $("#share"),
       $("#containerLink"), $("#alertLink"), $("#actionLink"), $("#inputLink"),
       $("#dismissLink"));
@@ -202,8 +208,7 @@
       $("#dismissLink"));
       var cNetworkState = new NetworkStateController(m, $("#networkState"),
       $("#abbrNetworkState"));
-      var cEditor = new EditorController(m, $("#editor"));
-
+      var cEditor = new EditorController(m, $("#editor"));      
       
       // #3 if argument has been passed launch a connection through signaling
       if (m.signaling.remoteUid !== null){

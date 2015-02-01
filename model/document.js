@@ -10,7 +10,51 @@ function Document(id, sequence, causality){
     this.causality = causality;    
 };
 
+/*!
+ * \brief parse an object into a document
+ * \param object the JSON object
+ */
+Document.prototype.fromObject = function(object){
+    var causality = object.causality,
+        sequence = object.sequence,
+        name = object.name;
+    // #0 (TODO) make it not ugly
+    var protoLSEQTree = Object.getPrototypeOf(this.sequence);
+    var protoLSEQNode = Object.getPrototypeOf(this.sequence.root);
+    var protoTriple = Object.getPrototypeOf(this.sequence.root.children[0].t);
+    var protoVVwE = Object.getPrototypeOf(this.causality);
+    var protoVVwEEntry = Object.getPrototypeOf(this.causality.local);
+    // #1A cast the causality vector to the proper prototype
+    Object.setPrototypeOf(causality, protoVVwE);
+    Object.setPrototypeOf(causality.local, protoVVwEEntry);
+    for (var i=0; i<causality.vector.length; ++i){
+        Object.setPrototypeOf(causality.vector[i], protoVVwEEntry);
+    };
+    // #1B cast the sequence to the proper prototype
+    sequence._hash = this.sequence._hash; // (TODO) fix the ugliest thing ever
+    Object.setPrototypeOf(sequence, protoLSEQTree);
+    Object.setPrototypeOf(sequence.root, protoLSEQNode);
+    function castChildNode(childNode){
+        Object.setPrototypeOf(childNode, protoLSEQNode);
+        Object.setPrototypeOf(childNode.t, protoTriple);
+        if (childNode.children.length === 0){return;}
+        for (var i = 0; i<childNode.children.length; ++i){
+            castChildNode(childNode[i]);
+        };
+    };
+    for (var i=0; i<sequence.root.children.length; ++i){
+        castChildNode(sequence.root.children[i]);
+    };
+    this.sequence = sequence;
+    this.sequence._s = this.causality.local.e;
+    this.sequence._c = this.causality.local.v;
 
+    this.causality.vector = causality.vector;
+    this.causality.incrementFrom({_e:this.causality.local.e,
+                                  _c:this.causality.local.v});
+
+    this.name = name;
+};
 
 Document.prototype.localInsert = function(element, index){
     var ei = this.sequence.insert(element, index);
