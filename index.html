@@ -43,13 +43,13 @@
                 <li role="presentation" class="disabled">
                   <a id="new">New</a>
                 </li>
-                <li role="presentation" class="disabled">
-                  <a id="open">Open...</a>
+                <li role="presentation">
+                  <a> <input type="file" id="open"/> </a>
                 </li>
                 <li role="presentation">
                   <a id="save">Save</a>
                 </li>
-                <li role="prensentation" class="disabled">
+                <li role="presentation">
                   <a id="saveAs">Save as...</a>
                 </li>
                 <li role="presentation" class="disabled">
@@ -154,7 +154,10 @@
     <script src="./bower_components/jquery/dist/jquery.min.js"></script>
     <script src="./bower_components/bootstrap/dist/js/bootstrap.min.js">
     </script>
-    
+    <script
+       src="./bower_components/bootstrap-filestyle/src/bootstrap-filestyle.js">
+    </script>
+       
     <script src="./bower_components/causaltrack/causaltrack.bundle.js">
     </script>
     <script> var VVwE = require("causaltrack").VVwE; </script>
@@ -174,7 +177,9 @@
     <script src="./model/signaling.js"></script>
     <script src="./model/model.js"></script>
 
+    <script src="./controller/openbuttoncontroller.js"></script>
     <script src="./controller/savebuttoncontroller.js"></script>
+    <script src="./controller/saveasbuttoncontroller.js"></script>
     
     <script src="./controller/sharebuttoncontroller.js"></script>
     <script src="./controller/launchbuttoncontroller.js"></script>
@@ -193,7 +198,9 @@
       var m = new Model(argUid, JSON.parse(localStorage.getItem("default")));
            
       // #2 initialize the controllers
-      var cSave = new SaveButtonController(m, $("#save"));      
+      var cOpen = new OpenButtonController(m, $("#open"));
+      var cSave = new SaveButtonController(m, $("#save"));
+      var cSaveAs = new SaveAsButtonController(m, $("#saveAs"));
       
       var cShare = new ShareButtonController(m, $("#share"),
       $("#containerLink"), $("#alertLink"), $("#actionLink"), $("#inputLink"),
