@@ -78,7 +78,7 @@
                   <a id="handshake">Confirm our arrival</a>
                 </li>
                 <li class="divider"></li>
-                <li role="presentation" class="disabled">
+                <li id="liDisconnect" role="presentation" class="disabled">
                   <a id="disconnect">Disconnect</a>
                 </li>
               </ul>
@@ -180,7 +180,8 @@
     <script src="./controller/launchbuttoncontroller.js"></script>
     <script src="./controller/answerbuttoncontroller.js"></script>
     <script src="./controller/handshakebuttoncontroller.js"></script>
-
+    <script src="./controller/disconnectbuttoncontroller.js"></script>
+    
     <script src="./controller/networkstatecontroller.js"></script>
     <script src="./controller/editorcontroller.js"></script>
     <script>
@@ -208,6 +209,8 @@
       $("#dismissLink"));
       var cNetworkState = new NetworkStateController(m, $("#networkState"),
       $("#abbrNetworkState"));
+      var cDisconnect = new DisconnectButtonController(m, $("#disconnect"),
+      $("#liDisconnect"));
       var cEditor = new EditorController(m, $("#editor"));      
       
       // #3 if argument has been passed launch a connection through signaling

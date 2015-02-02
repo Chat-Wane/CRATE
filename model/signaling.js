@@ -13,12 +13,16 @@ function Signaling(uid, network, remoteUid){
                             "connect timeout": 5000 };
     this.startedSocket = false;
     this.socket = null;
+    this.socketTimeout = 60*1000;
 };
 
 Signaling.prototype.createSocket = function(){
     var self = this;
     if(!this.startedSocket){
-        this.socket = io(this.signalingServer, this.socketIOConfig);        
+        this.socket = io(this.signalingServer, this.socketIOConfig);
+        setTimeout(function(){
+            if (self.sartedSocket){ self.socket.disconnect(); };
+        },this.socketTimeout);
         this.startedSocket = true;
         this.socket.on("launchResponse", function(message){
             self.network._membership.answer(message);
