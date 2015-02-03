@@ -44,16 +44,16 @@
                   <a id="new">New</a>
                 </li>
                 <li role="presentation">
-                  <a> <input type="file" id="open"/> </a>
+                  <a id="open">
+                    <input type="file" id="openInput" tabindex="-1"/>
+                    Open
+                  </a>
                 </li>
                 <li role="presentation">
-                  <a id="save">Save</a>
+                  <a id="quickSave">Quick save</a>
                 </li>
                 <li role="presentation">
-                  <a id="saveAs">Save as...</a>
-                </li>
-                <li role="presentation" class="disabled">
-                  <a id="deleteFile">Delete</a>
+                  <a id="saveOnDisk">Save on disk</a>
                 </li>
               </ul>
             </div>
@@ -178,8 +178,8 @@
     <script src="./model/model.js"></script>
 
     <script src="./controller/openbuttoncontroller.js"></script>
-    <script src="./controller/savebuttoncontroller.js"></script>
-    <script src="./controller/saveasbuttoncontroller.js"></script>
+    <script src="./controller/quicksavebuttoncontroller.js"></script>
+    <script src="./controller/saveondiskbuttoncontroller.js"></script>
     
     <script src="./controller/sharebuttoncontroller.js"></script>
     <script src="./controller/launchbuttoncontroller.js"></script>
@@ -198,9 +198,12 @@
       var m = new Model(argUid, JSON.parse(localStorage.getItem("default")));
            
       // #2 initialize the controllers
-      var cOpen = new OpenButtonController(m, $("#open"));
-      var cSave = new SaveButtonController(m, $("#save"));
-      var cSaveAs = new SaveAsButtonController(m, $("#saveAs"));
+      var cEditor = new EditorController(m, $("#editor"));
+      
+      var cOpen = new OpenButtonController(m, $("#open"), $("#openInput"),
+      cEditor); // (TODO) fix the uglyness: create a view js
+      var cQuickSave = new QuickSaveButtonController(m, $("#quickSave"));
+      var cSaveOnDisk = new SaveOnDiskButtonController(m, $("#saveOnDisk"));
       
       var cShare = new ShareButtonController(m, $("#share"),
       $("#containerLink"), $("#alertLink"), $("#actionLink"), $("#inputLink"),
@@ -218,7 +221,7 @@
       $("#abbrNetworkState"));
       var cDisconnect = new DisconnectButtonController(m, $("#disconnect"),
       $("#liDisconnect"));
-      var cEditor = new EditorController(m, $("#editor"));      
+
       
       // #3 if argument has been passed launch a connection through signaling
       if (m.signaling.remoteUid !== null){
@@ -227,8 +230,6 @@
       
     </script>
  
-
-
     
   </body>
 </html>

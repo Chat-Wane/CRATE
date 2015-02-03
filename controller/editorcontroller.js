@@ -8,7 +8,8 @@ function EditorController(model, editorElement){
     var self = this,
         editor = ace.edit(editorElement.attr("id")),
         antiEntropyInterval = 10000;
-     
+    this.editor = editor;
+    this.idEditor = editorElement;
     this.fromRemote = false;
     
     // #A initialize the ace editor

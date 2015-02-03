@@ -17,7 +17,7 @@ function Document(id, sequence, causality){
 Document.prototype.fromObject = function(object){
     var causality = object.causality,
         sequence = object.sequence,
-        name = object.name;
+        id = object.id;
     // #0 (TODO) make it not ugly
     var protoLSEQTree = Object.getPrototypeOf(this.sequence);
     var protoLSEQNode = Object.getPrototypeOf(this.sequence.root);
@@ -45,6 +45,7 @@ Document.prototype.fromObject = function(object){
     for (var i=0; i<sequence.root.children.length; ++i){
         castChildNode(sequence.root.children[i]);
     };
+    
     this.sequence = sequence;
     this.sequence._s = this.causality.local.e;
     this.sequence._c = this.causality.local.v;
@@ -52,8 +53,7 @@ Document.prototype.fromObject = function(object){
     this.causality.vector = causality.vector;
     this.causality.incrementFrom({_e:this.causality.local.e,
                                   _c:this.causality.local.v});
-
-    this.name = name;
+    this.id = id;
 };
 
 Document.prototype.localInsert = function(element, index){
