@@ -7,7 +7,7 @@ function Model(argUid, object){
     this.document = new Document("default",
                                  new LSEQTree(this.uid),
                                  new VVwE(this.uid));
-    if (object){
+    if (object && !argUid){
         this.document.fromObject(object);
     };
     this.network = new Network(this.uid);
