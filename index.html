@@ -40,7 +40,7 @@
               </button>
               <ul id="dropdowncontainerNetwork" class="dropdown-menu"
                   role="menu" aria-labelledby="networkdropdownmenu">
-                <li role="presentation" class="disabled">
+                <li role="presentation">
                   <a id="new">New</a>
                 </li>
                 <li role="presentation">
@@ -177,6 +177,7 @@
     <script src="./model/signaling.js"></script>
     <script src="./model/model.js"></script>
 
+    <script src="./controller/newbuttoncontroller.js"></script>
     <script src="./controller/openbuttoncontroller.js"></script>
     <script src="./controller/quicksavebuttoncontroller.js"></script>
     <script src="./controller/saveondiskbuttoncontroller.js"></script>
@@ -199,7 +200,8 @@
            
       // #2 initialize the controllers
       var cEditor = new EditorController(m, $("#editor"));
-      
+
+      var cNew = new NewButtonController(m, $("#new"), cEditor);
       var cOpen = new OpenButtonController(m, $("#open"), $("#openInput"),
       cEditor); // (TODO) fix the uglyness: create a view js
       var cQuickSave = new QuickSaveButtonController(m, $("#quickSave"));

@@ -4,7 +4,7 @@
  * \param model the model
  * \param openBtn the button that trigger the open event
  * \param openInput the input that opens the window of local files
- * \param editor the ace editor 
+ * \param cEditor the controller of the ace editor (TODO remove it from here)
  */
 function OpenButtonController(model, openBtn, openInput, cEditor){
     openBtn.unbind("click").click(function(){
@@ -28,7 +28,7 @@ function OpenButtonController(model, openBtn, openInput, cEditor){
                 model.signaling = new Signaling(model.uid, model.network);
                 // (TODO) fix this by making a view in javascript
                 cEditor.editor.destroy();
-                new EditorController(model, cEditorElement);
+                new EditorController(model, cEditor.editorElement);
             };
         })(file);
         
