@@ -176,6 +176,10 @@
     <script src="./model/signaling.js"></script>
     <script src="./model/model.js"></script>
 
+    <script src="./view/networkstateview.js"></script>
+    <script src="./view/signalingstateview.js"></script>
+    <script src="./view/linkview.js"></script>
+    
     <script src="./controller/newbuttoncontroller.js"></script>
     <script src="./controller/openbuttoncontroller.js"></script>
     <script src="./controller/quicksavebuttoncontroller.js"></script>
@@ -190,17 +194,21 @@
     <script src="./controller/networkstatecontroller.js"></script>
     <script src="./controller/editorcontroller.js"></script>
     <script>
-      // #0 initialize part of the view
-      $(function(){
-        $('[data-toggle="tooltip"]').tooltip();
-      })
-      // #1 initialize the model
+      // #0 initialize the model
       var argUid = null;
       if ((document.URL.split("?")).length>1){
         argUid = document.URL.split("?")[1];
       };
-      var m = new Model(argUid, JSON.parse(localStorage.getItem("default")));
-           
+      var m = new Model( document.URL.split("?").length>1,
+                         JSON.parse(localStorage.getItem("default")));
+
+      // #1 initialize part of the view
+      $(function(){ $('[data-toggle="tooltip"]').tooltip(); })
+      var nsv = new NetworkStateView($("#networkState"));      
+      var ssv = new SignalingStateView(m.signaling, $("#signalingState"));
+      var lv = new LinkView($("#containerLink"),$("alertLink"),$("actionLink"),
+      $("#inputLink"),$("#dismissLink"));
+      
       // #2 initialize the controllers
       var cEditor = new EditorController(m, $("#editor"));
 
@@ -210,9 +218,7 @@
       var cQuickSave = new QuickSaveButtonController(m, $("#quickSave"));
       var cSaveOnDisk = new SaveOnDiskButtonController(m, $("#saveOnDisk"));
       
-      var cShare = new ShareButtonController(m, $("#share"),
-      $("#containerLink"), $("#alertLink"), $("#actionLink"), $("#inputLink"),
-      $("#dismissLink"), $("#signalingState"));
+      var cShare = new ShareButtonController(m, $("#share"), ssv, lv);
       var cLaunch = new LaunchButtonController(m, $("#launch"),
       $("#containerLink"), $("#alertLink"), $("#actionLink"), $("#inputLink"),
       $("#dismissLink"));
@@ -222,14 +228,14 @@
       var cHandshake = new HandshakeButtonController(m, $("#handshake"),
       $("#containerLink"), $("#alertLink"),$("#actionLink"),$("#inputLink"),
       $("#dismissLink"));
-      var cNetworkState = new NetworkStateController(m, $("#networkState"));
+      var cNetworkState = new NetworkStateController(m, nsv);
       var cDisconnect = new DisconnectButtonController(m, $("#disconnect"),
       $("#liDisconnect"));
 
       
       // #3 if argument has been passed launch a connection through signaling
-      if (m.signaling.remoteUid !== null){
-        m.signaling.startJoining(m.signaling.remoteUid);
+      if (argUid !== null){
+        m.signaling.startJoining(argUid);
       };
       
     </script>

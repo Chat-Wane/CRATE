@@ -2,18 +2,18 @@
 /*!
  * \brief handle the signaling server
  */
-function Signaling(uid, network, remoteUid){
+function Signaling(uid, network){
     this.uid = uid;
     this.network = network;
-    this.remoteUid = remoteUid || null;
     this.address = "file:///Users/chat-wane/Desktop/project/crate/"
     //this.address = "http://chat-wane.github.io/CRATE/";
-    this.signalingServer = "https://ancient-shelf-9067.herokuapp.com";
+    //this.signalingServer = "https://ancient-shelf-9067.herokuapp.com";
+    this.signalingServer = "http://2.0.1.206:5000";
     this.socketIOConfig = { "force new connection": true,
                             "reconnection attempts": 10};
     this.startedSocket = false;
     this.socket = null;
-    this.socketTimeout = 60*1000;
+    this.socketTimeout = 60 * 1000;
 };
 
 Signaling.prototype.createSocket = function(){
@@ -29,16 +29,17 @@ Signaling.prototype.createSocket = function(){
         });
         this.socket.on("launchResponse", function(message){
             self.network._membership.answer(message, function(answerMessage){
+                console.log("answerMessage " + JSON.stringify(answerMessage));
                 setTimeout(function(){
                     self.socket.emit("answer",
                                      self.uid,
                                      answerMessage);
-                    self.startedSocket = false;
-                    self.socket.disconnect();
+                    setTimeout(function(){self.socket.disconnect();},1500);
                 },1500);
             });
         });
         this.socket.on("answerResponse", function(handshakeMessage){
+            console.log("handshake " + JSON.stringify(handshakeMessage));
             self.network._membership.handshake(handshakeMessage);
             self.startedSocket = false;
             self.socket.disconnect();
@@ -67,6 +68,7 @@ Signaling.prototype.startJoining = function(uid){
         self.network._membership.launch(
             function(message){
                 setTimeout(function(){
+                    console.log("launch =", message)
                     self.socket.emit("launch", uid, message);
                 }, 1500 );
             });
