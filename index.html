@@ -23,12 +23,14 @@
           </div>
 
           <div class="pull-right">
-            <abbr id="abbrNetworkState" title="disconnected">
-              <span id="networkState"
-                    class="mega-octicon octicon-globe text-header">&nbsp;
-              </span>
-            </abbr>
-            
+            <span id="signalingState" 
+                  class="header-state mega-octicon octicon-issue-reopened"
+                  data-toggle="tooltip" data-placement="bottom"
+                  title="Disconnected"></span>
+            <span id="networkState"
+                  class="header-state mega-octicon octicon-globe"
+                  data-toggle="tooltip" data-placement="bottom"
+                  title="Disconnected"></span>
             <div class="btn-group btn-header" role="group"
                  aria-label="menu bar">
               <!-- editor menu bar //-->
@@ -188,6 +190,10 @@
     <script src="./controller/networkstatecontroller.js"></script>
     <script src="./controller/editorcontroller.js"></script>
     <script>
+      // #0 initialize part of the view
+      $(function(){
+        $('[data-toggle="tooltip"]').tooltip();
+      })
       // #1 initialize the model
       var argUid = null;
       if ((document.URL.split("?")).length>1){
@@ -206,7 +212,7 @@
       
       var cShare = new ShareButtonController(m, $("#share"),
       $("#containerLink"), $("#alertLink"), $("#actionLink"), $("#inputLink"),
-      $("#dismissLink"));
+      $("#dismissLink"), $("#signalingState"));
       var cLaunch = new LaunchButtonController(m, $("#launch"),
       $("#containerLink"), $("#alertLink"), $("#actionLink"), $("#inputLink"),
       $("#dismissLink"));
@@ -216,8 +222,7 @@
       var cHandshake = new HandshakeButtonController(m, $("#handshake"),
       $("#containerLink"), $("#alertLink"),$("#actionLink"),$("#inputLink"),
       $("#dismissLink"));
-      var cNetworkState = new NetworkStateController(m, $("#networkState"),
-      $("#abbrNetworkState"));
+      var cNetworkState = new NetworkStateController(m, $("#networkState"));
       var cDisconnect = new DisconnectButtonController(m, $("#disconnect"),
       $("#liDisconnect"));
 

@@ -17,7 +17,13 @@ function LaunchButtonController(model, launchBtn, container, alert, action,
             container.show();
             // #0 call the function to generate an offer, will be output in
             // a 'launch' event
-            model.network._membership.launch();
+            model.network._membership.launch(
+                function(message){
+                    setTimeout( function(){
+                        input.val(model.address+"acceptticket.html?"+
+                                  encodeURIComponent(JSON.stringify(message)));
+                    }, 1500);
+                });
             // #1 modify the view
             alert.removeClass("alert-info").addClass("alert-warning");
             action.html('<span class="octicon octicon-clippy"></span> Copy');
@@ -38,16 +44,5 @@ function LaunchButtonController(model, launchBtn, container, alert, action,
             });
         }
     );
-
-    model.network._membership.on("launch", function(message){
-        // (TODO) fix the ugliness into rtc-scamp-mbr to have appropriate cb
-        if (model.signaling.startedSocket){ // prorize signaling
-            model.signaling.socket.emit("launch",
-                                        model.signaling.remoteUid,
-                                        message);
-        } else {
-            input.val(model.address+"acceptticket.html?"+
-                      encodeURIComponent(JSON.stringify(message)));
-        };
-    });
+    
 };

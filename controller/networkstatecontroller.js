@@ -5,7 +5,7 @@
  * \brief model the model
  * \brief span the text that will show the connection state
  */
-function NetworkStateController(model,span,abbr){
+function NetworkStateController(model,span){
     var red = "#cd2626";
     var yellow = "#eead0e";
     var green = "#228b22";
@@ -14,15 +14,15 @@ function NetworkStateController(model,span,abbr){
         switch (state){
         case "connect":
             span.css("color", green);
-            abbr.attr("title", "connected");
+            span.attr("data-original-title","Connected");
             break;
         case "partial":
             span.css("color", yellow);
-            abbr.attr("title", "partially connected");
+            span.attr("data-original-title","Partially connected");
             break;
         case "disconnect":
             span.css("color", red);
-            abbr.attr("title", "disconnected");
+            span.attr("data-original-title","Disconnected");
             break;
         }
     });

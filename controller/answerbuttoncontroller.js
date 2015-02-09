@@ -29,7 +29,12 @@ function AnswerButtonController(model, launchBtn, container, alert, action,
                 // #2 call the answer function in the model
                 var data = decodeURIComponent(input.val().split("?")[1]);
                 var message = JSON.parse(data);
-                model.network._membership.answer(message)
+                model.network._membership.answer(message, function(message){
+                    setTimeout(function(){
+                        input.val(model.address+"confirmarrival.html?"+
+                                  encodeURIComponent(JSON.stringify(message)));
+                    }, 1500);
+                });
                 // #3 change the view
                 alert.removeClass("alert-info").addClass("alert-warning");
                 action.html('<span class="octicon octicon-clippy">'+
@@ -53,18 +58,4 @@ function AnswerButtonController(model, launchBtn, container, alert, action,
         }
     );
     
-    model.network._membership.on("answer", function(message){
-        // (TODO) fix this in rtc-scamp-mbr: callback working
-        // on each answer
-        if (model.signaling.startedSocket){ // priorize server
-            model.signaling.socket.emit("answer",
-                                        model.signaling.uid,
-                                        message);
-            model.signaling.startedSocket = false;
-            model.signaling.socket.disconnect();
-        } else {
-        input.val(model.address+"confirmarrival.html?"+
-                  encodeURIComponent(JSON.stringify(message)));
-        };
-    });  
 };
