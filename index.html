@@ -112,9 +112,8 @@
         </div>
       </div>  
     </header>
-    
+
     <section class="main">
-      
       <div class="container">
         <div class="row">
           <div class="col-md-12">
@@ -126,6 +125,69 @@
       </div>
     </section>
 
+    <section id="editorStats" class="stats">
+      <div class="container">
+        <h2>Editor's stats</h2>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="post text-center">             
+              <canvas id="idSizeChart"></canvas>
+              <p>
+                Size of each identifier in the document.
+              </p>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="post text-center">
+              <p>
+                Total size of the document over updates.
+              </p>
+            </div>
+          </div>          
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="post text-center">
+              <p>
+                Size of identifiers obtained by push/pull.
+              </p>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="post text-center">
+              <p>
+                Number of characters by author.
+              </p>
+            </div>
+          </div>          
+        </div>
+      </div>
+    </section>
+    
+    <section id="networkStats" class="stats">
+      <div class="container">
+        <h2>Network's stats</h2>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="post">
+              Number of messages received by type.
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="post">
+              Size of the in/out neighbourhood over time.
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="post">
+              In/out traffic over time.
+            </div>
+          </div>
+        </div>
+    </section>
+    
     <div class="container">
       <div class="row">
         <div id="containerLink" class="container">
@@ -156,7 +218,9 @@
     <script src="./bower_components/jquery/dist/jquery.min.js"></script>
     <script src="./bower_components/bootstrap/dist/js/bootstrap.min.js">
     </script>
-       
+
+    <script src="./bower_components/chartjs/Chart.min.js"></script>
+    
     <script src="./bower_components/causaltrack/causaltrack.bundle.js">
     </script>
     <script> var VVwE = require("causaltrack").VVwE; </script>
@@ -184,7 +248,8 @@
     <script src="./controller/openbuttoncontroller.js"></script>
     <script src="./controller/quicksavebuttoncontroller.js"></script>
     <script src="./controller/saveondiskbuttoncontroller.js"></script>
-    
+
+    <script src="./controller/chartcontroller.js"></script>
     <script src="./controller/sharebuttoncontroller.js"></script>
     <script src="./controller/launchbuttoncontroller.js"></script>
     <script src="./controller/answerbuttoncontroller.js"></script>
@@ -211,6 +276,7 @@
       
       // #2 initialize the controllers
       var cEditor = new EditorController(m, $("#editor"));
+      var cChart = new ChartController($("#idSizeChart"));
 
       var cNew = new NewButtonController(m, $("#new"), cEditor);
       var cOpen = new OpenButtonController(m, $("#open"), $("#openInput"),

@@ -10,7 +10,8 @@
     "lseqtree": "latest",
     "causaltrack": "latest",
     "socket.io-client": "latest",
-    "rtc-scamp": "latest"
+    "rtc-scamp": "latest",
+    "chartjs": "~1.0.1"
   },
   "devDependencies": {
     "less": "latest"
