@@ -15,8 +15,10 @@ function LaunchButtonController(model, launchBtn, linkView){
             model.network._membership.launch(
                 function(message){
                     setTimeout( function(){
-                        linkView.input.val(model.address+"acceptticket.html?"+
-                                  encodeURIComponent(JSON.stringify(message)));
+                        linkView.input.val(model.signaling.address+
+                                           "acceptticket.html?"+
+                                           encodeURIComponent(
+                                               JSON.stringify(message)));
                     }, 1500);
                 });
             var client = new ZeroClipboard(action);

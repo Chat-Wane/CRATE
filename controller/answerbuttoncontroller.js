@@ -17,7 +17,7 @@ function AnswerButtonController(model, answerBtn, linkView){
                 action = linkView.printLink("");
                 model.network._membership.answer(message, function(message){
                     setTimeout(function(){
-                        linkView.input.val(model.address+
+                        linkView.input.val(model.signaling.address+
                                            "confirmarrival.html?"+
                                            encodeURIComponent(
                                                JSON.stringify(message)));

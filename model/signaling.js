@@ -5,8 +5,8 @@
 function Signaling(uid, network){
     this.uid = uid;
     this.network = network;
-    this.address = "file:///Users/chat-wane/Desktop/project/crate/"
-    //this.address = "http://chat-wane.github.io/CRATE/";
+    //this.address = "file:///Users/chat-wane/Desktop/project/crate/"
+    this.address = "http://chat-wane.github.io/CRATE/";
     this.signalingServer = "https://ancient-shelf-9067.herokuapp.com";
     //this.signalingServer = "http://2.0.1.206:5000";
     this.socketIOConfig = { "force new connection": true,
