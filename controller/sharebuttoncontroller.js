@@ -11,15 +11,25 @@ function ShareButtonController(model, shareBtn,
                                signalingView, linkView){
     shareBtn.click(
         function(){
+            var socket, action, client, self;
             // #0 create the proper call to the server
-            var socket = model.signaling.startSharing();
+            socket = model.signaling.startSharing();
             socket.on("connect", function(){
                 signalingView.pending();
             });            
             // #1 modify the view            
             if (model.signaling.startedSocket){
-                linkView.printLink(model.signaling.address+"index.html?"+
-                                   model.signaling.uid);                
+                action = linkView.printLink(model.signaling.address+
+                                            "index.html?"+
+                                            model.signaling.uid);
+                client = new ZeroClipboard(action);
+                client.on("ready", function(event){
+                    client.on( "copy", function( event ){
+                        var clipboard = event.clipboardData;
+                        clipboard.setData( "text/plain",
+                                           linkView.input.val() );
+                    });
+                });
             };
         }
     );

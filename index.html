@@ -206,8 +206,8 @@
       $(function(){ $('[data-toggle="tooltip"]').tooltip(); })
       var nsv = new NetworkStateView($("#networkState"));      
       var ssv = new SignalingStateView(m.signaling, $("#signalingState"));
-      var lv = new LinkView($("#containerLink"),$("alertLink"),$("actionLink"),
-      $("#inputLink"),$("#dismissLink"));
+      var lv = new LinkView($("#containerLink"), $("#alertLink"),
+      $("#actionLink"), $("#inputLink"), $("#dismissLink"));
       
       // #2 initialize the controllers
       var cEditor = new EditorController(m, $("#editor"));
@@ -219,15 +219,9 @@
       var cSaveOnDisk = new SaveOnDiskButtonController(m, $("#saveOnDisk"));
       
       var cShare = new ShareButtonController(m, $("#share"), ssv, lv);
-      var cLaunch = new LaunchButtonController(m, $("#launch"),
-      $("#containerLink"), $("#alertLink"), $("#actionLink"), $("#inputLink"),
-      $("#dismissLink"));
-      var cAnswer = new AnswerButtonController(m, $("#answer"),
-      $("#containerLink"), $("#alertLink"), $("#actionLink"), $("#inputLink"),
-      $("#dismissLink"));
-      var cHandshake = new HandshakeButtonController(m, $("#handshake"),
-      $("#containerLink"), $("#alertLink"),$("#actionLink"),$("#inputLink"),
-      $("#dismissLink"));
+      var cLaunch = new LaunchButtonController(m, $("#launch"), lv);
+      var cAnswer = new AnswerButtonController(m, $("#answer"), lv);
+      var cHandshake = new HandshakeButtonController(m, $("#handshake"), lv)
       var cNetworkState = new NetworkStateController(m, nsv);
       var cDisconnect = new DisconnectButtonController(m, $("#disconnect"),
       $("#liDisconnect"));
@@ -236,6 +230,7 @@
       // #3 if argument has been passed launch a connection through signaling
       if (argUid !== null){
         m.signaling.startJoining(argUid);
+        ssv.pending();
       };
       
     </script>
