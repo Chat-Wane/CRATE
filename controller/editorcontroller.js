@@ -114,6 +114,7 @@ function EditorController(model, editorElement){
             tempFromRemote;
 
         if (index !== -1){
+            model.network.emit("remote", message, index);
             delta = {action: 'insertText',
                      range: { start: aceDocument.indexToPosition(index-1),
                               end:   aceDocument.indexToPosition(index)},
@@ -132,6 +133,7 @@ function EditorController(model, editorElement){
             tempFromRemote;
 
         if (index !== -1){
+            model.network.emit("remote", message, index);
             delta = {action: 'removeText',
                      range: { start: aceDocument.indexToPosition(index - 1),
                               end:   aceDocument.indexToPosition(index)},

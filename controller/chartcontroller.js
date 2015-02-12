@@ -21,7 +21,7 @@ function ChartController(model,
             model.network._membership.partialView.length() );
         model.stats.viewSize.series[1].shift();
         viewSizeChartView.chart.update(model.stats.viewSize);
-    },updateViewSize);
+    }, updateViewSize);
 
     setInterval(function(){
         trafficChartView.chart.update(model.stats.traffic);
@@ -33,11 +33,47 @@ function ChartController(model,
         model.stats.traffic.series[0].shift();
         model.stats.traffic.series[1].push(0);
         model.stats.traffic.series[1].shift();
-    },updateTraffic);
+    }, updateTraffic);
 
     model.network._membership.on("churn", function(peer, message){
         model.stats.traffic.series[0][model.stats.traffic.series[0].length-1]
             += 1;
+    });
+
+    model.network.on("remote", function(message, index){
+        if (message._e !== null && message._e !== undefined){
+            //model.stats.idSize.labels.push(model.stats.idSize.labels.length);
+            // model.stats.idSize.series[0].splice( index, 0,
+            //                                    message._i._c.length);
+
+            model.stats.totalSize.labels.push(
+                model.stats.totalSize.labels[
+                    model.stats.totalSize.labels.length-1] + 1);
+            model.stats.totalSize.series[0].push(
+                model.stats.totalSize.series[0][
+                    model.stats.totalSize.series[0].length-1]+
+                    message._i._c.length);
+            model.stats.totalSize.labels.shift();
+            model.stats.totalSize.series[0].shift();
+            idTotalSizeChartView.chart.update(model.stats.totalSize);
+        } else {
+            //model.stats.idSize.labels.pop();
+            //model.stats.idSize.series[0].splice(index, 1);
+            // idSizeChartView.chart.update();
+            model.stats.totalSize.labels.push(
+                model.stats.totalSize.labels[
+                    model.stats.totalSize.labels.length-1] + 1);
+            model.stats.totalSize.series[0].push(
+                model.stats.totalSize.series[0][
+                    model.stats.totalSize.series[0].length-1] -
+                    message._c.length);
+            
+            model.stats.totalSize.labels.shift();
+            model.stats.totalSize.series[0].shift();
+            
+            idTotalSizeChartView.chart.update(model.stats.totalSize);
+            console.log("D");
+        };
     });
     
     model.network.on("local", function(message, index){
@@ -45,9 +81,9 @@ function ChartController(model,
             += 1;
         switch (message.type){
         case "MInsertOperation":
-            model.stats.idSize.labels.push(model.stats.idSize.labels.length);
-            model.stats.idSize.series[0].splice( index, 0,
-                                                 message.insert._i._c.length);
+//            model.stats.idSize.labels.push(model.stats.idSize.labels.length);
+//            model.stats.idSize.series[0].splice( index, 0,
+//                                                message.insert._i._c.length);
             // idSizeChartView.chart.update(model.stats.idSize);
             
             model.stats.totalSize.labels.push(
@@ -62,8 +98,8 @@ function ChartController(model,
             idTotalSizeChartView.chart.update(model.stats.totalSize);
             break;
         case "MRemoveOperation":
-            model.stats.idSize.labels.pop();
-            model.stats.idSize.series[0].splice(index, 1);
+            //model.stats.idSize.labels.pop();
+            //model.stats.idSize.series[0].splice(index, 1);
             //            idSizeChartView.chart.update();
             
             model.stats.totalSize.labels.push(
@@ -76,8 +112,6 @@ function ChartController(model,
             model.stats.totalSize.labels.shift();
             model.stats.totalSize.series[0].shift();
             idTotalSizeChartView.chart.update(model.stats.totalSize);
-
-            
             break;
         };
     });
