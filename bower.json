@@ -11,7 +11,7 @@
     "causaltrack": "latest",
     "socket.io-client": "latest",
     "rtc-scamp": "latest",
-    "chartjs": "~1.0.1"
+    "chartist": "~0.7.1"
   },
   "devDependencies": {
     "less": "latest"

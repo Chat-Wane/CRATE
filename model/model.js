@@ -12,4 +12,6 @@ function Model(connect, object){
     };
     this.network = new Network(this.uid);
     this.signaling = new Signaling(this.uid, this.network);
+    
+    this.stats = new Stats();
 };

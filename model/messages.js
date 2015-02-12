@@ -1,5 +1,23 @@
 
 /*!
+ * \brief object that represents the result of an insert operation
+ * \param insert the result of the local insert operation
+ */
+function MInsertOperation(insert){
+    this.type = "MInsertOperation";
+    this.insert = insert;
+};
+
+/*!
+ * \brief object that represents the result of a delete operation
+ * \param remove the result of the local delete operation
+ */
+function MRemoveOperation(remove){
+    this.type = "MRemoveOperation";
+    this.remove = remove;
+};
+    
+/*!
  * \brief object that represents an anti-entropy request message containing
  * the metadata necessary to retrieve the missing elements.
  * \param uid the unique site identifier of the requester

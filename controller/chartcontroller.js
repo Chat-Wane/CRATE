@@ -1,82 +1,123 @@
 
+function ChartController(model,
+                         idSizeChartView,
+                         idTotalSizeChartView,
+                         messageTypeChartView,
+                         viewSizeChartView,
+                         trafficChartView){
+    
+    var updateViewSize = 10000,
+        updateTraffic = 10000;
+    
+    setInterval(function(){
+        model.stats.viewSize.labels.push(
+            model.stats.viewSize.labels[model.stats.viewSize.labels.length-1]+
+                updateViewSize/1000);
+        model.stats.viewSize.labels.shift();
+        model.stats.viewSize.series[0].push(
+            model.network._membership.inView.length() );
+        model.stats.viewSize.series[0].shift();
+        model.stats.viewSize.series[1].push(
+            model.network._membership.partialView.length() );
+        model.stats.viewSize.series[1].shift();
+        viewSizeChartView.chart.update(model.stats.viewSize);
+    },updateViewSize);
 
-function ChartController(chart){
-    var ctx = chart.get(0).getContext("2d");
-    var data = {
-        labels: ["January", "February", "March", "April",
-                 "May", "June", "July"],
-        datasets: [
-            {
-                label: "My First dataset",
-                fillColor: "rgba(220,220,220,0.2)",
-                strokeColor: "rgba(220,220,220,1)",
-                pointColor: "rgba(220,220,220,1)",
-                pointStrokeColor: "#fff",
-                pointHighlightFill: "#fff",
-                pointHighlightStroke: "rgba(220,220,220,1)",
-                data: [65, 59, 80, 81, 56, 55, 40]
-            },
-            {
-                label: "My Second dataset",
-                fillColor: "rgba(151,187,205,0.2)",
-                strokeColor: "rgba(151,187,205,1)",
-                pointColor: "rgba(151,187,205,1)",
-                pointStrokeColor: "#fff",
-                pointHighlightFill: "#fff",
-                pointHighlightStroke: "rgba(151,187,205,1)",
-                data: [28, 48, 40, 19, 86, 27, 90]
-            }
-        ]
-    };
+    setInterval(function(){
+        trafficChartView.chart.update(model.stats.traffic);
+        model.stats.traffic.labels.push(
+            model.stats.traffic.labels[model.stats.viewSize.labels.length-1]+
+                updateTraffic/1000);
+        model.stats.traffic.labels.shift();
+        model.stats.traffic.series[0].push(0);
+        model.stats.traffic.series[0].shift();
+        model.stats.traffic.series[1].push(0);
+        model.stats.traffic.series[1].shift();
+    },updateTraffic);
 
+    model.network._membership.on("churn", function(peer, message){
+        model.stats.traffic.series[0][model.stats.traffic.series[0].length-1]
+            += 1;
+    });
+    
+    model.network.on("local", function(message, index){
+        model.stats.traffic.series[1][model.stats.traffic.series[1].length-1]
+            += 1;
+        switch (message.type){
+        case "MInsertOperation":
+            model.stats.idSize.labels.push(model.stats.idSize.labels.length);
+            model.stats.idSize.series[0].splice( index, 0,
+                                                 message.insert._i._c.length);
+            // idSizeChartView.chart.update(model.stats.idSize);
+            
+            model.stats.totalSize.labels.push(
+                model.stats.totalSize.labels[
+                    model.stats.totalSize.labels.length-1] + 1);
+            model.stats.totalSize.series[0].push(
+                model.stats.totalSize.series[0][
+                    model.stats.totalSize.series[0].length-1]+
+                    message.insert._i._c.length);
+            model.stats.totalSize.labels.shift();
+            model.stats.totalSize.series[0].shift();
+            idTotalSizeChartView.chart.update(model.stats.totalSize);
+            break;
+        case "MRemoveOperation":
+            model.stats.idSize.labels.pop();
+            model.stats.idSize.series[0].splice(index, 1);
+            //            idSizeChartView.chart.update();
+            
+            model.stats.totalSize.labels.push(
+                model.stats.totalSize.labels[
+                    model.stats.totalSize.labels.length-1] + 1);
+            model.stats.totalSize.series[0].push(
+                model.stats.totalSize.series[0][
+                    model.stats.totalSize.series[0].length-1] -
+                    message.remove._c.length);
+            model.stats.totalSize.labels.shift();
+            model.stats.totalSize.series[0].shift();
+            idTotalSizeChartView.chart.update(model.stats.totalSize);
 
-    var options = {
+            
+            break;
+        };
+    });
 
-        ///Boolean - Whether grid lines are shown across the chart
-        scaleShowGridLines : true,
+    model.network._membership.on("receive", function(source,message){
+        switch (message.type){
+        case "MSubscriptionRequest":
+            model.stats.messageType.series[0] += 1; break;
+        case "MSubscriptionResponse":
+            model.stats.messageType.series[1] += 1; break;
+        case "MOfferRequest":
+            model.stats.messageType.series[2] += 1; break;
+        case "MOfferResponse":
+            model.stats.messageType.series[3] += 1; break;
+        case "MWeightUpdate":
+            model.stats.messageType.series[4] += 1; break;
+        };
+        console.log(message);
+//        messageTypeChartView.chart.update(model.stats.messageType);
+    });
 
-        //String - Colour of the grid lines
-        scaleGridLineColor : "rgba(0,0,0,.05)",
-
-        //Number - Width of the grid lines
-        scaleGridLineWidth : 1,
-
-        //Boolean - Whether to show horizontal lines (except X axis)
-        scaleShowHorizontalLines: true,
-
-        //Boolean - Whether to show vertical lines (except Y axis)
-        scaleShowVerticalLines: true,
-
-        //Boolean - Whether the line is curved between points
-        bezierCurve : true,
-
-        //Number - Tension of the bezier curve between points
-        bezierCurveTension : 0.4,
-
-        //Boolean - Whether to show a dot for each point
-        pointDot : true,
-
-        //Number - Radius of each point dot in pixels
-        pointDotRadius : 4,
-
-        //Number - Pixel width of point dot stroke
-        pointDotStrokeWidth : 1,
-
-        //Number - amount extra to add to the radius to cater for hit detection outside the drawn point
-        pointHitDetectionRadius : 20,
-
-        //Boolean - Whether to show a stroke for datasets
-        datasetStroke : true,
-
-        //Number - Pixel width of dataset stroke
-        datasetStrokeWidth : 2,
-
-        //Boolean - Whether to fill the dataset with a colour
-        datasetFill : true,
-
-        //String - A legend template
-        legendTemplate : "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<datasets.length; i++){%><li><span style=\"background-color:<%=datasets[i].strokeColor%>\"></span><%if(datasets[i].label){%><%=datasets[i].label%><%}%></li><%}%></ul>"
-
-    };
-    var myLineChart = new Chart(ctx).Line(data, options);
+    model.network.on("receive", function(message){
+        switch (message.type){
+        case "MInsertOperation":
+            model.stats.messageType.series[5] += 1; break;
+        case "MRemoveOperation":
+            model.stats.messageType.series[6] += 1; break;
+        };
+//        messageTypeChartView.chart.update(model.stats.messageType);
+    });
+    
+    model.network._membership.on("churn" , function(message){
+        switch (message.type){
+        case "MAntiEntropyRequest":
+            model.stats.messageType.series[7] += 1; break;
+        case "MAntiEntropyResponse":
+            model.stats.messageType.series[8] += 1; break;            
+        };
+//        messageTypeChartView.chart.update(model.stats.messageType);
+    });
+        
 };
+

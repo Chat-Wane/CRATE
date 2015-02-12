@@ -33,7 +33,7 @@ function EditorController(model, editorElement){
 
     // #C handle the local changes
     editor.getSession().on('change', function(e) {
-        var begin, end, text, j=0;
+        var begin, end, text, message, j=0;
         editorElement.css("height",
                           editor.getSession().getDocument().getLength() *
                           editor.renderer.lineHeight);
@@ -75,31 +75,35 @@ function EditorController(model, editorElement){
             for (var i=begin; i<end; ++i){
                 switch (e.data.action){
                 case "insertText":
-                    model.network.broadcast(
-                        model.document.localInsert(text[j], i));
-                    break;
+                    message = new MInsertOperation(
+                        model.document.localInsert(text[j], i)); break;
                 case "insertLines":
-                    model.network.broadcast(
-                        model.document.localInsert(text[j], i));
-                    break;
+                    message = new MInsertOperation(
+                        model.document.localInsert(text[j], i)); break;
                 case "removeText":
-                    model.network.broadcast(
+                    message = new MRemoveOperation(
                         model.document.localRemove(begin)); break;
                 case "removeLines":
-                    model.network.broadcast(
+                    message = new MRemoveOperation(
                         model.document.localRemove(begin)); break;
-                };            
+                };
+                model.network.broadcast(message);
+                // Stats
+                switch (message.type){
+                case "MInsertOperation":
+                    model.network.emit("local", message, i); break;
+                case "MRemoveOperation":
+                    model.network.emit("local", message, begin); break;
+                };
                 ++j
             };
         };
     });
     
     model.network.on("receive", function(message) {
-        if (message._e !== null && message._e !== undefined){
-            self.receivedInsert(message);
-        };
-        if (message._d !== null && message._d !== undefined){
-            self.receivedRemove(message);
+        switch (message.type){
+        case "MInsertOperation": self.receivedInsert(message.insert); break;
+        case "MRemoveOperation": self.receivedRemove(message.remove); break;
         };
     });
     

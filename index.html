@@ -11,6 +11,10 @@
           />
     <link rel="stylesheet" href="./css/generatedstyle.css"/>
     <script src="./bower_components/socket.io-client/socket.io.js"></script>
+
+    <link rel="stylesheet"
+          href="bower_components/chartist/dist/chartist.min.css" />
+    <script src="./bower_components/chartist/dist/chartist.min.js"></script>
   </head>
   
   <body>
@@ -129,21 +133,8 @@
       <div class="container">
         <h2>Editor's stats</h2>
         <div class="row">
-          <div class="col-md-6">
-            <div class="post text-center">             
-              <canvas id="idSizeChart"></canvas>
-              <p>
-                Size of each identifier in the document.
-              </p>
-            </div>
-          </div>
-          <div class="col-md-6">
-            <div class="post text-center">
-              <p>
-                Total size of the document over updates.
-              </p>
-            </div>
-          </div>          
+          <div id="idSizeChart"></div>
+          <div id="idTotalSizeChart"></div>
         </div>
         <div class="row">
           <div class="col-md-6">
@@ -168,23 +159,11 @@
       <div class="container">
         <h2>Network's stats</h2>
         <div class="row">
-          <div class="col-md-6">
-            <div class="post">
-              Number of messages received by type.
-            </div>
-          </div>
-          <div class="col-md-6">
-            <div class="post">
-              Size of the in/out neighbourhood over time.
-            </div>
-          </div>
+          <div id="trafficChart"></div>
+          <div id="viewSizeChart"></div>
         </div>
         <div class="row">
-          <div class="col-md-6">
-            <div class="post">
-              In/out traffic over time.
-            </div>
-          </div>
+          <div id="messageTypeChart"></div>
         </div>
     </section>
     
@@ -218,8 +197,6 @@
     <script src="./bower_components/jquery/dist/jquery.min.js"></script>
     <script src="./bower_components/bootstrap/dist/js/bootstrap.min.js">
     </script>
-
-    <script src="./bower_components/chartjs/Chart.min.js"></script>
     
     <script src="./bower_components/causaltrack/causaltrack.bundle.js">
     </script>
@@ -238,11 +215,13 @@
     <script src="./model/messages.js"></script>
     <script src="./model/document.js"></script>
     <script src="./model/signaling.js"></script>
+    <script src="./model/stats.js"></script>
     <script src="./model/model.js"></script>
 
     <script src="./view/networkstateview.js"></script>
     <script src="./view/signalingstateview.js"></script>
     <script src="./view/linkview.js"></script>
+    <script src="./view/chartview.js"></script>
     
     <script src="./controller/newbuttoncontroller.js"></script>
     <script src="./controller/openbuttoncontroller.js"></script>
@@ -273,10 +252,22 @@
       var ssv = new SignalingStateView(m.signaling, $("#signalingState"));
       var lv = new LinkView($("#containerLink"), $("#alertLink"),
       $("#actionLink"), $("#inputLink"), $("#dismissLink"));
+
+      var iscv = new ChartView(m.stats.idSize,"lineChart",$("#idSizeChart"),
+      "Size of each identifier in the document.");
+      var tscv = new ChartView(m.stats.totalSize,"lineChart",
+      $("#idTotalSizeChart"), "Total size of the identifiers contained in "+
+      "the document over updates.");
+      var mtcv = new ChartView(m.stats.messageType, "pieChart",
+      $("#messageTypeChart"), "Number of messages received by type.");
+      var vscv = new ChartView(m.stats.viewSize, "lineChart",
+      $("#viewSizeChart"), "Size of the in/out neighbourhood over time.");
+      var tcv = new ChartView(m.stats.traffic, "lineChart",
+      $("#trafficChart"), "In/out traffic over time.");
       
       // #2 initialize the controllers
       var cEditor = new EditorController(m, $("#editor"));
-      var cChart = new ChartController($("#idSizeChart"));
+      var cChart = new ChartController(m, iscv, tscv, mtcv, vscv, tcv );
 
       var cNew = new NewButtonController(m, $("#new"), cEditor);
       var cOpen = new OpenButtonController(m, $("#open"), $("#openInput"),
