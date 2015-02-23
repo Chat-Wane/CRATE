@@ -2,7 +2,6 @@
 function ChartController(model,
                          idSizeChartView,
                          idTotalSizeChartView,
-                         messageTypeChartView,
                          viewSizeChartView,
                          trafficChartView){
     
@@ -20,11 +19,11 @@ function ChartController(model,
         model.stats.viewSize.series[1].push(
             model.network._membership.partialView.length() );
         model.stats.viewSize.series[1].shift();
-        viewSizeChartView.chart.update(model.stats.viewSize);
+        viewSizeChartView.update(); // model.stats.viewSize
     }, updateViewSize);
 
     setInterval(function(){
-        trafficChartView.chart.update(model.stats.traffic);
+        trafficChartView.update(); // model.stats.traffic
         model.stats.traffic.labels.push(
             model.stats.traffic.labels[model.stats.viewSize.labels.length-1]+
                 updateTraffic/1000);
@@ -55,7 +54,7 @@ function ChartController(model,
                     message._i._c.length);
             model.stats.totalSize.labels.shift();
             model.stats.totalSize.series[0].shift();
-            idTotalSizeChartView.chart.update(model.stats.totalSize);
+            idTotalSizeChartView.update(); // model.stats.totalSize
         } else {
             //model.stats.idSize.labels.pop();
             //model.stats.idSize.series[0].splice(index, 1);
@@ -70,9 +69,7 @@ function ChartController(model,
             
             model.stats.totalSize.labels.shift();
             model.stats.totalSize.series[0].shift();
-            
-            idTotalSizeChartView.chart.update(model.stats.totalSize);
-            console.log("D");
+            idTotalSizeChartView.update(); //model.stats.totalSize
         };
     });
     
@@ -95,7 +92,7 @@ function ChartController(model,
                     message.insert._i._c.length);
             model.stats.totalSize.labels.shift();
             model.stats.totalSize.series[0].shift();
-            idTotalSizeChartView.chart.update(model.stats.totalSize);
+            idTotalSizeChartView.update(); // model.stats.totalSize
             break;
         case "MRemoveOperation":
             //model.stats.idSize.labels.pop();
@@ -111,7 +108,7 @@ function ChartController(model,
                     message.remove._c.length);
             model.stats.totalSize.labels.shift();
             model.stats.totalSize.series[0].shift();
-            idTotalSizeChartView.chart.update(model.stats.totalSize);
+            idTotalSizeChartView.update(); // model.stats.totalSize
             break;
         };
     });

@@ -75,41 +75,58 @@
               <ul id="dropdowncontainerNetwork" class="dropdown-menu"
                   role="menu" aria-labelledby="networkdropdownmenu">
                 <li role="presentation">
-                  <a id="launch">Get an entrance ticket</a>
+                  <a id="launch">
+                    <span class="octicon octicon-alignment-align"></span>
+                    Get an entrance ticket
+                  </a>
                 </li>
                 <li role="presentation">
-                  <a id="answer">Stamp a ticket</a>
+                  <a id="answer">
+                    <span class="octicon octicon-alignment-aligned-to"></span>
+                    Stamp a ticket
+                  </a>
                 </li>
                 <li role="presentation">
-                  <a id="handshake">Confirm our arrival</a>
+                  <a id="handshake">
+                    <span class="octicon octicon-alignment-unalign"></span>
+                    Confirm our arrival
+                  </a>
                 </li>
                 <li class="divider"></li>
-                <li id="liDisconnect" role="presentation" class="disabled">
-                  <a id="disconnect">Disconnect</a>
+                <li id="liDisconnect" class="disabled">
+                  <a id="disconnect">
+                    <span class="octicon octicon-circle-slash"></span>
+                    Disconnect
+                  </a>
                 </li>
               </ul>
             </div>
             <div class="btn-group btn-header">
               <button type="button" class="btn btn-default dropdown-toggle"
                       aria-label="Generate offer" data-toggle="dropdown"
-                      id="settingsdropdownmenu"
-                      disabled="disabled">
+                      id="settingsdropdownmenu">
                 <span class="octicon octicon-gear"></span> Settings
                 <span class="caret"></span>
               </button>
               <ul class="dropdown-menu"
                   role="menu" aria-labelledby="networkdropdownmenu">
-                <li role="presentation">
-                  <a id="settingsEditor" role="menuitem" tabindex="-1">
-                    Editor
+                <li role="presentation" class="disabled">
+                  <a id="settingsEditor">
+                    <span class="octicon octicon-book"></span> Editor
+                  </a>
+                </li>
+                <li role="presentation" class="disabled">
+                  <a id="settingsNetwork">
+                    <span class="octicon octicon-organization"></span> Network
                   </a>
                 </li>
                 <li class="divider"></li>
                 <li role="presentation">
-                  <a id="settingsNetwork" role="menuitem" tabindex="-1">
-                    Network
+                  <a id="monitoring">
+                    <span class="octicon octicon-device-desktop"></span>
+                    Monitoring
                   </a>
-                </li>
+                </li>                                
               </ul>
             </div>
           </div>
@@ -136,22 +153,6 @@
           <div id="idSizeChart"></div>
           <div id="idTotalSizeChart"></div>
         </div>
-        <div class="row">
-          <div class="col-md-6">
-            <div class="post text-center">
-              <p>
-                Size of identifiers obtained by push/pull.
-              </p>
-            </div>
-          </div>
-          <div class="col-md-6">
-            <div class="post text-center">
-              <p>
-                Number of characters by author.
-              </p>
-            </div>
-          </div>          
-        </div>
       </div>
     </section>
     
@@ -161,9 +162,6 @@
         <div class="row">
           <div id="trafficChart"></div>
           <div id="viewSizeChart"></div>
-        </div>
-        <div class="row">
-          <div id="messageTypeChart"></div>
         </div>
     </section>
     
@@ -234,6 +232,7 @@
     <script src="./controller/answerbuttoncontroller.js"></script>
     <script src="./controller/handshakebuttoncontroller.js"></script>
     <script src="./controller/disconnectbuttoncontroller.js"></script>
+    <script src="./controller/monitoringbuttoncontroller.js"></script>
     
     <script src="./controller/networkstatecontroller.js"></script>
     <script src="./controller/editorcontroller.js"></script>
@@ -253,21 +252,24 @@
       var lv = new LinkView($("#containerLink"), $("#alertLink"),
       $("#actionLink"), $("#inputLink"), $("#dismissLink"));
 
-      var iscv = new ChartView(m.stats.idSize,"lineChart",$("#idSizeChart"),
+      var iscv = new ChartView(m.stats.idSize, $("#editorStats"),
+      "lineChart", $("#idSizeChart"),
       "Size of each identifier in the document.");
-      var tscv = new ChartView(m.stats.totalSize,"lineChart",
-      $("#idTotalSizeChart"), "Total size of the identifiers contained in "+
-      "the document over updates.");
-      var mtcv = new ChartView(m.stats.messageType, "pieChart",
-      $("#messageTypeChart"), "Number of messages received by type.");
-      var vscv = new ChartView(m.stats.viewSize, "lineChart",
-      $("#viewSizeChart"), "Size of the in/out neighbourhood over time.");
-      var tcv = new ChartView(m.stats.traffic, "lineChart",
-      $("#trafficChart"), "In/out traffic over time.");
+      
+      var tscv = new ChartView(m.stats.totalSize, $("#editorStats"),
+      "lineChart", $("#idTotalSizeChart"),
+      "Total size of the identifiers contained in the document over updates.");
+      
+      var vscv = new ChartView(m.stats.viewSize, $("#networkStats"),
+      "lineChart", $("#viewSizeChart"),
+      "Size of the in/out neighbourhood over time.");
+      var tcv = new ChartView(m.stats.traffic, $("#networkStats"),
+      "lineChart", $("#trafficChart"),
+      "In/out traffic over time.");
       
       // #2 initialize the controllers
       var cEditor = new EditorController(m, $("#editor"));
-      var cChart = new ChartController(m, iscv, tscv, mtcv, vscv, tcv );
+      var cChart = new ChartController(m, iscv, tscv, vscv, tcv );
 
       var cNew = new NewButtonController(m, $("#new"), cEditor);
       var cOpen = new OpenButtonController(m, $("#open"), $("#openInput"),
@@ -283,6 +285,8 @@
       var cDisconnect = new DisconnectButtonController(m, $("#disconnect"),
       $("#liDisconnect"));
 
+      var cMonitoring = new MonitoringButtonController(m, $("#monitoring"),
+      $("#editorStats"),$("#networkStats"), iscv, tscv, vscv, tcv);
       
       // #3 if argument has been passed launch a connection through signaling
       if (argUid !== null){

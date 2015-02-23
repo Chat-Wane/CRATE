@@ -1,6 +1,9 @@
 
-function ChartView(data, type, divChart, description){
+function ChartView(data, containerDiv, type, divChart, description){
     var idCanvas = divChart.attr('id')+"Canvas";
+
+    this.containerDiv = containerDiv;
+    this.data = data;
     
     divChart.html('<div class="col-md-6"> <div class="post text-center">'+
                   '<div id="'+idCanvas+'" class="ct-chart ct-perfect-fourth"></div>'+
@@ -16,6 +19,13 @@ function ChartView(data, type, divChart, description){
         this.chart = new Chartist.Pie("#"+idCanvas,{labels:["nothing"],
                                                     series:[1]},
                                       this.options,{});
+    };
+};
+
+
+ChartView.prototype.update = function(){
+    if (this.containerDiv.is(":visible")){
+        this.chart.update(this.data);
     };
 };
 
