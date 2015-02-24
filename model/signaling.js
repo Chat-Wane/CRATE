@@ -1,19 +1,23 @@
 
 /*!
  * \brief handle the signaling server
+ * \param uid the local unique site identifier
+ * \param network the network part of the model
  */
 function Signaling(uid, network){
     this.uid = uid;
     this.network = network;
     this.address = "file:///Users/chat-wane/Desktop/project/crate/"
-    //this.address = "http://chat-wane.github.io/CRATE/";
-    this.signalingServer = "https://ancient-shelf-9067.herokuapp.com";
-//    this.signalingServer = "http://adrouet.net:5000";
+    //    this.address = "http://chat-wane.github.io/CRATE/";
+    //    this.signalingServer = "https://ancient-shelf-9067.herokuapp.com";
+    this.signalingServer = "http://adrouet.net:5000";
     this.socketIOConfig = { "force new connection": true,
-                            "reconnection attempts": 10};
+                            "reconnectionAttempts": 6,
+                            "reconnectionDelayMax": 2000,
+                            "timeout": 10};
     this.startedSocket = false;
     this.socket = null;
-    this.socketTimeout = 60 * 1000;
+    this.socketDuration = 60 * 1000;
 };
 
 Signaling.prototype.createSocket = function(){
@@ -22,7 +26,7 @@ Signaling.prototype.createSocket = function(){
         this.socket = io(this.signalingServer, this.socketIOConfig);
         setTimeout(function(){
             if (self.startedSocket){ self.socket.disconnect(); };
-        },this.socketTimeout);
+        },this.socketDuration);
         this.startedSocket = true;
         this.socket.on("connect", function(){
             console.log("Connection to the signaling server established");

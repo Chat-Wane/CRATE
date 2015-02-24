@@ -9,13 +9,14 @@
  */
 function ShareButtonController(model, shareBtn,
                                signalingView, linkView){
-    shareBtn.click(
+    shareBtn.unbind("click").click(
         function(){
             var socket, action, client, self;
             // #0 create the proper call to the server
             socket = model.signaling.startSharing();
+            signalingView.pending("waitSignaling");
             socket.on("connect", function(){
-                signalingView.pending();
+                signalingView.pending("waitPeer");
             });            
             // #1 modify the view            
             if (model.signaling.startedSocket){
