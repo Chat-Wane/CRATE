@@ -13,7 +13,7 @@ function ShareButtonController(model, shareBtn,
         function(){
             var socket, action, client, self;
             // #0 create the proper call to the server
-            socket = model.signaling.startSharing();
+            socket = model.signaling.startSharing();            
             signalingView.pending("waitSignaling");
             socket.on("connect", function(){
                 signalingView.pending("waitPeer");

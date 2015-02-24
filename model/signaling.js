@@ -9,12 +9,10 @@ function Signaling(uid, network){
     this.network = network;
     this.address = "file:///Users/chat-wane/Desktop/project/crate/"
     //    this.address = "http://chat-wane.github.io/CRATE/";
-    //    this.signalingServer = "https://ancient-shelf-9067.herokuapp.com";
-    this.signalingServer = "http://adrouet.net:5000";
+    this.signalingServer = "https://ancient-shelf-9067.herokuapp.com";
+    // this.signalingServer = "http://www.adrouet.net:80";
     this.socketIOConfig = { "force new connection": true,
-                            "reconnectionAttempts": 6,
-                            "reconnectionDelayMax": 2000,
-                            "timeout": 10};
+                            "reconnection": false };
     this.startedSocket = false;
     this.socket = null;
     this.socketDuration = 60 * 1000;
@@ -25,7 +23,10 @@ Signaling.prototype.createSocket = function(){
     if(!this.startedSocket){
         this.socket = io(this.signalingServer, this.socketIOConfig);
         setTimeout(function(){
-            if (self.startedSocket){ self.socket.disconnect(); };
+            if (self.startedSocket){
+                self.socket.disconnect();
+                self.startedSocket = false;
+            };
         },this.socketDuration);
         this.startedSocket = true;
         this.socket.on("connect", function(){
