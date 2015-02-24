@@ -30,41 +30,42 @@
 	      <p>
 	      <p>
 		<span class="emph">
-		  Congratulations, your friend accepted the ticket!
-		</span>
-		If you still
-		want to join the collaborative authoring, please
-		<span class="emph">copy the URL</span> of this page to proper
-		field. This field is located at 
-		<span class="emph">Network > Confirm our arrival</span>.
-	      </p>
-	      <p>
-		Greetings!
-	      </p>
-	    </div>
-	  </div>
-	</div>
-	<div class="row">
-	  <!-- Generate offer -->
-	  <div class="container">
-	    <div class="alert alert-warning alert-dismissible" role="alert">
-		<div class="input-group">
-		  <input id="fieldStampedTicket" type="text"
-			 class="form-control"
-			 placeholder="Copy this stamped ticket in the 'confirm arrival' field!" readonly="readonly"/>
-		  <span class="input-group-btn">
-		    <button id="actionStampedTicket"
-			    aria-label="Copy to clipboard"
-			    class="btn btn-default"
-			    data-clipboard-target="fieldStampedTicket"
-			    data-copied-hint="Copied!" type="button">
-		      <span class="octicon octicon-clippy"></span> Copy
-		    </button>
-		  </span>
-		</div>
-	    </div>
-	  </div>
-	</div>
+		  Congratulations, your friend stamped your ticket!
+                </span>
+                If you still
+                want to join the collaborative authoring, please
+                <span class="emph">copy the URL</span> of this page to the
+                proper field. This field is located inside the menu
+                <span class="emph">Share</span>, then
+                <span class="emph">Confirm our arrival</span>.
+              </p>
+              <p>
+                Greetings!
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <!-- Generate offer -->
+          <div class="container">
+            <div class="alert alert-warning alert-dismissible" role="alert">
+              <div class="input-group">
+                <input id="fieldStampedTicket" type="text"
+                       class="form-control"
+                       placeholder="Copy this stamped ticket in the 'confirm arrival' field!" readonly="readonly"/>
+                <span class="input-group-btn">
+                  <button id="actionStampedTicket"
+                          aria-label="Copy to clipboard"
+                          class="btn btn-default"
+                          data-clipboard-target="fieldStampedTicket"
+                          data-copied-hint="Copied!" type="button">
+                    <span class="octicon octicon-clippy"></span> Copy
+                  </button>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -81,10 +82,10 @@
       var client = new ZeroClipboard( $("#actionStampedTicket") );
 
       client.on("ready", function(event){
-        client.on( "copy", function( event ){
-        var clipboard = event.clipboardData;
-        clipboard.setData( "text/plain", $("#fieldStampedTicket").val() );
-        });
+      client.on( "copy", function( event ){
+      var clipboard = event.clipboardData;
+      clipboard.setData( "text/plain", $("#fieldStampedTicket").val() );
+      });
       });
 
       $("#fieldStampedTicket").val(document.URL);

@@ -30,48 +30,49 @@
 	      <p>
 		A ticket is an URL which contains the necessary data so your
 		friend can edit with you. First, you have to
-		<span class="emph">stamp the ticket by copying this URL</span>
-		into the proper field of your CRATE. This field is
-		located at <span class="emph">Network > Stamp a ticket</span>.
-	      </p>
-	    </div>
-	  </div>
-	</div>
-	<div class="row">
-	  <!-- Generate offer -->
-	  <div class="container">
-	    <div class="alert alert-warning alert-dismissible" role="alert">
-		<div class="input-group">
-		  <input id="fieldTicket" type="text"
-			 class="form-control"
-			 placeholder="Copy this ticket in the 'stamp ticket' field!" readonly="readonly"/>
-		  <span class="input-group-btn">
-		    <button id="actionTicket"
-			    aria-label="Copy to clipboard"
-			    class="btn btn-default"
-			    data-clipboard-target="fieldTicket"
-			    data-copied-hint="Copied!" type="button">
-		      <span class="octicon octicon-clippy"></span> Copy
-		    </button>
-		  </span>
-		</div>
-	    </div>
-	  </div>
-	</div>
-	<div class="row">
-	  <div class="col-md-12">
-	    <div class="post">
-	      <p>
-		<span class="emph">Don't forget!</span>
-		You will get a new URL to share with your friend
-		in order to confirm the collaboration.
-	      </p>
-	      <p>
-		Greetings!
-	      </p>
-	    </div>
-	  </div>
-	</div>
+                <span class="emph">stamp the ticket by copying this URL</span>
+                into the proper field of your CRATE editor. This field is
+                located inside the <span class="emph">menu</span>,
+                then <span class="emph">Stamp a ticket</span>.
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <!-- Generate offer -->
+          <div class="container">
+            <div class="alert alert-warning alert-dismissible" role="alert">
+              <div class="input-group">
+                <input id="fieldTicket" type="text"
+                       class="form-control"
+                       placeholder="Copy this ticket in the 'stamp ticket' field!" readonly="readonly"/>
+                <span class="input-group-btn">
+                  <button id="actionTicket"
+                          aria-label="Copy to clipboard"
+                          class="btn btn-default"
+                          data-clipboard-target="fieldTicket"
+                          data-copied-hint="Copied!" type="button">
+                    <span class="octicon octicon-clippy"></span> Copy
+                  </button>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="post">
+              <p>
+                <span class="emph">Don't forget!</span>
+                You will get a new URL to share with your friend
+                in order to confirm the collaboration.
+              </p>
+              <p>
+                Greetings!
+              </p>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -88,10 +89,10 @@
       var client = new ZeroClipboard( $("#actionTicket") );
 
       client.on("ready", function(event){
-        client.on( "copy", function( event ){
-        var clipboard = event.clipboardData;
-        clipboard.setData( "text/plain", $("#fieldTicket").val() );
-        });
+      client.on( "copy", function( event ){
+      var clipboard = event.clipboardData;
+      clipboard.setData( "text/plain", $("#fieldTicket").val() );
+      });
       });
 
       $("#fieldTicket").val(document.URL);
