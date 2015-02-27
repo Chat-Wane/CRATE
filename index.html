@@ -47,19 +47,19 @@
               <ul id="dropdowncontainerNetwork" class="dropdown-menu"
                   role="menu" aria-labelledby="networkdropdownmenu">
                 <li role="presentation">
-                  <a id="new">New</a>
+                  <a id="new" href="javascript:void(0)">New</a>
                 </li>
                 <li role="presentation">
-                  <a id="open">
-                    <input type="file" id="openInput" tabindex="-1"/>
+                  <a id="open" href="javascript:void(0)">
+                    <input type="file" id="openInput"/>
                     Open
                   </a>
                 </li>
                 <li role="presentation">
-                  <a id="quickSave">Quick save</a>
+                  <a id="quickSave" href="javascript:void(0)">Quick save</a>
                 </li>
                 <li role="presentation">
-                  <a id="saveOnDisk">Save on disk</a>
+                  <a id="saveOnDisk" href="javascript:void(0)">Save on disk</a>
                 </li>
               </ul>
             </div>
@@ -75,26 +75,26 @@
               <ul id="dropdowncontainerNetwork" class="dropdown-menu"
                   role="menu" aria-labelledby="networkdropdownmenu">
                 <li role="presentation">
-                  <a id="launch">
+                  <a id="launch" href="javascript:void(0)">
                     <span class="octicon octicon-alignment-align"></span>
                     Get an entrance ticket
                   </a>
                 </li>
                 <li role="presentation">
-                  <a id="answer">
+                  <a id="answer" href="javascript:void(0)">
                     <span class="octicon octicon-alignment-aligned-to"></span>
                     Stamp a ticket
                   </a>
                 </li>
                 <li role="presentation">
-                  <a id="handshake">
+                  <a id="handshake" href="javascript:void(0)">
                     <span class="octicon octicon-alignment-unalign"></span>
                     Confirm our arrival
                   </a>
                 </li>
                 <li class="divider"></li>
                 <li id="liDisconnect" class="disabled">
-                  <a id="disconnect">
+                  <a id="disconnect" href="javascript:void(0)">
                     <span class="octicon octicon-circle-slash"></span>
                     Disconnect
                   </a>
@@ -111,18 +111,18 @@
               <ul class="dropdown-menu"
                   role="menu" aria-labelledby="networkdropdownmenu">
                 <li role="presentation" class="disabled">
-                  <a id="settingsEditor">
+                  <a id="settingsEditor" href="javascript:void(0)">
                     <span class="octicon octicon-book"></span> Editor
                   </a>
                 </li>
                 <li role="presentation" class="disabled">
-                  <a id="settingsNetwork">
+                  <a id="settingsNetwork" href="javascript:void(0)">
                     <span class="octicon octicon-organization"></span> Network
                   </a>
                 </li>
                 <li class="divider"></li>
                 <li role="presentation">
-                  <a id="monitoring">
+                  <a id="monitoring" href="javascript:void(0)">
                     <span class="octicon octicon-device-desktop"></span>
                     Monitoring
                   </a>
@@ -236,14 +236,39 @@
     
     <script src="./controller/networkstatecontroller.js"></script>
     <script src="./controller/editorcontroller.js"></script>
+
+    <script>
+      var peerConnectionConfig;
+      
+      $.ajax({
+        type: "POST",
+        url: "https://api.xirsys.com/getIceServers",
+        data: {
+          ident: "chatwane",
+          secret: "8105d907-564a-4213-8c91-21b0a2f7344b",
+          domain: "www.crate.com",
+          application: "crate",
+          room: "default",
+          secure: 1
+        },
+        success: function (data, status) {
+          // data.d is where the iceServers object lives
+          var object = JSON.parse(data);
+          peerConnectionConfig = object.d;
+        },
+        async: false
+      });
+    </script>
+
+    
     <script>
       // #0 initialize the model
       var argUid = null;
       if ((document.URL.split("?")).length>1){
         argUid = document.URL.split("?")[1];
       };
-      var m = new Model( document.URL.split("?").length>1,
-                         JSON.parse(localStorage.getItem("default")));
+      var m = new Model(peerConnectionConfig, document.URL.split("?").length>1,
+                        JSON.parse(localStorage.getItem("default")));
 
       // #1 initialize part of the view
       $(function(){ $('[data-toggle="tooltip"]').tooltip(); })

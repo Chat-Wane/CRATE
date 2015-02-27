@@ -6,16 +6,20 @@ function MonitoringButtonController(model, btn,
                                     idTotalSizeChartView,
                                     viewSizeChartView,
                                     trafficChartView){
-    editorStatsDiv.toggle();
-    networkStatsDiv.toggle();
+    editorStatsDiv.hide();
+    networkStatsDiv.hide();
         
     btn.unbind("click").click(function(){
-        editorStatsDiv.toggle();
+//        editorStatsDiv.toggle();
         networkStatsDiv.toggle();
 
-        if (editorStatsDiv.is(":visible")){
-            window.scrollTo(0,editorStatsDiv.offset().top-65);
+        if (networkStatsDiv.is(":visible")){
+            window.scrollTo(0,networkStatsDiv.offset().top-65);
         };
+        
+//        if (editorStatsDiv.is(":visible")){
+//            window.scrollTo(0,editorStatsDiv.offset().top-65);
+//        };
         
         idSizeChartView.update();
         idTotalSizeChartView.update();
