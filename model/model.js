@@ -11,7 +11,7 @@ function Model(config, connect, object){
         this.document.fromObject(object);
     };
     this.network = new Network(this.uid, {webRTCConf:config});
-    this.signaling = new Signaling(this.uid, this.network);
+    this.signaling = new Signaling(Lorem.getWord(), this.network);
     
     this.stats = new Stats();
 };

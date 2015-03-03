@@ -73,7 +73,8 @@ Signaling.prototype.startJoining = function(originUid){
                 setTimeout(function(){
                     console.log("launched");
                     self.socket.emit("launch",
-                                     originUid, self.uid, launchMessage);
+                                     originUid, self.network._membership.uid,
+                                     launchMessage);
                 }, 1500);
             });
     });
