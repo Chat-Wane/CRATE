@@ -7,15 +7,16 @@
 function Signaling(uid, network){
     this.uid = uid;
     this.network = network;
-    //this.address = "file:///Users/chat-wane/Desktop/project/crate/"
-    this.address = "http://chat-wane.github.io/CRATE/";
-    this.signalingServer = "https://ancient-shelf-9067.herokuapp.com";
+    this.address = "file:///Users/chat-wane/Desktop/project/crate/"
+    // this.address = "http://chat-wane.github.io/CRATE/";
+    // this.signalingServer = "https://ancient-shelf-9067.herokuapp.com";
     // this.signalingServer = "http://adrouet.net:5000";
+    this.signalingServer = "http://127.0.0.1:5000";
     this.socketIOConfig = { "force new connection": true,
                             "reconnection": false };
     this.startedSocket = false;
     this.socket = null;
-    this.socketDuration = 2 * 60 * 1000;
+    this.socketDuration = 5 * 60 * 1000;
     this.timeout = null;
 };
 
@@ -32,8 +33,7 @@ Signaling.prototype.createSocket = function(){
                 setTimeout(function(){
                     console.log("answered");
                     self.socket.emit("answer", self.uid, answerMessage);
-                    self.socket.disconnect();
-                },1500);
+                }, 1500);
             });
         });
         this.socket.on("answerResponse", function(handshakeMessage){
@@ -50,8 +50,7 @@ Signaling.prototype.createSocket = function(){
     // restart timer before closing the connection
     if (this.timeout!==null){ clearTimeout(this.timeout); }; 
     this.timeout = setTimeout(function(){
-        self.socket.disconnect();
-        self.startedSocket = false;
+        self.socket.emit("unshare");
         self.timeout = null;
     }, this.socketDuration);
 };
@@ -60,12 +59,12 @@ Signaling.prototype.startSharing = function(){
     var self = this;
     this.createSocket();
     this.socket.on("connect", function(){
-        self.socket.emit("launch", self.uid);
+        self.socket.emit("share", self.uid);
     });
     return this.socket;
 };
 
-Signaling.prototype.startJoining = function(uid){
+Signaling.prototype.startJoining = function(originUid){
     var self = this;
     this.createSocket();
     this.socket.on("connect", function(){
@@ -73,8 +72,9 @@ Signaling.prototype.startJoining = function(uid){
             function(launchMessage){
                 setTimeout(function(){
                     console.log("launched");
-                    self.socket.emit("launch", uid, launchMessage);
-                }, 1500 );
+                    self.socket.emit("launch",
+                                     originUid, self.uid, launchMessage);
+                }, 1500);
             });
     });
     return this.socket;
