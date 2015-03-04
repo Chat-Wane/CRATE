@@ -8,11 +8,11 @@
 function Signaling(name, network){
     this.name = name;
     this.network = network;
-    this.address = "file:///Users/chat-wane/Desktop/project/crate/"
-    // this.address = "http://chat-wane.github.io/CRATE/";
-    // this.signalingServer = "https://ancient-shelf-9067.herokuapp.com";
+    // this.address = "file:///Users/chat-wane/Desktop/project/crate/"
+     this.address = "http://chat-wane.github.io/CRATE/";
+     this.signalingServer = "https://ancient-shelf-9067.herokuapp.com";
     // this.signalingServer = "http://adrouet.net:5000";
-    this.signalingServer = "http://127.0.0.1:5000";
+    // this.signalingServer = "http://127.0.0.1:5000";
     this.socketIOConfig = { "force new connection": true,
                             "reconnection": false };
     this.startedSocket = false;
@@ -41,7 +41,6 @@ Signaling.prototype.createSocket = function(){
         });
         this.socket.on("answerResponse", function(handshakeMessage){
             self.network._membership.handshake(handshakeMessage);
-            self.startedSocket = false;
             self.socket.disconnect();
         });
         this.socket.on("disconnect", function(){
@@ -55,6 +54,7 @@ Signaling.prototype.createSocket = function(){
     if (this.timeout!==null){ clearTimeout(this.timeout); }; 
     this.timeout = setTimeout(function(){
         self.socket.emit("unshare");
+        self.socket.disconnect();
         self.timeout = null;
     }, this.socketDuration);
 };
