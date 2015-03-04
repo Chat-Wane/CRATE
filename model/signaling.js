@@ -1,11 +1,12 @@
 
 /*!
  * \brief handle the signaling server
- * \param uid the local unique site identifier
+ * \param name the identifier used at the signaling server to identify your
+ * editing session
  * \param network the network part of the model
  */
-function Signaling(uid, network){
-    this.uid = uid;
+function Signaling(name, network){
+    this.name = name;
     this.network = network;
     this.address = "file:///Users/chat-wane/Desktop/project/crate/"
     // this.address = "http://chat-wane.github.io/CRATE/";
@@ -18,6 +19,7 @@ function Signaling(uid, network){
     this.socket = null;
     this.socketDuration = 5 * 60 * 1000;
     this.timeout = null;
+    this.joiners = 0;
 };
 
 Signaling.prototype.createSocket = function(){
@@ -29,10 +31,11 @@ Signaling.prototype.createSocket = function(){
             console.log("Connection to the signaling server established");
         });
         this.socket.on("launchResponse", function(message){
+            self.joiners = self.joiners + 1;
             self.network._membership.answer(message, function(answerMessage){
                 setTimeout(function(){
                     console.log("answered");
-                    self.socket.emit("answer", self.uid, answerMessage);
+                    self.socket.emit("answer", self.name, answerMessage);
                 }, 1500);
             });
         });
@@ -44,6 +47,7 @@ Signaling.prototype.createSocket = function(){
         this.socket.on("disconnect", function(){
             console.log("Disconnection from the signaling server");
             self.startedSocket = false;
+            self.joiners = 0;
         });
     }
 
@@ -59,12 +63,12 @@ Signaling.prototype.startSharing = function(){
     var self = this;
     this.createSocket();
     this.socket.on("connect", function(){
-        self.socket.emit("share", self.uid);
+        self.socket.emit("share", self.name);
     });
     return this.socket;
 };
 
-Signaling.prototype.startJoining = function(originUid){
+Signaling.prototype.startJoining = function(originName){
     var self = this;
     this.createSocket();
     this.socket.on("connect", function(){
@@ -73,7 +77,7 @@ Signaling.prototype.startJoining = function(originUid){
                 setTimeout(function(){
                     console.log("launched");
                     self.socket.emit("launch",
-                                     originUid, self.network._membership.uid,
+                                     originName, self.network._membership.uid,
                                      launchMessage);
                 }, 1500);
             });

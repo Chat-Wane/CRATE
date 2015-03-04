@@ -30,11 +30,15 @@
             <span id="signalingState" 
                   class="header-state mega-octicon octicon-issue-reopened"
                   data-toggle="tooltip" data-placement="bottom"
-                  title="Disconnected"></span>
+                  title="Disconnected">
+              <span id="badgeJoiners" class="badge header-badge">0</span>
+            </span>
             <span id="networkState"
                   class="header-state mega-octicon octicon-globe"
                   data-toggle="tooltip" data-placement="bottom"
-                  title="Disconnected"></span>
+                  title="Disconnected">
+              <span class="badge header-badge">0</span>
+            </span>
             <div class="btn-group btn-header" role="group"
                  aria-label="menu bar">
               <!-- editor menu bar //-->
@@ -146,7 +150,7 @@
       </div>
     </section>
 
-    <section id="editorStats" class="stats" style="display:none;">
+    <section id="editorStats" class="stats">
       <div class="container">
         <h2>Editor's stats</h2>
         <div class="row">
@@ -156,7 +160,7 @@
       </div>
     </section>
     
-    <section id="networkStats" class="stats" style="display:none;">
+    <section id="networkStats" class="stats">
       <div class="container">
         <h2>Network's stats</h2>
         <div class="row">
@@ -277,7 +281,8 @@
       // #1 initialize part of the view
       $(function(){ $('[data-toggle="tooltip"]').tooltip(); })
       var nsv = new NetworkStateView($("#networkState"));      
-      var ssv = new SignalingStateView(m.signaling, $("#signalingState"));
+      var ssv = new SignalingStateView(m.signaling, $("#signalingState"),
+      $("#badgeJoiners"));
       var lv = new LinkView($("#containerLink"), $("#alertLink"),
       $("#actionLink"), $("#inputLink"), $("#dismissLink"));
 
@@ -336,8 +341,8 @@
       // #3 if argument has been passed launch a connection through signaling
       if (argUid !== null){
         var socket = m.signaling.startJoining(argUid);
-        ssv.pending("waitSignaling");
-        socket.on("connect", function(){ ssv.pending("waitPeer"); });
+        ssv.setState("waitSignaling");
+        socket.on("connect", function(){ ssv.setState("waitSharer"); });
       };
       
     </script>

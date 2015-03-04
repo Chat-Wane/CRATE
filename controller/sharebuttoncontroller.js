@@ -12,17 +12,18 @@ function ShareButtonController(model, shareBtn,
     shareBtn.unbind("click").click(
         function(){
             var socket, action, client, self;
+            if (model.signaling.startedSocket){ return ; };
             // #0 create the proper call to the server
             socket = model.signaling.startSharing();            
-            signalingView.pending("waitSignaling");
+            signalingView.setState("waitSignaling");
             socket.on("connect", function(){
-                signalingView.pending("waitPeer");
-            });            
+                signalingView.setState("waitJoiners");
+            });
             // #1 modify the view            
             if (model.signaling.startedSocket){
                 action = linkView.printLink(model.signaling.address+
                                             "index.html?"+
-                                            model.signaling.uid);
+                                            model.signaling.name);
                 client = new ZeroClipboard(action);
                 client.on("ready", function(event){
                     client.on( "copy", function( event ){

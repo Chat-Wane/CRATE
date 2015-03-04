@@ -35,7 +35,7 @@ body {
 
 #top-header { .header(15px, 13px, black, @light-grey) }
 
-.header-state {margin-right: 10px;}
+.header-badge {visibility: hidden; margin-left: -20px;}
 
 .btn-header{
   margin-top:-12px;
@@ -65,12 +65,12 @@ body {
 
 .stats {
   box-shadow: inset 1px 3px 1px -2px #ababab;
-  padding-top:20px;
-  padding-bottom:20px;
+  padding-top: 20px;
+  padding-bottom: 20px;
 }
 
-#editorStats { background-color:@white; }
-#networkStats { background-color:@light-grey; }
+#editorStats { display: none; background-color: @white; }
+#networkStats { display: none; background-color: @light-grey; }
 
 hr{ border-top: 1px dotted @medium-grey; }
 
