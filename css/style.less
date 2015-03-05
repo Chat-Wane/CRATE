@@ -64,15 +64,6 @@ body {
   padding-bottom: 15px;
 }
 
-.stats {
-  box-shadow: inset 1px 3px 1px -2px #ababab;
-  padding-top: 20px;
-  padding-bottom: 20px;
-}
-
-#editorStats { display: none; background-color: @white; }
-#networkStats { display: none; background-color: @light-grey; }
-
 hr{ border-top: 1px dotted @medium-grey; }
 
 .post{
@@ -85,12 +76,23 @@ hr{ border-top: 1px dotted @medium-grey; }
 
 #editor { min-height: 500px }
 
+#configDurationSlider { width:100%; }
+
 .chart-title {
   font-weight: bold;
 }
 .chart-description {
   font-weight: normal;
 }
+
+.stats {
+  box-shadow: inset 1px 3px 1px -2px #ababab;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+#editorStats { display: none; background-color: @white; }
+#networkStats { display: none; background-color: @light-grey; }
 
 .icon(@url, @size){
   display: inline-block;

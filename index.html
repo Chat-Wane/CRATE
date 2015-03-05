@@ -15,6 +15,11 @@
     <link rel="stylesheet"
           href="bower_components/chartist/dist/chartist.min.css" />
     <script src="./bower_components/chartist/dist/chartist.min.js"></script>
+    
+    <link rel="stylesheet" href="./bower_components/seiyria-bootstrap-slider/dist/css/bootstrap-slider.min.css"></script>
+
+
+    
   </head>
   
   <body>
@@ -119,8 +124,9 @@
                     <span class="octicon octicon-book"></span> Editor
                   </a>
                 </li>
-                <li role="presentation" class="disabled">
-                  <a id="settingsNetwork" href="javascript:void(0)">
+                <li role="presentation">
+                  <a id="settingsNetwork" data-toggle="modal"
+                     data-target="#modalNetwork" href="#modalNetwork">
                     <span class="octicon octicon-organization"></span> Network
                   </a>
                 </li>
@@ -150,6 +156,45 @@
       </div>
     </section>
 
+
+    
+    <div class="modal fade" id="modalNetwork" tabindex="-1" role="dialog"
+         aria-labelledby="modelNetworkLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal"
+                    aria-label="Close">
+              <span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">Network's settings</h4>
+          </div>
+          <div class="modal-body">
+            <p>
+              Shared address:
+              <div class="input-group">
+                <span class="input-group-addon" id="configAddress"></span>
+                <input type="text" id="configName" class="form-control"
+                       placeholder="" aria-describedby="basic-addon1"/>
+              </div>
+            </p>
+            <p>
+              Duration of sharing access:
+              <input id="configDuration" data-slider-id="configDurationSlider"
+                     type="text"
+                     data-slider-min="30000" data-slider-max="600000"
+                     data-slider-step="1000" data-slider-value="60000"/>
+            </p>
+          </div>
+          <div class="modal-footer">
+            <button type="button"
+                    class="btn btn-default" data-dismiss="modal">Close</button>
+            <button id="saveNetworkSettings" type="button"
+                    class="btn btn-primary">Save changes</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    
     <section id="editorStats" class="stats">
       <div class="container">
         <h2>Editor's stats</h2>
@@ -215,8 +260,7 @@
     <script> var LSEQTree = require("lseqtree"); </script>
 
     <script src="./bower_components/Lorem.js/lorem.min.js"></script>
-
-
+    <script src="./bower_components/seiyria-bootstrap-slider/dist/bootstrap-slider.min.js"></script>
     
     <script src="./model/messages.js"></script>
     <script src="./model/document.js"></script>
@@ -240,6 +284,8 @@
     <script src="./controller/answerbuttoncontroller.js"></script>
     <script src="./controller/handshakebuttoncontroller.js"></script>
     <script src="./controller/disconnectbuttoncontroller.js"></script>
+
+    <script src="./controller/networksettingsbuttoncontroller.js"></script>
     <script src="./controller/monitoringbuttoncontroller.js"></script>
     
     <script src="./controller/networkstatecontroller.js"></script>
@@ -270,6 +316,7 @@
 
     
     <script>
+      
       // #0 initialize the model
       var argUid = null;
       if ((document.URL.split("?")).length>1){
@@ -335,6 +382,9 @@
       var cDisconnect = new DisconnectButtonController(m, $("#disconnect"),
       $("#liDisconnect"));
 
+      var cNetworkSettings = new NetworkSettingsButtonController(m,
+      $("#settingsNetwork"), $("#configAddress"), $("#configName"),
+      $("#configDuration"), $("#saveNetworkSettings"));
       var cMonitoring = new MonitoringButtonController(m, $("#monitoring"),
       $("#editorStats"),$("#networkStats"), iscv, tscv, vscv, tcv);
       

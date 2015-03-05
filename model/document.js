@@ -39,7 +39,7 @@ Document.prototype.fromObject = function(object){
         Object.setPrototypeOf(childNode.t, protoTriple);
         if (childNode.children.length === 0){return;}
         for (var i = 0; i<childNode.children.length; ++i){
-            castChildNode(childNode[i]);
+            castChildNode(childNode.children[i]);
         };
     };
     for (var i=0; i<sequence.root.children.length; ++i){

@@ -12,7 +12,8 @@
     "socket.io-client": "latest",
     "rtc-scamp": "latest",
     "chartist": "latest",
-    "Lorem.js": "latest"
+    "Lorem.js": "latest",
+    "seiyria-bootstrap-slider": "latest"
   },
   "devDependencies": {
     "less": "latest"
