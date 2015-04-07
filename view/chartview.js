@@ -7,7 +7,7 @@ function ChartView(data, containerDiv, divChart, title, description){
     this.options = this.getLineChartOptions();
     this.chart = null;
    
-    divChart.html('<div class="col-md-6"> <div class="post text-center">'+
+    divChart.html('<div class="col-md-6"> <div class="post text-justify">'+
                   '<div id="'+this.idCanvas+
                   '" class="ct-chart ct-perfect-fourth"></div>'+
                   '<p><span class="chart-title">'+title+'</span></p>'+
@@ -28,7 +28,6 @@ ChartView.prototype.update = function(start){
                 .append('<div class="tooltip tooltip-chart"></div>')
                 .find('.tooltip')
                 .hide();
-            $('.tooltip').css("opacity", 1);
             $toolTip.tooltip({   content: function () {
                 return $(this).html();
             }});

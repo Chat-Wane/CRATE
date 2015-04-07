@@ -8,15 +8,27 @@
 @green: #228b22;
 @blue: #00BFFF;
 
-@font: 'Open Sans', sans-serif;
-@font-title: 'Josefin Slab', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+
+@font: crimson;
 @font-size: 1.5em;
 @small-font-size: 0.8em;
+
+@font-face{
+    font-family: crimson;
+    src: url("../font/CrimsonText-Regular.ttf");
+    font-weight: regular;
+}
+@font-face{
+    font-family: crimson;
+    src: url("../font/CrimsonText-Bold.ttf");
+    font-weight: bold;
+}
 
 body {
   background-color: @light-grey;
   line-height: 27px;
-  font-family: @font;
+  font-family: crimson;
+  font-size: @font-size;
 }
 
 
@@ -93,11 +105,13 @@ hr{ border-top: 1px dotted @medium-grey; }
 
 #editorStats { display: none; background-color: @white; }
 #networkStats { display: none; background-color: @light-grey; }
+
 .tooltip-chart {
   padding:.5em;
   background: @light-grey;
   font-weight: bold;
   text-align: center;
+  opacity: 1;
 }
 
 .icon(@url, @size){
