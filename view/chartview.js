@@ -25,7 +25,7 @@ ChartView.prototype.update = function(start){
                                            this.options);
             var $chart = $('#'+this.idCanvas);
             var $toolTip = $chart
-                .append('<div class="tooltip"></div>')
+                .append('<div class="tooltip tooltip-chart"></div>')
                 .find('.tooltip')
                 .hide();
             $('.tooltip').css("opacity", 1);
