@@ -1,24 +1,11 @@
 
+/*!
+ * \brief gather data to show them to the user. With them, the user should 
+ * be able to easily understand the behaviour of CRATE
+ */
 function Stats(){
-    this.idSize = {
-        labels: [0],
-        series: [[0]]
-    };
-
-    this.totalSize = {
-        labels: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        series: [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0]]
-    };
-
-    this.messageType = {
-        labels: ["MSubscriptionRequest", "MSubscriptionResponse",
-                 "MOfferRequest", "MOfferResponse",
-                 "MWeightUpdate",
-                 "MInsertOperation", "MRemoveOperation",
-                 "MAntiEntropyRequest", "MAntiEntropyResponse"],
-        series: [0, 0,  0, 0,  0,  0, 0,  0, 0]
-    };
-
+    // #1 the in/out views of the local peer over time, i.e., how many users
+    // are connected to me, and how many users am I connected to?
     this.viewSize = {
         labels: [0,0,0,0,0,0,0,0,0,0,0],
         series: [ {name: 'incoming connections',
@@ -26,7 +13,7 @@ function Stats(){
                   {name: 'outgoing connections',
                    data: [0,0,0,0,0,0,0,0,0,0,0]}]
     };
-
+    // #2 the in/out number of messages over time
     this.traffic = {
         labels: [0,0,0,0,0,0,0,0,0,0,0],        
         series: [ {name: 'incoming traffic',
@@ -34,5 +21,5 @@ function Stats(){
                   {name: 'outgoing traffic',
                    data: [0,0,0,0,0,0,0,0,0,0,0]} ]
     };
-
+    
 };

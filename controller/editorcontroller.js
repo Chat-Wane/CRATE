@@ -11,6 +11,8 @@ function EditorController(model, editorElement){
     this.editor = editor;
     this.editorElement = editorElement;
     this.fromRemote = false;
+
+    editor.$blockScrolling = Infinity;
     
     // #A initialize the ace editor
     editor.setTheme("ace/theme/chrome");
@@ -112,9 +114,8 @@ function EditorController(model, editorElement){
             index = model.document.remoteInsert(message._e,message._i),
             delta,
             tempFromRemote;
-
+        
         if (index !== -1){
-            model.network.emit("remote", message, index);
             delta = {action: 'insertText',
                      range: { start: aceDocument.indexToPosition(index-1),
                               end:   aceDocument.indexToPosition(index)},
@@ -133,7 +134,6 @@ function EditorController(model, editorElement){
             tempFromRemote;
 
         if (index !== -1){
-            model.network.emit("remote", message, index);
             delta = {action: 'removeText',
                      range: { start: aceDocument.indexToPosition(index - 1),
                               end:   aceDocument.indexToPosition(index)},
