@@ -13,12 +13,12 @@ function ChartController(model,
             model.stats.viewSize.labels[model.stats.viewSize.labels.length-1]+
                 updateViewSize/1000);
         model.stats.viewSize.labels.shift();
-        model.stats.viewSize.series[0].push(
+        model.stats.viewSize.series[0].data.push(
             model.network._membership.inView.length() );
-        model.stats.viewSize.series[0].shift();
-        model.stats.viewSize.series[1].push(
+        model.stats.viewSize.series[0].data.shift();
+        model.stats.viewSize.series[1].data.push(
             model.network._membership.partialView.length() );
-        model.stats.viewSize.series[1].shift();
+        model.stats.viewSize.series[1].data.shift();
         viewSizeChartView.update(); // model.stats.viewSize
     }, updateViewSize);
 
@@ -28,15 +28,15 @@ function ChartController(model,
             model.stats.traffic.labels[model.stats.viewSize.labels.length-1]+
                 updateTraffic/1000);
         model.stats.traffic.labels.shift();
-        model.stats.traffic.series[0].push(0);
-        model.stats.traffic.series[0].shift();
-        model.stats.traffic.series[1].push(0);
-        model.stats.traffic.series[1].shift();
+        model.stats.traffic.series[0].data.push(0);
+        model.stats.traffic.series[0].data.shift();
+        model.stats.traffic.series[1].data.push(0);
+        model.stats.traffic.series[1].data.shift();
     }, updateTraffic);
 
     model.network._membership.on("churn", function(peer, message){
-        model.stats.traffic.series[0][model.stats.traffic.series[0].length-1]
-            += 1;
+        model.stats.traffic.series[0].data[
+            model.stats.traffic.series[0].data.length-1] += 1;
     });
 
     model.network.on("remote", function(message, index){
@@ -48,12 +48,12 @@ function ChartController(model,
             model.stats.totalSize.labels.push(
                 model.stats.totalSize.labels[
                     model.stats.totalSize.labels.length-1] + 1);
-            model.stats.totalSize.series[0].push(
-                model.stats.totalSize.series[0][
-                    model.stats.totalSize.series[0].length-1]+
+            model.stats.totalSize.series[0].data.push(
+                model.stats.totalSize.series[0].data[
+                    model.stats.totalSize.series[0].data.length-1]+
                     message._i._c.length);
             model.stats.totalSize.labels.shift();
-            model.stats.totalSize.series[0].shift();
+            model.stats.totalSize.series[0].data.shift();
             idTotalSizeChartView.update(); // model.stats.totalSize
         } else {
             //model.stats.idSize.labels.pop();
@@ -62,20 +62,20 @@ function ChartController(model,
             model.stats.totalSize.labels.push(
                 model.stats.totalSize.labels[
                     model.stats.totalSize.labels.length-1] + 1);
-            model.stats.totalSize.series[0].push(
-                model.stats.totalSize.series[0][
-                    model.stats.totalSize.series[0].length-1] -
+            model.stats.totalSize.series[0].data.push(
+                model.stats.totalSize.series[0].data[
+                    model.stats.totalSize.series[0].data.length-1] -
                     message._c.length);
             
             model.stats.totalSize.labels.shift();
-            model.stats.totalSize.series[0].shift();
+            model.stats.totalSize.series[0].data.shift();
             idTotalSizeChartView.update(); //model.stats.totalSize
         };
     });
     
     model.network.on("local", function(message, index){
-        model.stats.traffic.series[1][model.stats.traffic.series[1].length-1]
-            += 1;
+        model.stats.traffic.series[1].data[
+            model.stats.traffic.series[1].data.length-1] += 1;
         switch (message.type){
         case "MInsertOperation":
 //            model.stats.idSize.labels.push(model.stats.idSize.labels.length);

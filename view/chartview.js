@@ -1,6 +1,7 @@
 
 function ChartView(data, containerDiv, divChart, title, description){
     this.idCanvas = divChart.attr('id')+"Canvas";
+    this.tooltip = $("#"+divChart.attr('id')+"Tooltip");
     this.containerDiv = containerDiv;
     this.data = data;
     this.options = this.getLineChartOptions();
@@ -12,16 +13,46 @@ function ChartView(data, containerDiv, divChart, title, description){
                   '<p><span class="chart-title">'+title+'</span></p>'+
                   '<p><span class="chart-description">'+
                   description+'</span></p>'+
-                  '</div></div>');    
+                  '</div></div>');
 };
 
 
-ChartView.prototype.update = function(){
+ChartView.prototype.update = function(start){
     if (this.containerDiv.is(":visible")){
         if (this.chart === null){
             this.chart = new Chartist.Line("#"+this.idCanvas,
                                            this.data,
                                            this.options);
+            var $chart = $('#'+this.idCanvas);
+            var $toolTip = $chart
+                .append('<div class="tooltip"></div>')
+                .find('.tooltip')
+                .hide();
+            $('.tooltip').css("opacity", 1);
+            $toolTip.tooltip({   content: function () {
+                return $(this).html();
+            }});
+            
+            $chart.on('mouseenter', '.ct-point', function() {
+                var $point = $(this),
+                    value = $point.attr('ct:value'),
+                    seriesName = $point.parent().attr('ct:series-name');
+                $toolTip.html(seriesName + '<br/>' + value).show();
+            });
+            
+            $chart.on('mouseleave', '.ct-point', function() {
+                $toolTip.hide();
+            });
+            
+            $chart.on('mousemove', function(event) {
+                $toolTip.css({
+                    left: (event.offsetX || event.originalEvent.layerX) -
+                        $toolTip.width() / 2 - 10,
+                    top: (event.offsetY || event.originalEvent.layerY) -
+                        $toolTip.height() - 40
+                });
+            });
+            
         };
         this.chart.update(this.data);
     };

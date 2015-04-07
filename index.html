@@ -15,11 +15,9 @@
     <link rel="stylesheet"
           href="bower_components/chartist/dist/chartist.min.css" />
     <script src="./bower_components/chartist/dist/chartist.min.js"></script>
-    
+
     <link rel="stylesheet" href="./bower_components/seiyria-bootstrap-slider/dist/css/bootstrap-slider.min.css"></script>
 
-
-    
   </head>
   
   <body>
@@ -225,7 +223,6 @@
         <div class="row">
           <div id="trafficChart"></div>
           <div id="viewSizeChart"></div>
-        </div>
     </section>
     
     <div class="container">
@@ -340,7 +337,6 @@
                         JSON.parse(localStorage.getItem("default")));
 
       // #1 initialize part of the view
-      $(function(){ $('[data-toggle="tooltip"]').tooltip(); })
       var nsv = new NetworkStateView($("#networkState"));      
       var ssv = new SignalingStateView(m.signaling, $("#signalingState"),
       $("#badgeJoiners"));
@@ -408,7 +404,9 @@
         ssv.setState("waitSignaling");
         socket.on("connect", function(){ ssv.setState("waitSharer"); });
       };
-      
+
+
+      $(function(){ $('[data-toggle="tooltip"]').tooltip(); });
     </script>
  
     

@@ -8,7 +8,8 @@ function MonitoringButtonController(model, btn,
                                     trafficChartView){
     editorStatsDiv.hide();
     networkStatsDiv.hide();
-        
+
+
     btn.unbind("click").click(function(){
 //        editorStatsDiv.toggle();
         networkStatsDiv.toggle();

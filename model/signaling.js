@@ -17,7 +17,7 @@ function Signaling(name, network){
                             "reconnection": false };
     this.startedSocket = false;
     this.socket = null;
-    this.socketDuration = 1 * 60 * 1000;
+    this.socketDuration = 5 * 60 * 1000;
     this.timeout = null; // event id of the termination
     this.joiners = 0;
 };
