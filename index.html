@@ -180,6 +180,17 @@
     </section>
 
 
+    <div class="modal fade" id="modalQrcode" tabindex="-1" role="dialog"
+         aria-labelledby="modelQrcodeLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content text-center">
+          <br/>
+          <div id="qrcodeCanvas"></div>
+          <br/>
+        </div>
+      </div>
+    </div>
+    
     
     <div class="modal fade" id="modalNetwork" tabindex="-1" role="dialog"
          aria-labelledby="modelNetworkLabel" aria-hidden="true">
@@ -253,7 +264,9 @@
                        placeholder="Nothing to see here, move along."/>
                 <span class="input-group-btn">
                   <button id="qrcodeLink" aria-label="QR-code"
-                          class="btn btn-default" type="button">
+                          class="btn btn-default" type="button"
+                          data-target="#modalQrcode"
+                          data-toggle="modal">
                     <i class="fa fa-qrcode"></i> QR-Code
                   </button>
                   <button id="actionLink" aria-label="Go!"
@@ -285,6 +298,8 @@
     <script src="./bower_components/lseqtree/lseqtree.bundle.js"></script>
     <script> var LSEQTree = require("lseqtree"); </script>
 
+    <script src="./bower_components/jquery-qrcode/jquery.qrcode.min.js">
+    </script>
     <script src="./bower_components/Lorem.js/lorem.min.js"></script>
     <script src="./bower_components/seiyria-bootstrap-slider/dist/bootstrap-slider.min.js"></script>
     
@@ -356,7 +371,8 @@
       var ssv = new SignalingStateView(m.signaling, $("#signalingState"),
       $("#badgeJoiners"));
       var lv = new LinkView($("#containerLink"), $("#alertLink"),
-      $("#qrcodeLink"), $("#actionLink"), $("#inputLink"), $("#dismissLink"));
+      $("#qrcodeLink"), $("#qrcodeCanvas"),
+      $("#actionLink"), $("#inputLink"), $("#dismissLink"));
 
       var iscv = new ChartView(m.stats.idSize, $("#editorStats"),
       $("#idSizeChart"),

@@ -23,7 +23,6 @@ function SignalingStateView(signaling, span, badge){
 SignalingStateView.prototype.blink = function(){
     var self = this;
     this.span.show();
-    this.badge.css("visibility", "visible");
     this.badge.html(this.signaling.joiners);
     setTimeout( function(){
         if (self.signaling.startedSocket){

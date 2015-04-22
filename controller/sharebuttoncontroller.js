@@ -19,7 +19,7 @@ function ShareButtonController(model, shareBtn,
             socket.on("connect", function(){
                 signalingView.setState("waitJoiners");
             });
-            // #1 modify the view            
+            // #1 modify the view
             if (model.signaling.startedSocket){
                 action = linkView.printLink(model.signaling.address+
                                             "index.html?"+
@@ -32,7 +32,16 @@ function ShareButtonController(model, shareBtn,
                                            linkView.input.val() );
                     });
                 });
-            };
+            };            
         }
     );
+    linkView.qrcode.click(function(){
+        var address=model.signaling.address+"index.html?"+model.signaling.name;
+        linkView.qrcodeCanvas.html("");
+        linkView.qrcodeCanvas.qrcode({
+            width:400,
+            height:400,
+            text:address
+        });
+    });
 };

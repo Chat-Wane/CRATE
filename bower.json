@@ -13,7 +13,8 @@
         "chartist": "latest",
         "Lorem.js": "latest",
         "seiyria-bootstrap-slider": "latest",
-        "font-awesome": "latest"
+        "font-awesome": "latest",
+        "jquery-qrcode": "latest"
     },
     "devDependencies": {
         "less": "latest"
