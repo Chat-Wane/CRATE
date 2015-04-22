@@ -1,21 +1,21 @@
 {
-  "name": "CRATE",
-  "version": "0.0.1",
-  "dependencies": {
-    "jquery": "latest",
-    "bootstrap": "latest",
-    "ace-builds": "latest",
-    "zeroclipboard": "latest",
-    "octicons": "latest",
-    "lseqtree": "latest",
-    "causaltrack": "latest",
-    "socket.io-client": "latest",
-    "rtc-scamp": "latest",
-    "chartist": "latest",
-    "Lorem.js": "latest",
-    "seiyria-bootstrap-slider": "latest"
-  },
-  "devDependencies": {
-    "less": "latest"
-  }
+    "name": "CRATE",
+    "version": "0.0.1",
+    "dependencies": {
+        "jquery": "latest",
+        "bootstrap": "latest",
+        "ace-builds": "latest",
+        "zeroclipboard": "latest",
+        "lseqtree": "latest",
+        "causaltrack": "latest",
+        "socket.io-client": "latest",
+        "rtc-scamp": "latest",
+        "chartist": "latest",
+        "Lorem.js": "latest",
+        "seiyria-bootstrap-slider": "latest",
+        "font-awesome": "latest"
+    },
+    "devDependencies": {
+        "less": "latest"
+    }
 }

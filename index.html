@@ -3,7 +3,7 @@
     <title>CRATE</title>
     <link rel="icon" type="image/png" href="./img/crateicon.png" />
     <link rel="stylesheet"
-          href="./bower_components/octicons/octicons/octicons.css" />
+          href="./bower_components/font-awesome/css/font-awesome.min.css" />
     <link rel="stylesheet"
           href="./bower_components/bootstrap/dist/css/bootstrap.min.css"/>
     <link rel="stylesheet"
@@ -35,31 +35,33 @@
 
           
           <div class="pull-right">
-            <span id="signalingState" 
-                  class="mega-octicon octicon-issue-reopened"
-                  data-toggle="tooltip" data-placement="bottom"
-                  title="Disconnected">
-              <span id="badgeJoiners" class="badge header-badge">0</span>
-            </span>
-            <span id="networkState"
-                  class="mega-octicon octicon-globe"
-                  data-toggle="tooltip" data-placement="bottom"
-                  title="Disconnected">
-              <span class="badge header-badge">0</span>
-            </span>
+            <i id="signalingState" 
+               class="fa fa-circle-o-notch fa-2x"
+               data-toggle="tooltip" data-placement="bottom"
+               title="Disconnected"></i>
+            <span id="badgeJoiners" class="badge header-badge">0</span>
+            
+            <i id="networkState"
+               class="fa fa-globe fa-2x"
+               data-toggle="tooltip" data-placement="bottom"
+               title="Disconnected"></i>
+            <span class="badge header-badge">0</span>
+            
             <div class="btn-group btn-header" role="group"
                  aria-label="menu bar">
               <!-- editor menu bar //-->
               <button type="button"
                       class="btn btn-default dropdown-toggle"
                       aria-label="File text" data-toggle="dropdown">
-                <span class="octicon octicon-file-text"></span>&nbsp;File
+                <i class="fa fa-file-text"></i> File
                 <span class="caret"></span>
               </button>
               <ul id="dropdowncontainerNetwork" class="dropdown-menu"
                   role="menu" aria-labelledby="networkdropdownmenu">
                 <li role="presentation">
-                  <a id="new" href="javascript:void(0)">New</a>
+                  <a id="new" href="javascript:void(0)">
+                    New
+                  </a>
                 </li>
                 <li role="presentation">
                   <a id="open" href="javascript:void(0)">
@@ -68,16 +70,20 @@
                   </a>
                 </li>
                 <li role="presentation">
-                  <a id="quickSave" href="javascript:void(0)">Quick save</a>
+                  <a id="quickSave" href="javascript:void(0)">
+                    Quick save
+                  </a>
                 </li>
                 <li role="presentation">
-                  <a id="saveOnDisk" href="javascript:void(0)">Save on disk</a>
+                  <a id="saveOnDisk" href="javascript:void(0)">
+                    Save on disk
+                  </a>
                 </li>
               </ul>
             </div>
             <div class="btn-group btn-header" role="group">
               <button id="share" type="button" class="btn btn-default">
-                <span class="octicon octicon-link"></span>&nbsp;Share
+                <i class="fa fa-link"></i> Share
               </button>
               <button type="button" class="btn dropdown-toggle btn-default"
                       data-toggle="dropdown" aria-expanded="false">
@@ -88,26 +94,26 @@
                   role="menu" aria-labelledby="networkdropdownmenu">
                 <li role="presentation">
                   <a id="launch" href="javascript:void(0)">
-                    <span class="octicon octicon-alignment-align"></span>
+                    <i class="fa fa-long-arrow-right"></i>
                     Get an entrance ticket
                   </a>
                 </li>
                 <li role="presentation">
                   <a id="answer" href="javascript:void(0)">
-                    <span class="octicon octicon-alignment-aligned-to"></span>
+                    <i class="fa fa-long-arrow-left"></i>
                     Stamp a ticket
                   </a>
                 </li>
                 <li role="presentation">
                   <a id="handshake" href="javascript:void(0)">
-                    <span class="octicon octicon-alignment-unalign"></span>
+                    <i class="fa fa-exchange"></i>
                     Confirm our arrival
                   </a>
                 </li>
                 <li class="divider"></li>
                 <li id="liDisconnect" class="disabled">
                   <a id="disconnect" href="javascript:void(0)">
-                    <span class="octicon octicon-sign-out"></span>
+                    <fa class="fa fa-sign-out"></i>
                     Disconnect
                   </a>
                 </li>
@@ -117,40 +123,40 @@
               <button type="button" class="btn btn-default dropdown-toggle"
                       aria-label="Generate offer" data-toggle="dropdown"
                       id="settingsdropdownmenu">
-                <span class="octicon octicon-gear"></span>&nbsp;Settings
+                <span class="fa fa-cogs"></span>&nbsp;Settings
                 <span class="caret"></span>
               </button>
               <ul class="dropdown-menu"
                   role="menu" aria-labelledby="networkdropdownmenu">
                 <li role="presentation" class="disabled">
                   <a id="settingsEditor" href="javascript:void(0)">
-                    <span class="octicon octicon-book"></span> Editor
+                    <i class="fa fa-book"></i> Editor
                   </a>
                 </li>
                 <li role="presentation">
                   <a id="settingsNetwork" data-toggle="modal"
                      data-target="#modalNetwork" href="#modalNetwork">
-                    <span class="octicon octicon-organization"></span> Network
+                    <i class="fa fa-users"></i> Network
                   </a>
                 </li>
                 <li class="divider"></li>
                 <li role="presentation">
                   <a id="monitoring" href="javascript:void(0)">
-                    <span class="octicon octicon-graph"></span>
+                    <i class="fa fa-bar-chart"></i>
                     Monitoring
                   </a>
                 </li>
                 <li class="divider"></li>
                 <li role="presentation">
                   <a href="https://github.com/Chat-Wane/CRATE" target="_blank">
-                    <span class="octicon octicon-mark-github"></span>
+                    <i class="fa fa-github"></i>
                     Contribute
                   </a>
                 </li>
                 <li role="presentation">
                   <a href="https://github.com/Chat-Wane/CRATE/issues"
                      target="_blank">
-                    <span class="octicon octicon-issue-opened"></span> Report a
+                    <i class="fa fa-bug"></i> Report a
                     bug
                   </a>
                 </li>

@@ -10,7 +10,7 @@ function LinkView(container, alert, action, input, dismiss){
 LinkView.prototype.printLink = function(link){
     this.container.show();
     this.alert.removeClass("alert-info").addClass("alert-warning");
-    this.action.html('<span class="octicon octicon-clippy"></span>Copy');
+    this.action.html('<i class="fa fa-clipboard"></i> Copy');
     this.action.attr("aria-label", "Copy to clipboard");
     this.input.attr("readonly","readonly");
     this.input.val(link);

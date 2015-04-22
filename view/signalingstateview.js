@@ -14,7 +14,7 @@ function SignalingStateView(signaling, span, badge){
     this.span = span; this.span.hide();
     this.badge = badge;
     this.signaling = signaling;
-    this.blinkSpeed = 2000;
+    this.blinkSpeed = 1000;
 };
 
 /*!
@@ -23,14 +23,15 @@ function SignalingStateView(signaling, span, badge){
 SignalingStateView.prototype.blink = function(){
     var self = this;
     this.span.show();
+    this.badge.css("visibility", "visible");
     this.badge.html(this.signaling.joiners);
-    this.span.fadeOut(this.blinkSpeed, "linear", function(){
+    setTimeout( function(){
         if (self.signaling.startedSocket){
             self.blink();
         } else {
             self.setState("done");
         };
-    });
+    }, this.blinkSpeed);
 };
 
 /*!
@@ -44,8 +45,7 @@ SignalingStateView.prototype.setState = function(state){
     case "waitSignaling":
         this.badge.css("visibility", "hidden");
         this.span.show();
-        this.span.removeClass("octicon-issue-closed").addClass(
-            "octicon-issue-reopened");
+        this.span.removeClass("fa-spin");
         this.span.css("color", this.yellow);
         this.span.attr("data-original-title",
                        "Trying to establish a connection with the signaling "+
@@ -55,6 +55,7 @@ SignalingStateView.prototype.setState = function(state){
     case "waitSharer":
         this.badge.css("visibility", "hidden");
         this.span.show();
+        this.span.addClass("fa-spin");
         this.span.css("color", this.blue);
         this.span.attr("data-original-title",
                        "The connection to the signaling server has been "+
@@ -64,6 +65,7 @@ SignalingStateView.prototype.setState = function(state){
     case "waitJoiners":
         this.badge.css("visibility", "visible");
         this.span.css("color", this.blue);
+        this.span.addClass("fa-spin");
         this.span.attr("data-original-title",
                        "The connection to the signaling server has been "+
                        "established. Waiting for the joiners...");
@@ -72,8 +74,7 @@ SignalingStateView.prototype.setState = function(state){
     case "done":
         this.badge.css("visibility", "hidden");
         this.span.show();
-        this.span.removeClass("octicon-issue-reopened").addClass(
-            "octicon-issue-closed");
+        this.span.removeClass("fa-spin");
         this.span.attr("data-original-title",
                        "The connection to the signaling "+
                        "server has been terminated.");
