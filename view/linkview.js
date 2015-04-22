@@ -1,7 +1,8 @@
 
-function LinkView(container, alert, action, input, dismiss){
+function LinkView(container, alert, qrcode, action, input, dismiss){
     this.container = container;
     this.alert = alert;
+    this.qrcode = qrcode;
     this.action = action;
     this.input = input;
     dismiss.unbind("click").click(function(){container.hide();});

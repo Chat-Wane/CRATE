@@ -252,6 +252,10 @@
                        class="form-control"
                        placeholder="Nothing to see here, move along."/>
                 <span class="input-group-btn">
+                  <button id="qrcodeLink" aria-label="QR-code"
+                          class="btn btn-default" type="button">
+                    <i class="fa fa-qrcode"></i> QR-Code
+                  </button>
                   <button id="actionLink" aria-label="Go!"
                           class="btn btn-default" type="button"> Go!
                   </button>
@@ -352,7 +356,7 @@
       var ssv = new SignalingStateView(m.signaling, $("#signalingState"),
       $("#badgeJoiners"));
       var lv = new LinkView($("#containerLink"), $("#alertLink"),
-      $("#actionLink"), $("#inputLink"), $("#dismissLink"));
+      $("#qrcodeLink"), $("#actionLink"), $("#inputLink"), $("#dismissLink"));
 
       var iscv = new ChartView(m.stats.idSize, $("#editorStats"),
       $("#idSizeChart"),
