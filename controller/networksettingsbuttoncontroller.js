@@ -25,11 +25,24 @@ function NetworkSettingsButtonController(model, openButton,
     openButton.click(function(){
         addressField.html(model.signaling.address)
         nameField.attr("placeholder", model.signaling.name);
+        nameField.val("");
+        nameField.removeClass("alert-success").removeClass("alert-danger");
         durationField.slider("setValue", model.signaling.socketDuration);
     });
 
+    var addressRegexp = /^[a-zA-Z0-9]+$/;
+    var emptyRegexp = /^$/;
     saveButton.click(function(){
-        model.signaling.name = nameField.val();
+        if(addressRegexp.test(nameField.val())){
+            model.signaling.name = nameField.val();
+            nameField.attr("placeholder", model.signaling.name);
+            nameField.removeClass("alert-danger").addClass("alert-success");
+        } else if (!emptyRegexp.test(nameField.val())){
+            nameField.removeClass("alert-success").addClass("alert-danger");
+        } else {
+            nameField.removeClass("alert-success").removeClass("alert-danger");
+        };
+        console.log("C");
         model.signaling.socketDuration = durationField.slider("getValue");
     });
 };
