@@ -47,15 +47,14 @@ Signaling.prototype.createSocket = function(){
             console.log("Disconnection from the signaling server");
             self.startedSocket = false;
             self.joiners = 0;
+            clearTimeout(this.timeout);
         });
     }
 
     // restart timer before closing the connection
     if (this.timeout!==null){ clearTimeout(this.timeout); }; 
     this.timeout = setTimeout(function(){
-        self.socket.emit("unshare");
-        self.socket.disconnect();
-        self.timeout = null;
+        self.stopSharing();
     }, this.socketDuration);
 };
 
@@ -66,6 +65,12 @@ Signaling.prototype.startSharing = function(){
         self.socket.emit("share", self.name);
     });
     return this.socket;
+};
+
+Signaling.prototype.stopSharing = function(){
+    this.socket.emit("unshare");
+    this.socket.disconnect();
+    this.timeout = null;
 };
 
 Signaling.prototype.startJoining = function(originName){
@@ -84,3 +89,5 @@ Signaling.prototype.startJoining = function(originName){
     });
     return this.socket;
 };
+
+
