@@ -46,9 +46,12 @@ SignalingStateView.prototype.setState = function(state){
         this.span.show();
         this.span.removeClass("fa-spin");
         this.span.css("color", this.yellow);
-        this.span.attr("data-original-title",
-                       "Trying to establish a connection with the signaling "+
-                       "server...");
+        var waitSignalingString = "<span class='alert-warning'>Connecting"+
+            "</span>: establishing a connection with the signaling server. "+
+            "The latter allows people to join the editing session by using "+
+            "the provided link. "+
+            "<i>If this state persists, consider reloading the page.</i>";
+        this.span.attr("data-content", waitSignalingString);
         this.blink();
         break;
     case "waitSharer":
@@ -56,27 +59,31 @@ SignalingStateView.prototype.setState = function(state){
         this.span.show();
         this.span.addClass("fa-spin");
         this.span.css("color", this.blue);
-        this.span.attr("data-original-title",
-                       "The connection to the signaling server has been "+
-                       "established. Waiting for the sharer...");
+        var waitSharerString = "The connection to the signaling server has "+
+            "been successfully established! Waiting for the sharer now."
+        this.span.attr("data-content", waitSharerString);
         this.blink();
         break;
     case "waitJoiners":
         this.badge.css("visibility", "visible");
         this.span.css("color", this.blue);
         this.span.addClass("fa-spin");
-        this.span.attr("data-original-title",
-                       "The connection to the signaling server has been "+
-                       "established. Waiting for the joiners...");
+        var waitJoinersString = "The connection to the signaling server has "+
+            "been <span class='alert-success'>successfully</span> "+
+            "established! "+
+            "The server allows people to join the editing session by using "+
+            "the provided link. "+
+            "<span class='alert-info'>Waiting for the collaborators</span>."
+        this.span.attr("data-content", waitJoinersString);
         this.blink();
         break;
     case "done":
         this.badge.css("visibility", "hidden");
         this.span.show();
         this.span.removeClass("fa-spin");
-        this.span.attr("data-original-title",
-                       "The connection to the signaling "+
-                       "server has been terminated.");
+        var doneString = "The connection to the signaling server has been "+
+            "<span class='alert-info'>terminated</span>.";
+        this.span.attr("data-content", doneString);
         this.span.css("color", this.green);
         this.span.fadeOut(6000, "linear");        
         break;

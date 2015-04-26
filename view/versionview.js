@@ -10,6 +10,7 @@ function VersionView(versionSpan, changelogPopover){
         "Changelog"
     ];
     this.updatedFeatures = [
+        "Cosmetics of network info"
     ];
     this.bugFixes = [
         "Unshare button"

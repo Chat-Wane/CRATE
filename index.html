@@ -38,14 +38,16 @@
           <div class="pull-right">
             <i id="signalingState" 
                class="fa fa-circle-o-notch fa-2x"
-               data-toggle="tooltip" data-placement="bottom"
-               title="Disconnected"></i>
+               data-trigger="hover"
+               data-toggle="popover" title="Signaling server status"
+               data-html="true" data-content=""
+               data-placement="bottom"></i>
             <span id="badgeJoiners" class="badge header-badge">0</span>
             
-            <i id="networkState"
-               class="fa fa-globe fa-2x"
-               data-toggle="tooltip" data-placement="bottom"
-               title="Disconnected"></i>
+            <i id="networkState" class="fa fa-globe fa-2x" data-trigger="hover"
+               data-toggle="popover" title="Network status" data-html="true"
+               data-content="Disconnected: you are currently editing on your
+               own."  data-placement="bottom"></i>
             <span class="badge header-badge">0</span>
             
             <div class="btn-group btn-header" role="group"
