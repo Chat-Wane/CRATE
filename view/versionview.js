@@ -3,6 +3,9 @@ function VersionView(versionSpan, changelogPopover){
     this.versionSpan = versionSpan;
     this.changelogPopover = changelogPopover;
 
+    this.previousVersion = "0.0.1";
+    this.version = "0.0.2";
+    
     this.addedFeatures = [
         "Changelog"
     ];
@@ -13,8 +16,14 @@ function VersionView(versionSpan, changelogPopover){
 }
 
 VersionView.prototype.initialize = function(){
-    this.versionSpan.html("0.0.2");
-    this.changelogPopover.attr("title", "Changelog");
+    this.versionSpan.html(this.version);
+    
+    var versionString = "Changelog "+
+        this.previousVersion+
+        " <i class='fa fa-long-arrow-right'></i> "+
+        this.version;
+    
+    this.changelogPopover.attr("title", versionString);
 
     var changelogString = "";
     if (this.addedFeatures.length > 0){
