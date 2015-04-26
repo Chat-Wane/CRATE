@@ -26,10 +26,11 @@
         <div class="container">
           
           <div class="text-center" style="display:inline">
-            <a id="homeIcon" href="#" class="crate-icon">
-              <span class="badge version-badge">
-              v0.0.1
-            </span>
+            <a id="homeIcon" href="#" class="crate-icon"
+               data-trigger="hover"
+               data-toggle="popover" data-placement="bottom" data-html="true"
+               title="" data-content="" style="color:black">
+              <span id="version" class="badge version-badge"></span>
             </a>
           </div>
 
@@ -310,6 +311,7 @@
     <script src="./model/stats.js"></script>
     <script src="./model/model.js"></script>
 
+    <script src="./view/versionview.js"></script>
     <script src="./view/networkstateview.js"></script>
     <script src="./view/signalingstateview.js"></script>
     <script src="./view/linkview.js"></script>
@@ -368,6 +370,7 @@
                         JSON.parse(localStorage.getItem("default")));
 
       // #1 initialize part of the view
+      var vv = new VersionView($("#version"), $("#homeIcon"));
       var nsv = new NetworkStateView($("#networkState"));      
       var ssv = new SignalingStateView(m.signaling, $("#signalingState"),
       $("#badgeJoiners"));
@@ -439,6 +442,7 @@
 
 
       $(function(){ $('[data-toggle="tooltip"]').tooltip(); });
+      $(function(){ $('[data-toggle="popover"]').popover(); });
     </script>
  
     
