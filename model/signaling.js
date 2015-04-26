@@ -9,8 +9,8 @@ function Signaling(name, network){
     this.name = name;
     this.network = network;
     // this.address = "file:///Users/chat-wane/Desktop/project/crate/"
-     this.address = "http://chat-wane.github.io/CRATE/";
-     this.signalingServer = "https://ancient-shelf-9067.herokuapp.com";
+    this.address = "http://chat-wane.github.io/CRATE/";
+    this.signalingServer = "https://ancient-shelf-9067.herokuapp.com";
     // this.signalingServer = "http://adrouet.net:5000";
     // this.signalingServer = "http://127.0.0.1:5000";
     this.socketIOConfig = { "force new connection": true,
@@ -68,7 +68,7 @@ Signaling.prototype.startSharing = function(){
 };
 
 Signaling.prototype.stopSharing = function(){
-    this.socket.emit("unshare");
+    this.socket.emit("unshare", this.name);
     this.socket.disconnect();
     this.timeout = null;
 };

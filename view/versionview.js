@@ -11,6 +11,9 @@ function VersionView(versionSpan, changelogPopover){
     ];
     this.updatedFeatures = [
     ];
+    this.bugFixes = [
+        "Unshare button"
+    ];
     
     this.initialize();
 }
@@ -40,7 +43,14 @@ VersionView.prototype.initialize = function(){
         };
         changelogString += "</ul>";
     };
-            
+    if (this.bugFixes.length > 0){
+        changelogString += "<i>Fixed bugs:</i><ul>"
+        for (var i = 0; i<this.bugFixes.length; ++i){
+            changelogString += "<li>"+this.bugFixes[i]+"</li>";
+        };
+        changelogString += "</ul>";
+    };
+    
     this.changelogPopover.attr("data-content", changelogString);
 
 };
