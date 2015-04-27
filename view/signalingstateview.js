@@ -60,7 +60,8 @@ SignalingStateView.prototype.setState = function(state){
         this.span.addClass("fa-spin");
         this.span.css("color", this.blue);
         var waitSharerString = "The connection to the signaling server has "+
-            "been successfully established! Waiting for the sharer now."
+            "been successfully established! <span class='alert-info'>Waiting "+
+            "for the sharer now</span>.";
         this.span.attr("data-content", waitSharerString);
         this.blink();
         break;
