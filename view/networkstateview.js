@@ -32,8 +32,8 @@ NetworkStateView.prototype.partiallyConnected = function(){
 
 NetworkStateView.prototype.disconnected = function(){
     var disconnectedString = "<span class='alert-danger'>Disconnected</span>:"+
-        " currently, you are currently editing <span class='alert-info'>on "+
-        "your own</span>.";
+        " you are currently editing <span class='alert-info'>on"+
+        " your own</span>.";
     this.span.css("color", this.red);
     this.span.attr("data-content",disconnectedString);
 };
