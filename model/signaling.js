@@ -3,16 +3,16 @@
  * \brief handle the signaling server
  * \param name the identifier used at the signaling server to identify your
  * editing session
- * \param network the network part of the model
+ * \param rps the random peer sampling protocol
  */
-function Signaling(name, network){
+function Signaling(name, rps){
     this.name = name;
-    this.network = network;
-    // this.address = "file:///Users/chat-wane/Desktop/project/crate/"
-    this.address = "http://chat-wane.github.io/CRATE/";
-    this.signalingServer = "https://ancient-shelf-9067.herokuapp.com";
+    this.rps = rps;
+    this.address = "file:///Users/chat-wane/Desktop/project/crate/"
+    // this.address = "http://chat-wane.github.io/CRATE/";
+    // this.signalingServer = "https://ancient-shelf-9067.herokuapp.com";
     // this.signalingServer = "http://adrouet.net:5000";
-    // this.signalingServer = "http://127.0.0.1:5000";
+    this.signalingServer = "http://127.0.0.1:5000";
     this.socketIOConfig = { "force new connection": true,
                             "reconnection": false };
     this.startedSocket = false;
@@ -30,17 +30,15 @@ Signaling.prototype.createSocket = function(){
         this.socket.on("connect", function(){
             console.log("Connection to the signaling server established");
         });
-        this.socket.on("launchResponse", function(message){
+        this.socket.on("launchResponse", function(destUid, offerTicket){
             self.joiners = self.joiners + 1;
-            self.network._membership.answer(message, function(answerMessage){
-                setTimeout(function(){
-                    console.log("answered");
-                    self.socket.emit("answer", self.name, answerMessage);
-                }, 1500);
+            self.rps.answer(offerTicket, function(stampedTicket){
+                console.log("answered");
+                self.socket.emit("answer", self.rps.id, destUid, stampedTicket);
             });
         });
         this.socket.on("answerResponse", function(handshakeMessage){
-            self.network._membership.handshake(handshakeMessage);
+            self.rps.handshake(handshakeMessage);
             self.socket.disconnect();
         });
         this.socket.on("disconnect", function(){
@@ -77,15 +75,10 @@ Signaling.prototype.startJoining = function(originName){
     var self = this;
     this.createSocket();
     this.socket.on("connect", function(){
-        self.network._membership.launch(
-            function(launchMessage){
-                setTimeout(function(){
-                    console.log("launched");
-                    self.socket.emit("launch",
-                                     originName, self.network._membership.uid,
-                                     launchMessage);
-                }, 1500);
-            });
+        self.rps.launch(function(launchMessage){
+            console.log("launched");
+            self.socket.emit("launch", originName, self.rps.id, launchMessage);
+        });
     });
     return this.socket;
 };

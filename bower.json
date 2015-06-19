@@ -1,15 +1,12 @@
 {
     "name": "CRATE",
-    "version": "0.0.2",
+    "version": "0.1.0",
     "dependencies": {
         "jquery": "latest",
         "bootstrap": "latest",
         "ace-builds": "latest",
         "zeroclipboard": "latest",
-        "lseqtree": "latest",
-        "causaltrack": "latest",
         "socket.io-client": "latest",
-        "rtc-scamp": "latest",
         "chartist": "latest",
         "Lorem.js": "latest",
         "seiyria-bootstrap-slider": "latest",

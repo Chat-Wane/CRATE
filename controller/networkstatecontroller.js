@@ -6,7 +6,7 @@
  * \brief span the text that will show the connection state
  */
 function NetworkStateController(model, view){
-    model.network._membership.on("statechange", function(state){
+    model.core.broadcast.source.on("statechange", function(state){
         switch (state){
         case "connect": view.connected(); break;
         case "partial": view.partiallyConnected(); break;

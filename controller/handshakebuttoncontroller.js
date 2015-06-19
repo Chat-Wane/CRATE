@@ -12,7 +12,7 @@ function HandshakeButtonController(model, handshakeBtn, linkView){
             action.click(function(){
                 var message = JSON.parse(decodeURIComponent(
                     linkView.input.val().split("?")[1]));
-                model.network._membership.handshake(message);
+                model.rps.handshake(message);
                 linkView.hide();
             });
         }

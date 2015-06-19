@@ -12,7 +12,7 @@ function LaunchButtonController(model, launchBtn, linkView){
             var action = linkView.printLaunchLink("");
             // #0 call the function to generate an offer, will be output in
             // a 'launch' event
-            model.network._membership.launch(
+            model.rps.launch(
                 function(message){
                     setTimeout( function(){
                         linkView.input.val(model.signaling.address+

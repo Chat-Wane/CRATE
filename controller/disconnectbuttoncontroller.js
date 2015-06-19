@@ -8,18 +8,18 @@
  */
 function DisconnectButtonController(model, disconnectionBtn, li){
 
-    model.network._membership.on("statechange", function(state){
+    model.rps.on("statechange", function(state){
         switch (state){
         case "connect":
             li.removeClass("disabled");
             disconnectionBtn.unbind("click").click(function(){
-                model.network._membership.disconnect();
+                model.rps.disconnect();
             });
             break;
         case "partial":
             li.removeClass("disabled");
             disconnectionBtn.unbind("click").click(function(){
-                model.network._membership.disconnect();
+                model.rps.disconnect();
             });                                           
             break;
         case "disconnect":

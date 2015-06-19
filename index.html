@@ -145,13 +145,6 @@
                 </li>
                 <li class="divider"></li>
                 <li role="presentation">
-                  <a id="monitoring" href="javascript:void(0)">
-                    <i class="fa fa-bar-chart"></i>
-                    Monitoring
-                  </a>
-                </li>
-                <li class="divider"></li>
-                <li role="presentation">
                   <a href="https://github.com/Chat-Wane/CRATE" target="_blank">
                     <i class="fa fa-github"></i>
                     Contribute
@@ -234,24 +227,6 @@
       </div>
     </div>
     
-    <section id="editorStats" class="stats">
-      <div class="container">
-        <h2>Editor's stats</h2>
-        <div class="row">
-          <div id="idSizeChart"></div>
-          <div id="idTotalSizeChart"></div>
-        </div>
-      </div>
-    </section>
-    
-    <section id="networkStats" class="stats">
-      <div class="container">
-        <h2>Network's stats</h2>
-        <div class="row">
-          <div id="trafficChart"></div>
-          <div id="viewSizeChart"></div>
-    </section>
-    
     <div class="container">
       <div class="row">
         <div id="containerLink" class="container">
@@ -287,45 +262,32 @@
     
     <script src="./bower_components/jquery/dist/jquery.min.js"></script>
     <script src="./bower_components/bootstrap/dist/js/bootstrap.min.js">
-    </script>
-    
-    <script src="./bower_components/causaltrack/causaltrack.bundle.js">
-    </script>
-    <script> var VVwE = require("causaltrack").VVwE; </script>
-    
-    <script src="./bower_components/rtc-scamp/build/rtc-scamp.bundle.debug.js">
-    </script>
+    </script>    
     <script src="./bower_components/zeroclipboard/dist/ZeroClipboard.js">
     </script>
-    <script> var Network = require("rtc-scamp"); </script>
-    
-    <script src="./bower_components/ace-builds/src-min/ace.js"></script>
-    <script src="./bower_components/lseqtree/lseqtree.bundle.js"></script>
-    <script> var LSEQTree = require("lseqtree"); </script>
-
     <script src="./bower_components/jquery-qrcode/jquery.qrcode.min.js">
     </script>
     <script src="./bower_components/Lorem.js/lorem.min.js"></script>
     <script src="./bower_components/seiyria-bootstrap-slider/dist/bootstrap-slider.min.js"></script>
+    <script src="./bower_components/ace-builds/src-min/ace.js"></script>
+
+    <script src="./bower_components/crate-core/build/crate-core.bundle.debug.js">
+    </script>
+    <script> var Core = require("crate-core"); </script>
     
-    <script src="./model/messages.js"></script>
-    <script src="./model/document.js"></script>
     <script src="./model/signaling.js"></script>
-    <script src="./model/stats.js"></script>
     <script src="./model/model.js"></script>
 
     <script src="./view/versionview.js"></script>
     <script src="./view/networkstateview.js"></script>
     <script src="./view/signalingstateview.js"></script>
     <script src="./view/linkview.js"></script>
-    <script src="./view/chartview.js"></script>
     
     <script src="./controller/newbuttoncontroller.js"></script>
     <script src="./controller/openbuttoncontroller.js"></script>
     <script src="./controller/quicksavebuttoncontroller.js"></script>
     <script src="./controller/saveondiskbuttoncontroller.js"></script>
 
-    <script src="./controller/chartcontroller.js"></script>
     <script src="./controller/sharebuttoncontroller.js"></script>
     <script src="./controller/launchbuttoncontroller.js"></script>
     <script src="./controller/answerbuttoncontroller.js"></script>
@@ -333,7 +295,6 @@
     <script src="./controller/disconnectbuttoncontroller.js"></script>
 
     <script src="./controller/networksettingsbuttoncontroller.js"></script>
-    <script src="./controller/monitoringbuttoncontroller.js"></script>
     
     <script src="./controller/networkstatecontroller.js"></script>
     <script src="./controller/editorcontroller.js"></script>
@@ -380,45 +341,13 @@
       var lv = new LinkView($("#containerLink"), $("#alertLink"),
       $("#qrcodeLink"), $("#qrcodeCanvas"),
       $("#actionLink"), $("#inputLink"), $("#dismissLink"));
-
-      var iscv = new ChartView(m.stats.idSize, $("#editorStats"),
-      $("#idSizeChart"),
-      "Spectrum of the document.",
-      "Each character is associated with a unique and immutable identifier. "+
-      "This chart shows the size of each identifier while keeping the order "+
-      "of the characters in the document. Thus, we are able to see where the "+
-      "identifiers grow.");
-      
-      var tscv = new ChartView(m.stats.totalSize, $("#editorStats"),
-      $("#idTotalSizeChart"),
-      "Total size of the identifiers contained in the document over updates.",
-      "CRATE adds an identifier to each character in the document. The "+
-      "identifiers are sequences. The size of the identifiers should be "+
-      "polylogarithmically growing over insertions.");
-      
-      var tcv = new ChartView(m.stats.traffic, $("#networkStats"),
-      $("#trafficChart"),
-      "In/out number of messages over time.",
-      "The plots are tracking all messages received or sent by CRATE, i.e."+
-      ", messages useful for the network membership, and messages related to "+
-      "the editor.");
-
-      var vscv = new ChartView(m.stats.viewSize, $("#networkStats"),
-      $("#viewSizeChart"),
-      "Size of the in/out neighbourhood over time.",
-      "Each user owns a local view of the network. Using these views, "+
-      "the broadcast messages can transitively reach all users. Therefore, "+
-      "there should be at least one user in each kind of view. Furthermore, "+
-      "the size of these views should be logarithmically growing compared to "+
-      "global size of the network.");
       
       // #2 initialize the controllers
       var cEditor = new EditorController(m, $("#editor"));
-      var cChart = new ChartController(m, iscv, tscv, vscv, tcv );
 
       var cNew = new NewButtonController(m, $("#new"), cEditor);
       var cOpen = new OpenButtonController(m, $("#open"), $("#openInput"),
-      cEditor); // (TODO) fix the uglyness: create a view js
+      cEditor);
       var cQuickSave = new QuickSaveButtonController(m, $("#quickSave"));
       var cSaveOnDisk = new SaveOnDiskButtonController(m, $("#saveOnDisk"));
       
@@ -433,8 +362,6 @@
       var cNetworkSettings = new NetworkSettingsButtonController(m,
       $("#settingsNetwork"), $("#configAddress"), $("#configName"),
       $("#configDuration"), $("#saveNetworkSettings"));
-      var cMonitoring = new MonitoringButtonController(m, $("#monitoring"),
-      $("#editorStats"),$("#networkStats"), iscv, tscv, vscv, tcv);
       
       // #3 if argument has been passed launch a connection through signaling
       if (argUid !== null){

@@ -3,15 +3,14 @@
  * \brief the whole model of the application is contained within this object
  */
 function Model(config, connect, object){
+    // #1 initalize
     this.uid = Math.floor(Math.random()*133742133742);
-    this.document = new Document("default",
-                                 new LSEQTree(this.uid),
-                                 new VVwE(this.uid));
-    if (object && !connect){
-        this.document.fromObject(object);
-    };
-    this.network = new Network(this.uid, {webRTCConf:config});
-    this.signaling = new Signaling(Lorem.getWord(), this.network);
+    this.core = new Core(this.uid, {config:config});
+    this.signaling = new Signaling(Lorem.getWord(), this.core.broadcast.source);
+//    if (object && !connect){ this.core.init(object); };
     
-    this.stats = new Stats();
+    // #2 fast access
+    this.broadcast = this.core.broadcast;
+    this.rps = this.core.broadcast.source;
+    this.sequence = this.core.sequence;    
 };

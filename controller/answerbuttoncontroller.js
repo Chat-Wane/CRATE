@@ -15,7 +15,7 @@ function AnswerButtonController(model, answerBtn, linkView){
                 var message = JSON.parse(
                     decodeURIComponent( linkView.input.val().split("?")[1]));
                 action = linkView.printLink("");
-                model.network._membership.answer(message, function(message){
+                model.rps.answer(message, function(message){
                     setTimeout(function(){
                         linkView.input.val(model.signaling.address+
                                            "confirmarrival.html?"+
