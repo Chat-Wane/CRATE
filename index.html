@@ -168,6 +168,8 @@
       <div class="container">
         <div class="row">
           <div class="col-md-12">
+            <div class="testEditor"></div>
+            
             <div class="post">
               <div id="editor"></div>
             </div>
@@ -262,7 +264,7 @@
     
     <script src="./bower_components/jquery/dist/jquery.min.js"></script>
     <script src="./bower_components/bootstrap/dist/js/bootstrap.min.js">
-    </script>    
+    </script>
     <script src="./bower_components/zeroclipboard/dist/ZeroClipboard.js">
     </script>
     <script src="./bower_components/jquery-qrcode/jquery.qrcode.min.js">
@@ -270,7 +272,7 @@
     <script src="./bower_components/Lorem.js/lorem.min.js"></script>
     <script src="./bower_components/seiyria-bootstrap-slider/dist/bootstrap-slider.min.js"></script>
     <script src="./bower_components/ace-builds/src-min/ace.js"></script>
-
+       
     <script src="./bower_components/crate-core/build/crate-core.bundle.debug.js">
     </script>
     <script> var Core = require("crate-core"); </script>
@@ -299,6 +301,12 @@
     <script src="./controller/networkstatecontroller.js"></script>
     <script src="./controller/editorcontroller.js"></script>
 
+    <script src="./editor/main.js"></script>
+
+    <script>
+      $(".testEditor").cratify();
+    </script>
+    
     <script>
       var peerConnectionConfig;
       
