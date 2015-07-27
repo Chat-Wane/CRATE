@@ -16,36 +16,51 @@
             // #A create the header
             var header = jQuery('<div>').appendTo(this)
                 .css('width', '100%')
-                .css('height', '50px')
                 .css('box-shadow', '0px 1px 5px #ababab')
                 .css('border-top-left-radius', '4px')
                 .css('border-top-right-radius', '4px')
-                .css('padding-top', '8px')
                 .css('color', parameters.headerColor)
                 .css('background-color', parameters.headerBackgroundColor);
 
             var headerContainer = jQuery('<div>').appendTo(header)
                 .addClass('container');                
+
+            var headerLeft = jQuery('<div>').appendTo(headerContainer)
+                .addClass('pull-left')
+                .css('padding-top','10px')
+                .css('padding-bottom','10px');
             
-            var buttonFile = jQuery('<a>').appendTo(headerContainer)
+            var buttonFile = jQuery('<a>').appendTo(headerLeft)
                 .attr('href','#')
                 .attr('data-trigger', 'hover').attr('data-toggle', 'popover')
                 .attr('data-placement', 'bottom').attr('data-html', 'true')
                 .attr('title','Document').attr('data-content', '')
-                .css('color', 'black').addClass('crate-icon') ;
+                .css('color', 'black').addClass('crate-icon')
+                .css('height','34px');
 
-            var headerRight = jQuery('<div>').appendTo(headerContainer)
-                .addClass('pull-right');
+            var headerRightRight = jQuery('<div>').appendTo(headerContainer)
+                .addClass('pull-right')
+                .css('padding-top','10px')
+                .css('padding-bottom','10px')
+                .css('height','34px');
 
-            var signalingState = jQuery('<i>').appendTo(headerRight)
+            var headerRightLeft = jQuery('<div>').appendTo(headerContainer)
+                .addClass('pull-right')
+                .css('padding-top','10px')
+                .css('padding-bottom','10px')
+                .css('height','34px');
+            
+            var signalingState = jQuery('<i>').appendTo(headerRightLeft)
                 .addClass('fa fa-circle-o-notch fa-2x')
                 .attr('data-trigger', 'hover').attr('data-toggle', 'popover')
                 .attr('title', 'Signaling server status')
                 .attr('data-html', 'true').attr('data-content', '')
                 .attr('data-placement', 'bottom')
-                .css('margin-left', '10px');
+                .css('margin-right', '10px')
+                .css('height','34px')
+                .css('width','34px');
             
-            var networkState = jQuery('<i>').appendTo(headerRight)
+            var networkState = jQuery('<i>').appendTo(headerRightLeft)
                 .addClass('fa fa-globe fa-2x')
                 .attr('data-trigger', 'hover').attr('data-toggle', 'popover')
                 .attr('title', 'Network status')
@@ -53,11 +68,13 @@
                 .attr('data-content', 'Disconnected: you are currently'+
                       'editing <span class="alert-info">on your own</span>.')
                 .attr('data-placement', 'bottom')
-                .css('margin-left', '10px');
+                .css('margin-right', '10px')
+                .css('height','34px').css('width','34px');
             
-            var fileDropdown =  jQuery('<div>').appendTo(headerRight)
+            var fileDropdown =  jQuery('<div>').appendTo(headerRightRight)
                 .addClass('btn-group')
-                .attr('role', 'group').attr('aria-label', 'menu bar');
+                .attr('role', 'group').attr('aria-label', 'menu bar')
+                .css('margin-right','4px');
             
             jQuery('<button>').appendTo(fileDropdown)
                 .addClass('btn btn-default dropdown-toggle')
@@ -67,25 +84,38 @@
                 .append( ' File ' )
                 .append( jQuery('<span>').addClass('caret'));
             
-            function createDropdown(id, text){
-                return jQuery('<li>').attr('role', 'presentation')
-                    .append( jQuery('<a>').attr('id', id)
-                             .attr('href', 'javascript:void(0)')
-                             .append(text));
+            function createDropdown(parent, texts){
+                var dropdownElements = [], item, element;
+                var ul = jQuery('<ul>').appendTo(parent)
+                    .addClass('dropdown-menu')
+                    .attr('role', 'menu');
+                
+                for (var i = 0; i < texts.length; ++i){
+                    if (texts[i]==='divider'){
+                        jQuery('<li>').appendTo(ul).addClass('divider');
+                    } else {
+                        item = jQuery('<li>').appendTo(ul)
+                            .attr('role','presentation');
+                        element = jQuery('<a>').appendTo(item)
+                            .attr('href', 'javascript:void(0)')
+                            .append(texts[i]);
+                        dropdownElements.push(element);
+                    };
+                };
+                
+                return dropdownElements;
             };
 
-            fileDropdown.append( jQuery('<ul>').addClass('dropdown-menu')
-                               .attr('role', 'menu')
-                               .append(createDropdown('new', 'New'))
-                               .append(createDropdown('open', 'Open'))
-                               .append(createDropdown('quicksave',
-                                                      'Quick save'))
-                               .append(createDropdown('saveOnDisk',
-                                                      'Save on disk')));
+            var fileButtons = createDropdown(fileDropdown,
+                                             ['New',
+                                              'Open',
+                                              'Quick save',
+                                              'Save on Disk']);           
 
-            var shareDropdown = jQuery('<div>').appendTo(headerRight)
+            var shareDropdown = jQuery('<div>').appendTo(headerRightRight)
                 .addClass('btn-group')
-                .attr('role', 'group').attr('aria-label', 'menu bar');
+                .attr('role', 'group').attr('aria-label', 'menu bar')
+                .css('margin-right','4px');
                            
             jQuery('<button>').appendTo(shareDropdown)
                 .addClass('btn btn-default')
@@ -96,21 +126,19 @@
                 .html('&nbsp')
                 .attr('data-toggle', 'dropdown').attr('aria-expanded', 'false')
                 .append( jQuery('<span>').addClass('caret') );
-            shareDropdown.append( jQuery('<ul>').addClass('dropdown-menu')
-                                  .attr('role', 'menu')
-                                  .append(createDropdown('launch',
-                                                         '<i class="fa fa-long-arrow-right"></i> Get an entrance ticket'))
-                                  .append(createDropdown('answer',
-                                                         '<i class="fa fa-long-arrow-left"></i> Stamp a ticket'))
-                                  .append(createDropdown('handshake',
-                                                         '<i class="fa fa-exchange"></i> Confirm our arrival'))
-                                  .append(jQuery('<li>').addClass('divider'))
-                                  .append(createDropdown('disconnect',
-                                                         '<i class="fa fa-sign-out"></i> Disconnect')));
 
-            var settingsDropdown =  jQuery('<div>').appendTo(headerRight)
+            var shareButtons = createDropdown(shareDropdown,
+                                              ['<i class="fa fa-long-arrow-right"></i> Get an entrance ticket',
+                                               '<i class="fa fa-long-arrow-left"></i> Stamp a ticket',
+                                               '<i class="fa fa-exchange"></i> Confirm our arrival',
+                                               'divider',
+                                               '<i class="fa fa-sign-out"></i> Disconnect'
+                                              ])
+            
+            var settingsDropdown =  jQuery('<div>').appendTo(headerRightRight)
                 .addClass('btn-group')
-                .attr('role', 'group').attr('aria-label', 'menu bar');
+                .attr('role', 'group').attr('aria-label', 'menu bar')
+                .css('margin-right', '4px');
             
             jQuery('<button>').appendTo(settingsDropdown)
                 .addClass('btn btn-default dropdown-toggle')
@@ -119,15 +147,12 @@
                 .append( jQuery('<i>').addClass('fa fa-cogs'))
                 .append( ' Settings ' )
                 .append( jQuery('<span>').addClass('caret'));
-            
-            settingsDropdown.append( jQuery('<ul>').addClass('dropdown-menu')
-                                     .attr('role', 'menu')
-                                     .append(createDropdown('e',
-                                                            '<i class="fa fa-book"></i> Editor'))
-                                     .append(createDropdown('n',
-                                                            '<i class="fa fa-users"></i> Network')))
-            
-            
+
+            var settingsButton = createDropdown( settingsDropdown,
+                                                 ['<i class="fa fa-book"></i> Editor',
+                                                  '<i class="fa fa-users"></i> Network'
+                                                 ]);
+                        
             
             // #B create the editor
             var post = jQuery('<div>').appendTo(this)
