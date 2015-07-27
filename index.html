@@ -23,8 +23,7 @@
   <body>
     <header>
       <div id="top-header">
-        <div class="container">
-          
+        <div class="container">          
           <div class="text-center" style="display:inline">
             <a id="homeIcon" href="#" class="crate-icon"
                data-trigger="hover"
@@ -33,145 +32,16 @@
               <span id="version" class="badge version-badge"></span>
             </a>
           </div>
-
-          
-          <div class="pull-right">
-            <i id="signalingState" 
-               class="fa fa-circle-o-notch fa-2x"
-               data-trigger="hover"
-               data-toggle="popover" title="Signaling server status"
-               data-html="true" data-content=""
-               data-placement="bottom"></i>
-            <span id="badgeJoiners" class="badge header-badge">0</span>
-            
-            <i id="networkState" class="fa fa-globe fa-2x" data-trigger="hover"
-               data-toggle="popover" title="Network status" data-html="true"
-               data-content="Disconnected: you are currently
-               editing <span class='alert-info'>on your own</span>."
-               data-placement="bottom"></i>
-            <span class="badge header-badge">0</span>
-            
-            <div class="btn-group btn-header" role="group"
-                 aria-label="menu bar">
-              <!-- editor menu bar //-->
-              <button type="button"
-                      class="btn btn-default dropdown-toggle"
-                      aria-label="File text" data-toggle="dropdown">
-                <i class="fa fa-file-text"></i> File
-                <span class="caret"></span>
-              </button>
-              <ul id="dropdowncontainerNetwork" class="dropdown-menu"
-                  role="menu" aria-labelledby="networkdropdownmenu">
-                <li role="presentation">
-                  <a id="new" href="javascript:void(0)">
-                    New
-                  </a>
-                </li>
-                <li role="presentation">
-                  <a id="open" href="javascript:void(0)">
-                    <input type="file" id="openInput"/>
-                    Open
-                  </a>
-                </li>
-                <li role="presentation">
-                  <a id="quickSave" href="javascript:void(0)">
-                    Quick save
-                  </a>
-                </li>
-                <li role="presentation">
-                  <a id="saveOnDisk" href="javascript:void(0)">
-                    Save on disk
-                  </a>
-                </li>
-              </ul>
-            </div>
-            <div class="btn-group btn-header" role="group">
-              <button id="share" type="button" class="btn btn-default">
-                <i class="fa fa-link"></i> Share
-              </button>
-              <button type="button" class="btn dropdown-toggle btn-default"
-                      data-toggle="dropdown" aria-expanded="false">
-                <span class="caret"></span>&nbsp;
-                <span class="sr-only">Toggle Dropdown</span>
-              </button>
-              <ul id="dropdowncontainerNetwork" class="dropdown-menu"
-                  role="menu" aria-labelledby="networkdropdownmenu">
-                <li role="presentation">
-                  <a id="launch" href="javascript:void(0)">
-                    <i class="fa fa-long-arrow-right"></i>
-                    Get an entrance ticket
-                  </a>
-                </li>
-                <li role="presentation">
-                  <a id="answer" href="javascript:void(0)">
-                    <i class="fa fa-long-arrow-left"></i>
-                    Stamp a ticket
-                  </a>
-                </li>
-                <li role="presentation">
-                  <a id="handshake" href="javascript:void(0)">
-                    <i class="fa fa-exchange"></i>
-                    Confirm our arrival
-                  </a>
-                </li>
-                <li class="divider"></li>
-                <li id="liDisconnect" class="disabled">
-                  <a id="disconnect" href="javascript:void(0)">
-                    <i class="fa fa-sign-out"></i>
-                    Disconnect
-                  </a>
-                </li>
-              </ul>
-            </div>
-            <div class="btn-group btn-header">
-              <button type="button" class="btn btn-default dropdown-toggle"
-                      aria-label="Generate offer" data-toggle="dropdown"
-                      id="settingsdropdownmenu">
-                <span class="fa fa-cogs"></span>&nbsp;Settings
-                <span class="caret"></span>
-              </button>
-              <ul class="dropdown-menu"
-                  role="menu" aria-labelledby="networkdropdownmenu">
-                <li role="presentation" class="disabled">
-                  <a id="settingsEditor" href="javascript:void(0)">
-                    <i class="fa fa-book"></i> Editor
-                  </a>
-                </li>
-                <li role="presentation">
-                  <a id="settingsNetwork" data-toggle="modal"
-                     data-target="#modalNetwork" href="#modalNetwork">
-                    <i class="fa fa-users"></i> Network
-                  </a>
-                </li>
-                <li class="divider"></li>
-                <li role="presentation">
-                  <a href="https://github.com/Chat-Wane/CRATE" target="_blank">
-                    <i class="fa fa-github"></i>
-                    Contribute
-                  </a>
-                </li>
-                <li role="presentation">
-                  <a href="https://github.com/Chat-Wane/CRATE/issues"
-                     target="_blank">
-                    <i class="fa fa-bug"></i> Report a
-                    bug
-                  </a>
-                </li>
-              </ul>
-            </div>
-          </div>
         </div>
-      </div>  
+      </div>
     </header>
+
 
     <section class="main">
       <div class="container">
         <div class="row">
           <div class="col-md-12">
             <div class="testEditor"></div>
-            <div class="post">
-              <div id="editor"></div>
-            </div>
           </div>
         </div>
       </div>
@@ -340,35 +210,7 @@
       var m = new Model(peerConnectionConfig, document.URL.split("?").length>1,
                         JSON.parse(localStorage.getItem("default")));
 
-      // #1 initialize part of the view
       var vv = new VersionView($("#version"), $("#homeIcon"));
-      var nsv = new NetworkStateView($("#networkState"));      
-      var ssv = new SignalingStateView(m.signaling, $("#signalingState"),
-      $("#badgeJoiners"));
-      var lv = new LinkView($("#containerLink"), $("#alertLink"),
-      $("#qrcodeLink"), $("#qrcodeCanvas"),
-      $("#actionLink"), $("#inputLink"), $("#dismissLink"));
-      
-      // #2 initialize the controllers
-      var cEditor = new EditorController(m, $("#editor"));
-
-      var cNew = new NewButtonController(m, $("#new"), cEditor);
-      var cOpen = new OpenButtonController(m, $("#open"), $("#openInput"),
-      cEditor);
-      var cQuickSave = new QuickSaveButtonController(m, $("#quickSave"));
-      var cSaveOnDisk = new SaveOnDiskButtonController(m, $("#saveOnDisk"));
-      
-      var cShare = new ShareButtonController(m, $("#share"), ssv, lv);
-      var cLaunch = new LaunchButtonController(m, $("#launch"), lv);
-      var cAnswer = new AnswerButtonController(m, $("#answer"), lv);
-      var cHandshake = new HandshakeButtonController(m, $("#handshake"), lv)
-      var cNetworkState = new NetworkStateController(m, nsv);
-      var cDisconnect = new DisconnectButtonController(m, $("#disconnect"),
-      $("#liDisconnect"));
-
-      var cNetworkSettings = new NetworkSettingsButtonController(m,
-      $("#settingsNetwork"), $("#configAddress"), $("#configName"),
-      $("#configDuration"), $("#saveNetworkSettings"));
       
       // #3 if argument has been passed launch a connection through signaling
       if (argUid !== null){
