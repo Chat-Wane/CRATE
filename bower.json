@@ -2,6 +2,7 @@
     "name": "CRATE",
     "version": "0.1.0",
     "dependencies": {
+        "requirejs": "latest",
         "jquery": "latest",
         "bootstrap": "latest",
         "ace-builds": "latest",

@@ -41,25 +41,12 @@
       <div class="container">
         <div class="row">
           <div class="col-md-12">
-            <div class="testEditor"></div>
+            <div class="editor"></div>
           </div>
         </div>
       </div>
     </section>
 
-
-    <div class="modal fade" id="modalQrcode" tabindex="-1" role="dialog"
-         aria-labelledby="modelQrcodeLabel" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content text-center">
-          <br/>
-          <div id="qrcodeCanvas"></div>
-          <br/>
-        </div>
-      </div>
-    </div>
-    
-    
     <div class="modal fade" id="modalNetwork" tabindex="-1" role="dialog"
          aria-labelledby="modelNetworkLabel" aria-hidden="true">
       <div class="modal-dialog">
@@ -98,39 +85,6 @@
       </div>
     </div>
     
-    <div class="container">
-      <div class="row">
-        <div id="containerLink" class="container">
-          <div id="alertLink"
-               class="alert alert-warning alert-dismissible" role="alert">
-            <button id="dismissLink" type="button" class="close" >
-              <span  aria-hidden="true">&times;</span><span class="sr-only">
-                Close
-              </span>
-            </button>
-            <div class="container">
-              <div class="input-group">
-                <input id="inputLink" type="text"
-                       class="form-control"
-                       placeholder="Nothing to see here, move along."/>
-                <span class="input-group-btn">
-                  <button id="qrcodeLink" aria-label="QR-code"
-                          class="btn btn-default" type="button"
-                          data-target="#modalQrcode"
-                          data-toggle="modal">
-                    <i class="fa fa-qrcode"></i> QR-Code
-                  </button>
-                  <button id="actionLink" aria-label="Go!"
-                          class="btn btn-default" type="button"> Go!
-                  </button>
-                </span>
-              </div>
-            </div>
-          </div>
-        </div>      
-      </div>
-    </div>
-    
     <script src="./bower_components/jquery/dist/jquery.min.js"></script>
     <script src="./bower_components/bootstrap/dist/js/bootstrap.min.js">
     </script>
@@ -142,40 +96,13 @@
     <script src="./bower_components/seiyria-bootstrap-slider/dist/bootstrap-slider.min.js"></script>
     <script src="./bower_components/ace-builds/src-min/ace.js"></script>
        
-    <script src="./bower_components/crate-core/build/crate-core.bundle.debug.js">
-    </script>
-    <script> var Core = require("crate-core"); </script>
-    
-    <script src="./model/signaling.js"></script>
-    <script src="./model/model.js"></script>
-
-    <script src="./view/versionview.js"></script>
-    <script src="./view/networkstateview.js"></script>
-    <script src="./view/signalingstateview.js"></script>
-    <script src="./view/linkview.js"></script>
-    
-    <script src="./controller/newbuttoncontroller.js"></script>
-    <script src="./controller/openbuttoncontroller.js"></script>
-    <script src="./controller/quicksavebuttoncontroller.js"></script>
-    <script src="./controller/saveondiskbuttoncontroller.js"></script>
-
-    <script src="./controller/sharebuttoncontroller.js"></script>
-    <script src="./controller/launchbuttoncontroller.js"></script>
-    <script src="./controller/answerbuttoncontroller.js"></script>
-    <script src="./controller/handshakebuttoncontroller.js"></script>
-    <script src="./controller/disconnectbuttoncontroller.js"></script>
-
-    <script src="./controller/networksettingsbuttoncontroller.js"></script>
-    
-    <script src="./controller/networkstatecontroller.js"></script>
-    <script src="./controller/editorcontroller.js"></script>
-
-    <script src="./editor/main.js"></script>
+    <script src="./bower_components/jquery-crate/build/jquery-crate.bundle.debug.js">
+    </script>      
 
     <script>
-      $(".testEditor").cratify();
+      $(".editor").cratify();
     </script>
-    
+
     <script>
       var peerConnectionConfig;
       
@@ -203,21 +130,21 @@
     <script>
       
       // #0 initialize the model
-      var argUid = null;
-      if ((document.URL.split("?")).length>1){
-        argUid = document.URL.split("?")[1];
-      };
-      var m = new Model(peerConnectionConfig, document.URL.split("?").length>1,
-                        JSON.parse(localStorage.getItem("default")));
+      <!-- var argUid = null; -->
+      <!-- if ((document.URL.split("?")).length>1){ -->
+      <!--   argUid = document.URL.split("?")[1]; -->
+      <!-- }; -->
+      <!-- var m = new Model(peerConnectionConfig, document.URL.split("?").length>1, -->
+      <!--                   JSON.parse(localStorage.getItem("default"))); -->
 
-      var vv = new VersionView($("#version"), $("#homeIcon"));
+      //var vv = new VersionView($("#version"), $("#homeIcon"));
       
-      // #3 if argument has been passed launch a connection through signaling
-      if (argUid !== null){
-        var socket = m.signaling.startJoining(argUid);
-        ssv.setState("waitSignaling");
-        socket.on("connect", function(){ ssv.setState("waitSharer"); });
-      };
+      <!-- // #3 if argument has been passed launch a connection through signaling -->
+      <!-- if (argUid !== null){ -->
+      <!--   var socket = m.signaling.startJoining(argUid); -->
+      <!--   ssv.setState("waitSignaling"); -->
+      <!--   socket.on("connect", function(){ ssv.setState("waitSharer"); }); -->
+      <!-- }; -->
 
 
       $(function(){ $('[data-toggle="tooltip"]').tooltip(); });
