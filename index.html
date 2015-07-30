@@ -10,11 +10,6 @@
           href="./bower_components/bootstrap/dist/css/bootstrap-theme.min.css"
           />
     <link rel="stylesheet" href="./css/generatedstyle.css"/>
-    <script src="./bower_components/socket.io-client/socket.io.js"></script>
-
-    <link rel="stylesheet"
-          href="bower_components/chartist/dist/chartist.min.css" />
-    <script src="./bower_components/chartist/dist/chartist.min.js"></script>
 
     <link rel="stylesheet" href="./bower_components/seiyria-bootstrap-slider/dist/css/bootstrap-slider.min.css"></script>
 
@@ -100,10 +95,6 @@
     </script>      
 
     <script>
-      $(".editor").cratify();
-    </script>
-
-    <script>
       var peerConnectionConfig;
       
       $.ajax({
@@ -120,37 +111,29 @@
         success: function (data, status) {
           // data.d is where the iceServers object lives
           var object = JSON.parse(data);
-          peerConnectionConfig = object.d;
+          connectionOptions = object.d;
+          initialize(connectionOptions);
         },
-        async: false
+        async: true
       });
     </script>
 
     
     <script>
+      var argUid = null;
+      if ((document.URL.split("?")).length>1){
+        argUid = document.URL.split("?")[1];
+      };
       
-      // #0 initialize the model
-      <!-- var argUid = null; -->
-      <!-- if ((document.URL.split("?")).length>1){ -->
-      <!--   argUid = document.URL.split("?")[1]; -->
-      <!-- }; -->
-      <!-- var m = new Model(peerConnectionConfig, document.URL.split("?").length>1, -->
-      <!--                   JSON.parse(localStorage.getItem("default"))); -->
+      function initialize(connectionOptions){
+        $(".editor").cratify({}, connectionOptions, argUid);
 
-      //var vv = new VersionView($("#version"), $("#homeIcon"));
+        $(function(){ $('[data-toggle="tooltip"]').tooltip(); });
+        $(function(){ $('[data-toggle="popover"]').popover(); });
+      };
       
-      <!-- // #3 if argument has been passed launch a connection through signaling -->
-      <!-- if (argUid !== null){ -->
-      <!--   var socket = m.signaling.startJoining(argUid); -->
-      <!--   ssv.setState("waitSignaling"); -->
-      <!--   socket.on("connect", function(){ ssv.setState("waitSharer"); }); -->
-      <!-- }; -->
-
-
-      $(function(){ $('[data-toggle="tooltip"]').tooltip(); });
-      $(function(){ $('[data-toggle="popover"]').popover(); });
+      // var vv = new VersionView($("#version"), $("#homeIcon"));      
     </script>
- 
-    
+     
   </body>
 </html>
