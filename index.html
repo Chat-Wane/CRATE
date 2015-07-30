@@ -93,7 +93,8 @@
        
     <script src="./bower_components/jquery-crate/build/jquery-crate.bundle.debug.js">
     </script>      
-
+    <script src="./js/version.js"></script>
+    
     <script>
       var peerConnectionConfig;
       
@@ -120,19 +121,17 @@
 
     
     <script>
-      var argUid = null;
+      var session = null;
       if ((document.URL.split("?")).length>1){
-        argUid = document.URL.split("?")[1];
+        session = document.URL.split("?")[1];
       };
       
       function initialize(connectionOptions){
-        $(".editor").cratify({}, connectionOptions, argUid);
-
-        $(function(){ $('[data-toggle="tooltip"]').tooltip(); });
-        $(function(){ $('[data-toggle="popover"]').popover(); });
+        $(".editor").cratify({}, connectionOptions, session);
       };
       
-      // var vv = new VersionView($("#version"), $("#homeIcon"));      
+      var vv = new VersionView($("#version"), $("#homeIcon"));
+      $(function(){ $('[data-toggle="popover"]').popover(); });
     </script>
      
   </body>
