@@ -9,7 +9,7 @@ function VersionView(versionSpan, changelogPopover){
         "Toward a multi-document editor"
     ];
     this.updatedFeatures = [
-        "One document has its own editing session"
+        "A lot of features removed during the switch"
     ];
     this.bugFixes = [
     ];
