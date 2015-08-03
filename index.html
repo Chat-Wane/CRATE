@@ -15,7 +15,7 @@
   <body>
     <header>
       <div id="top-header">
-        <div class="container">          
+        <div class="container" style="width: inherit">          
           <div class="text-center" style="display:inline">
             <a id="homeIcon" href="#" class="crate-icon"
                data-trigger="hover"
@@ -23,19 +23,15 @@
                title="" data-content="" style="color:black">
               <span id="version" class="badge version-badge"></span>
             </a>
+            <div id="menu-left-header" class="pull-right">
+            </div>
           </div>
         </div>
       </div>
     </header>
 
     <section class="main">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-12">
-            <div class="editor"></div>
-          </div>
-        </div>
-      </div>
+        <div id="documents"></div>
     </section>
 
     <div class="modal fade" id="modalNetwork" tabindex="-1" role="dialog"
@@ -85,6 +81,9 @@
     <script src="./bower_components/jquery-crate/build/jquery-crate.bundle.debug.js">
     </script>      
     <script src="./js/version.js"></script>
+    <script src="./js/view/roundbutton.js"></script>
+    <script src="./js/view/documents.js"></script>
+    <script src="./js/controller/adddocument.js"></script>
     
     <script>
       var peerConnectionConfig;
@@ -110,15 +109,19 @@
       });
     </script>
 
-    
     <script>
+      var vd = new Documents($("#documents"));      
+      var vad = new RoundButton($("#menu-left-header"),
+                                "<i class='fa fa-plus'></i>");
+      var cad = new AddDocument(vad, vd);
+      
       var session = null;
       if ((document.URL.split("?")).length>1){
         session = document.URL.split("?")[1];
       };
       
       function initialize(connectionOptions){
-        $(".editor").cratify({}, connectionOptions, session);
+        cad.connectionOptions = connectionOptions;
       };
       
       var vv = new VersionView($("#version"), $("#homeIcon"));

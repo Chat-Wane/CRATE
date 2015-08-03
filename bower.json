@@ -4,11 +4,8 @@
     "dependencies": {
         "jquery": "latest",
         "bootstrap": "latest",
-        "ace-builds": "latest",
         "zeroclipboard": "latest",
-        "seiyria-bootstrap-slider": "latest",
-        "font-awesome": "latest",
-        "jquery-qrcode": "latest"
+        "font-awesome": "latest"
     },
     "devDependencies": {
         "less": "latest"

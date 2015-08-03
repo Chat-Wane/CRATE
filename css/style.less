@@ -35,14 +35,6 @@ body {
 
 #top-header { .header(15px, 13px, black, @light-grey) }
 
-#signalingState { display: none; }
-
-.header-badge {
-  visibility: hidden;
-  margin-left: -10px;
-  margin-right: 10px;               
-}
-
 .fa-spin {
   -webkit-animation: fa-spin 5s infinite linear;
   animation: fa-spin 5s infinite linear;
@@ -56,68 +48,10 @@ body {
   margin-left: 25px;
 }
 
-.btn-header{
-  margin-top:-12px;
-}
-
-#openInput{
-  position: absolute;
-  clip: rect(0px 0px 0px 0px);
-  text-decoration: none;
-  cursor: pointer;
-  border: none;
-  background: transparent;
-}
-
-#containerLink{
-  display: none;
-  bottom: -10px;
-  position: fixed;
-  z-index: 10;
-}
-
 .main {
   box-shadow: inset 1px 3px 1px -2px #ababab;
   padding-top: 90px;
   padding-bottom: 15px;
-}
-
-hr{ border-top: 1px dotted @medium-grey; }
-
-.post{
-  box-shadow: 0px 1px 5px #ababab;
-  border-radius: 4px;
-  margin-bottom: 20px;
-  padding: 30px 15px;
-  background-color: @white;
-}
-
-#editor { min-height: 500px }
-
-#configDurationSlider { width:100%; }
-
-.chart-title {
-  font-weight: bold;
-}
-.chart-description {
-  font-weight: normal;
-}
-
-.stats {
-  box-shadow: inset 1px 3px 1px -2px #ababab;
-  padding-top: 20px;
-  padding-bottom: 20px;
-}
-
-#editorStats { display: none; background-color: @white; }
-#networkStats { display: none; background-color: @light-grey; }
-
-.tooltip-chart {
-  padding:.5em;
-  background: @light-grey;
-  font-weight: bold;
-  text-align: center;
-  opacity: 1;
 }
 
 .icon(@url, @size){
@@ -130,7 +64,3 @@ hr{ border-top: 1px dotted @medium-grey; }
 }
 
 a.crate-icon { .icon("../img/crateicon.png", 32px); }
-
-a.twitter-icon { .icon("../img/twitter_white.png", 32px); }
-
-a.github-icon { .icon("../img/github_white.png", 32px); }
