@@ -84,6 +84,7 @@
     <script src="./js/view/roundbutton.js"></script>
     <script src="./js/view/documents.js"></script>
     <script src="./js/controller/adddocument.js"></script>
+    <script src="./js/view/modaladddocument.js"></script>
     
     <script>
       var peerConnectionConfig;
@@ -113,7 +114,10 @@
       var vd = new Documents($("#documents"));      
       var vad = new RoundButton($("#menu-left-header"),
                                 "<i class='fa fa-plus'></i>");
-      var cad = new AddDocument(vad, vd);
+      var vmad = new ModalAddDocument($("body"));
+      var cad = new AddDocument(vad, vmad, vd);
+
+
       
       var session = null;
       if ((document.URL.split("?")).length>1){
