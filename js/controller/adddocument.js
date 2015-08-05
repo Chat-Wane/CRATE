@@ -28,10 +28,11 @@ function AddDocument(viewAction, viewModal, viewDocuments){
         var viewButton = new RoundButton(viewDocuments.quickAccessContainer,
                                          '',
                                          'small');
-        viewButton.button.css('margin-left','2px');
+        viewButton.button.css('margin-left','2px')
+            .css('margin-top','20px');
         viewButton.button.click(function(){
             $("html, body").animate({
-                scrollTop: editor.offset().top,
+                scrollTop: 0,
                 scrollLeft: editor.offset().left+editor.width()/2-$('body').width()/2
             }, 1000);;
         });            
