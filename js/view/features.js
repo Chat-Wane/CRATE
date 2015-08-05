@@ -13,7 +13,7 @@ function Features(features, container){
         if ((i%2)===0){
             left.addClass('col-xs-4');
             left.append(jQuery('<i>')
-                        .addClass('fa fa-4x')
+                        .addClass('fa fa-5x')
                         .addClass(features[i].icon));
             right.addClass('col-xs-8');
             switchTitleDescription(i, right, row);
@@ -22,7 +22,7 @@ function Features(features, container){
             switchTitleDescription(i, left, row);
             right.addClass('col-xs-4');
             right.append(jQuery('<i>')
-                         .addClass('fa fa-4x')
+                         .addClass('fa fa-5x')
                          .addClass(features[i].icon));
         };        
     };
