@@ -16,17 +16,19 @@
     <header>
       <div id="top-header">
         <div class="container" style="width: inherit">          
-          <div class="text-center" style="display:inline">
+          <div class="text-center">
+            <div class="pull-left">
             <a id="homeIcon" href="#" class="crate-icon"
                data-trigger="hover"
                data-toggle="popover" data-placement="bottom" data-html="true"
                title="" data-content="" style="color:black">
               <span id="version" class="badge version-badge"></span>
             </a>
-            <div id="menu-left-header" class="pull-right">
             </div>
+            <div id="menu-center-header" style="display:inline-block"></div>            
+            <div id="menu-right-header" class="pull-right"></div>
           </div>
-        </div>
+          </div>
       </div>
     </header>
 
@@ -121,9 +123,9 @@
       var m = new Model();
       
       var vv = new VersionView(m.version, $("#version"), $("#homeIcon"));
-      var vd = new Documents($("#documents"));
+      var vd = new Documents($("#documents"),$("#menu-center-header"));
       var vf = new Features(m.features, $("#features"));
-      var vad = new RoundButton($("#menu-left-header"), 
+      var vad = new RoundButton($("#menu-right-header"), 
                                 "<i class='fa fa-plus'></i>");
       var vmad = new ModalAddDocument($("body"));
       

@@ -1,12 +1,19 @@
 
-function RoundButton(container, text){
+function RoundButton(container, text, size){
+    var s = 30;
+    var p = 6;
+    switch (size){
+    case "large": s = 60; p = 12; break;
+    case "small": s = 12; p = 3;  break;
+    };
+    
     this.button = jQuery('<a>').appendTo(container)
         .addClass('btn btn-default')
-        .css('width','30px')
-        .css('height', '30px')
-        .css('border-radius', '15px')
+        .css('width',s + 'px')
+        .css('height', s + 'px')
+        .css('border-radius', s/2 +'px')
         .css('background', 'inherit')
-        .css('padding', '6px 0')
+        .css('padding', p+'px 0')
         .css('color', '#ececec')
         .css('vertical-align', 'middle')
         .html(text)

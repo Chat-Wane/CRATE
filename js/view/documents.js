@@ -1,11 +1,11 @@
 
-function Documents(container){
+function Documents(container, quickAccessContainer){
     this.horizontalContainer = jQuery('<div>').appendTo(container)
         .addClass('center-block')
         .css('display', 'table')
         .css('table-layout', 'fixed')
         .css('width', 'inherit');
-    
+    this.quickAccessContainer = quickAccessContainer;
 };
 
 Documents.prototype.addDocumentContainer = function(){

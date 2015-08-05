@@ -21,9 +21,20 @@ function AddDocument(viewAction, viewModal, viewDocuments){
     });
     
     viewModal.confirmNewDocument.click(function(){
-        viewDocuments.addDocumentContainer().cratify({},
-                                                     self.connectionOptions,
-                                                     session);
+        var editor = viewDocuments.addDocumentContainer();
+        editor.cratify({},
+                       self.connectionOptions,
+                       session);
+        var viewButton = new RoundButton(viewDocuments.quickAccessContainer,
+                                         '',
+                                         'small');
+        viewButton.button.css('margin-left','2px');
+        viewButton.button.click(function(){
+            $("html, body").animate({
+                scrollTop: editor.offset().top,
+                scrollLeft: editor.offset().left+editor.width()/2-$('body').width()/2
+            }, 1000);;
+        });            
     });
 
     viewModal.confirmJoining.click(function(){
