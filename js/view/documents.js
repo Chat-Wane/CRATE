@@ -1,5 +1,8 @@
 
 function Documents(container, quickAccessContainer){
+    this.container = container;
+    this.container.css('padding-top', '30px')
+        .css('overflow-x', 'scroll');        
     this.horizontalContainer = jQuery('<div>').appendTo(container)
         .addClass('center-block')
         .css('display', 'table')

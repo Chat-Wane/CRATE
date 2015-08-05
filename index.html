@@ -18,12 +18,12 @@
         <div class="container" style="width: inherit">          
           <div class="text-center">
             <div class="pull-left">
-            <a id="homeIcon" href="#" class="crate-icon"
-               data-trigger="hover"
-               data-toggle="popover" data-placement="bottom" data-html="true"
-               title="" data-content="" style="color:black">
-              <span id="version" class="badge version-badge"></span>
-            </a>
+              <a id="homeIcon" href="#" class="crate-icon"
+                 data-trigger="hover"
+                 data-toggle="popover" data-placement="bottom" data-html="true"
+                 title="" data-content="" style="color:black">
+                <span id="version" class="badge version-badge"></span>
+              </a>
             </div>
             <div id="menu-center-header" style="display:inline-block"></div>            
             <div id="menu-right-header" class="pull-right"></div>
@@ -34,13 +34,9 @@
 
     <section class="main">
       <div id="documents"></div>
-    </section>
-    
-    
-    <section>
       <div id="features"></div>
     </section>
-    
+        
     <div class="modal fade" id="modalNetwork" tabindex="-1" role="dialog"
          aria-labelledby="modelNetworkLabel" aria-hidden="true">
       <div class="modal-dialog">
@@ -139,8 +135,9 @@
       function initialize(connectionOptions){
         cad.connectionOptions = connectionOptions;
       };
-      
-      $(function(){ $('[data-toggle="popover"]').popover(); });
+
+      $(function(){ $("#homeIcon").popover({container: 'body'})});
+//      $(function(){ $('[data-toggle="popover"]').popover() });
     </script>
      
   </body>

@@ -25,16 +25,20 @@ function AddDocument(viewAction, viewModal, viewDocuments){
         editor.cratify({},
                        self.connectionOptions,
                        session);
+        
+        var x = editor.position().left + viewDocuments.container.scrollLeft();
         var viewButton = new RoundButton(viewDocuments.quickAccessContainer,
                                          '',
                                          'small');
         viewButton.button.css('margin-left','2px')
             .css('margin-top','20px');
         viewButton.button.click(function(){
-            $("html, body").animate({
-                scrollTop: 0,
-                scrollLeft: editor.offset().left+editor.width()/2-$('body').width()/2
-            }, 1000);;
+            $('body').animate({scrollTop:0});
+            viewDocuments.container.animate({
+                scrollLeft: editor.offset().left +
+                    viewDocuments.container.scrollLeft() +
+                    editor.width()/2 - $('body').width()/2
+            }, 500);;
         });            
     });
 
