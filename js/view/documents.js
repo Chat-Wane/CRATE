@@ -22,3 +22,15 @@ Documents.prototype.addDocumentContainer = function(){
         .css('margin-right', '10px');
     return jQuery('<div>').appendTo(container);
 };
+
+Documents.prototype.addQuickAccessButton = function(name){
+    var viewButton = new RoundButton(this.quickAccessContainer,
+                                     '',
+                                     'small');
+    viewButton.button.css('margin-left','2px')
+        .css('margin-top','20px');
+    viewButton.button.tooltip({title: name,
+                               trigger: 'hover',
+                               placement: 'bottom'});
+    return viewButton.button;
+};
