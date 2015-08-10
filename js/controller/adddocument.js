@@ -78,4 +78,10 @@ AddDocument.prototype.justDoIt = function(session){
         cell.remove();
         button.remove();
     });
+    // #C add save button
+    var saveDiv = jQuery('<div>')
+        .css('display', 'inline-block')
+        .css('margin-right', '10px');
+    editor.header.prepend(saveDiv);
+    var vsb = new RoundButton(saveDiv, '<i class="fa fa-floppy-o"></i>')
 };
