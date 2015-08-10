@@ -3,19 +3,22 @@
 function AddDocument(viewAction, viewModal, viewDocuments){
     var self = this;
     this.connectionOptions = null;
+    this.viewModal = viewModal;
+    this.viewDocuments = viewDocuments;
 
+    // #1 bind the add button to its action
     viewAction.button.unbind('click');
     viewAction.button.attr('data-toggle', 'modal')
         .attr('data-target', '#'+ viewModal.modal.attr('id'));
-    
+    // #2 initial state
     viewAction.button.click(function(){
         viewModal.initialState();
     });
-
+    // #3 user chooses to create a new document
     viewModal.newDocument.click(function(){
         viewModal.newDocumentState();
     });
-
+    // #4 user chooses to open a document
     viewModal.openFileButton.change(function(evt){
         var file = evt.target.files[0], // only one file
             reader = new FileReader();
@@ -25,21 +28,7 @@ function AddDocument(viewAction, viewModal, viewDocuments){
                 var object = JSON.parse(e.target.result);
                 if (object){
                     // model.document.fromObject(object);
-                    var editorContainer = viewDocuments.addDocumentContainer();
-                    var editor = editorContainer.cratify({},
-                                                         self.connectionOptions,
-                                                         session)[0];
-                    var button = viewDocuments
-                        .addQuickAccessButton(editor.m.metadata.name);
-                    
-                    button.click(function(){
-                        $('body').animate({scrollTop:0});
-                        viewDocuments.container.animate({
-                            scrollLeft: editorContainer.offset().left +
-                                viewDocuments.container.scrollLeft() +
-                                editorContainer.width()/2 - $('body').width()/2
-                        }, 500);;
-                    });                    
+                    self.justDoIt(session);
                 };
                 viewModal.dismissOpenFileButton[0].click();
             };
@@ -47,47 +36,46 @@ function AddDocument(viewAction, viewModal, viewDocuments){
         reader.readAsText(file);
         this.value = null;
     });
-    
+    // #5 user chooses to join an editing session
     viewModal.joinEditingSession.click(function(){
         viewModal.joinEditingSessionState();
     });
     
     viewModal.confirmNewDocument.click(function(){
-        var editorContainer = viewDocuments.addDocumentContainer();
-        var editor = editorContainer.cratify({},
-                                           self.connectionOptions,
-                                           session)[0];
-        var button = viewDocuments.addQuickAccessButton(editor.m.metadata.name);
-        
-        button.click(function(){
-            $('body').animate({scrollTop:0});
-            viewDocuments.container.animate({
-                scrollLeft: editorContainer.offset().left +
-                    viewDocuments.container.scrollLeft() +
-                    editorContainer.width()/2 - $('body').width()/2
-            }, 500);;
-        });            
+        self.justDoIt(session);
     });
 
     viewModal.confirmJoining.click(function(){
         var val = viewModal.inputJoining.val();
         session = val.split("?")[1]; // (TODO) change
 
-        var editorContainer = viewDocuments.addDocumentContainer();
-        var editor = editorContainer.cratify({},
-                                             self.connectionOptions,
-                                             session)[0];
-        var button = viewDocuments.addQuickAccessButton(editor.m.metadata.name);
-        
-        button.click(function(){
-            $('body').animate({scrollTop:0});
-            viewDocuments.container.animate({
-                scrollLeft: editorContainer.offset().left +
-                    viewDocuments.container.scrollLeft() +
-                    editorContainer.width()/2 - $('body').width()/2
-            }, 500);;
-        });            
-        
+        self.justDoIt(session);
     });
 };
 
+AddDocument.prototype.justDoIt = function(session){
+    var cellAndContainer = this.viewDocuments.addDocumentContainer();
+    var editorContainer = cellAndContainer.container;
+    var cell = cellAndContainer.cell;
+    var editor = editorContainer.cratify({},
+                                         this.connectionOptions,
+                                         session)[0];
+    var button = this.viewDocuments.addQuickAccessButton(
+        editor.model.metadata.name);
+
+    var self = this;
+    // #A quick access button
+    button.click(function(){
+        $('body').animate({scrollTop:0});
+        self.viewDocuments.container.animate({
+            scrollLeft: editorContainer.offset().left +
+                self.viewDocuments.container.scrollLeft() +
+                editorContainer.width()/2 - $('body').width()/2
+        }, 500);;
+    });
+    // #B on removal of the editor, remove the according divisions
+    editor.closeButton.click(function(){
+        cell.remove();
+        button.remove();
+    });
+};

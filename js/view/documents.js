@@ -20,7 +20,7 @@ Documents.prototype.addDocumentContainer = function(){
         .css('width', 'inherit')
         .css('margin-left', '10px')
         .css('margin-right', '10px');
-    return jQuery('<div>').appendTo(container);
+    return {cell: cell, container: jQuery('<div>').appendTo(container)};
 };
 
 Documents.prototype.addQuickAccessButton = function(name){
