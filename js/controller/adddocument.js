@@ -42,26 +42,30 @@ function AddDocument(viewAction, viewModal, viewDocuments){
     });
     
     viewModal.confirmNewDocument.click(function(){
-        self.justDoIt(session);
+        self.justDoIt(null, viewModal.inputName.val());
     });
 
     viewModal.confirmJoining.click(function(){
         var val = viewModal.inputJoining.val();
-        session = val.split("?")[1]; // (TODO) change
 
-        self.justDoIt(session);
+        self.justDoIt({server:  val.split('/index.html?')[0],
+                       session: val.split('?')[1],
+                       connect: true});
     });
 };
 
-AddDocument.prototype.justDoIt = function(session){
+AddDocument.prototype.justDoIt = function(signalingOptions, name){
     var cellAndContainer = this.viewDocuments.addDocumentContainer();
     var editorContainer = cellAndContainer.container;
     var cell = cellAndContainer.cell;
-    var editor = editorContainer.cratify({},
-                                         this.connectionOptions,
-                                         session)[0];
+
+    var options = { webRTCOptions: this.connectionOptions };
+    if (signalingOptions) { options.signalingOptions = signalingOptions };
+    if (name) { options.name = name };
+    
+    var editor = editorContainer.cratify(options)[0];
     var button = this.viewDocuments.addQuickAccessButton(
-        editor.model.metadata.name);
+        editor.model.name);
 
     var self = this;
     // #A quick access button
@@ -84,4 +88,5 @@ AddDocument.prototype.justDoIt = function(session){
         .css('margin-right', '10px');
     editor.header.prepend(saveDiv);
     var vsb = new RoundButton(saveDiv, '<i class="fa fa-floppy-o"></i>')
+    var csb = new CSaveButton(vsb.button, editor);    
 };
