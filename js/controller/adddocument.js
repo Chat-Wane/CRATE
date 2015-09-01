@@ -47,7 +47,9 @@ function AddDocument(viewAction, viewModal, viewDocuments){
     viewModal.confirmJoining.click(function(){
         var val = viewModal.inputJoining.val();
 
-        self.justDoIt({server:  val.split('/index.html?')[0],
+        // TODO: make it configurable:
+        // server: val.split('/index.html?')[0],
+        self.justDoIt({server:  'https://ancient-shelf-9067.herokuapp.com',
                        session: val.split('?')[1],
                        connect: true});
     });
