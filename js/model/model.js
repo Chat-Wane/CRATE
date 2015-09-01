@@ -8,7 +8,7 @@ function Model(){
                        "The content of documents is up to you." },
                      { icon:"fa-users",
                        feature:"Share and collaborate with your friends!",
-                       description:"You can share or join and editing session "
+                       description:"You can share or join an editing session "
                        +"in a single click. Your combined expertises will "
                        +"produce a top-quality document."},
                      { icon:"fa-briefcase",
@@ -20,9 +20,9 @@ function Model(){
     this.version = {
         current: '0.1.0',
         previous: '0.0.2',
-        addedFeatures: [ 'Handle multiple documents' ],
+        addedFeatures: [ 'Handle multiple documents', 'Presentation page' ],
         updatedFeatures: [ 'General style of CRATE' ],
-        bugFixes: [ ]
+        bugFixes: [ 'A lot...' ]
     };
     
 };

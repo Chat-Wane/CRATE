@@ -27,8 +27,7 @@ function AddDocument(viewAction, viewModal, viewDocuments){
             return function(e) {
                 var object = JSON.parse(e.target.result);
                 if (object){
-                    // model.document.fromObject(object);
-                    self.justDoIt(session);
+                    self.justDoIt(null, null, object);
                 };
                 viewModal.dismissOpenFileButton[0].click();
             };
@@ -54,21 +53,32 @@ function AddDocument(viewAction, viewModal, viewDocuments){
     });
 };
 
-AddDocument.prototype.justDoIt = function(signalingOptions, name){
+AddDocument.prototype.justDoIt = function(signalingOptions,
+                                          name,
+                                          importFromJSON){
+    // #0 analyse the arguments
+    // (TODO) fix the uglyness of this code
+    var options = { webRTCOptions: this.connectionOptions };
+    if (signalingOptions) { options.signalingOptions = signalingOptions; };
+    if (name) { options.name = name; };
+    if (importFromJSON) {
+        options.importFromJSON = importFromJSON;
+        if (!options.signalingOptions){ options.signalingOptions = {}; };
+        options.signalingOptions.connect = true; // (TODO) may change this val
+    };
+
+    // #1 add a cell into the list of editors
     var cellAndContainer = this.viewDocuments.addDocumentContainer();
     var editorContainer = cellAndContainer.container;
     var cell = cellAndContainer.cell;
 
-    var options = { webRTCOptions: this.connectionOptions };
-    if (signalingOptions) { options.signalingOptions = signalingOptions };
-    if (name) { options.name = name };
-    
+    // #2 cratify the cell
     var editor = editorContainer.cratify(options)[0];
     var button = this.viewDocuments.addQuickAccessButton(
         editor.model.name);
 
     var self = this;
-    // #A quick access button
+    // #3A quick access button
     button.click(function(){
         $('body').animate({scrollTop:0});
         self.viewDocuments.container.animate({
@@ -77,12 +87,12 @@ AddDocument.prototype.justDoIt = function(signalingOptions, name){
                 editorContainer.width()/2 - $('body').width()/2
         }, 500);;
     });
-    // #B on removal of the editor, remove the according divisions
+    // #3B on removal of the editor, remove the according divisions
     editor.closeButton.click(function(){
         cell.remove();
         button.remove();
     });
-    // #C add save button
+    // #3C add save button
     var saveDiv = jQuery('<div>')
         .css('display', 'inline-block')
         .css('margin-right', '10px');

@@ -5,7 +5,8 @@
         "jquery": "latest",
         "bootstrap": "latest",
         "zeroclipboard": "latest",
-        "font-awesome": "latest"
+        "font-awesome": "latest",
+        "jquery-crate": "latest"
     },
     "devDependencies": {
         "less": "latest"
