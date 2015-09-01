@@ -88,12 +88,14 @@
       var cad = new AddDocument(vad, vmad, vd);
      
       var session = null;
-      if ((document.URL.split("?")).length>1){
-        session = document.URL.split("?")[1];
-      };
       
       function initialize(connectionOptions){
         cad.connectionOptions = connectionOptions;
+        if ((document.URL.split("?")).length>1){
+          vmad.justDoIt({server:  'https://ancient-shelf-9067.herokuapp.com',
+                         session: document.URL.split('?')[1],
+                         connect: true});
+        };      
       };
 
       $(function(){ $('[data-toggle="popover"]').popover() });
