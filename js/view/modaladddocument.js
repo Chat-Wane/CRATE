@@ -94,6 +94,7 @@ function ModalAddDocument(container){
                 .append(this.inputName));
     this.inputSharing = jQuery('<input>')
         .attr('type', 'text')
+        .attr('readonly', 'readonly')
         .attr('placeholder', 'https://ancient-shelf-9067.herokuapp.com')
         .addClass('form-control');
     jQuery('<div>').appendTo(formNewDocument)
@@ -124,7 +125,7 @@ function ModalAddDocument(container){
     this.inputJoining = jQuery('<input>')
         .attr('type', 'text')
         .attr('placeholder',
-              '/Users/chat-wane/Desktop/project/crate/index.html?sharing')
+              'http://http://chat-wane.github.io/CRATE/index.html?session_id')
         .addClass('form-control');
     jQuery('<div>').appendTo(formJoining)
         .addClass('form-group')
