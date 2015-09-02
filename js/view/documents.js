@@ -14,6 +14,7 @@ function Documents(container, quickAccessContainer){
 Documents.prototype.addDocumentContainer = function(){
     var cell = jQuery('<div>').appendTo(this.horizontalContainer)
         .css('display', 'table-cell')
+        .css('vertical-align', 'top')
         .css('width', '600px');
     var container = jQuery('<div>').appendTo(cell)
         .addClass('container')
@@ -26,11 +27,9 @@ Documents.prototype.addDocumentContainer = function(){
 Documents.prototype.addQuickAccessButton = function(name){
     var viewButton = new RoundButton(this.quickAccessContainer,
                                      '',
+                                     name,
                                      'small');
     viewButton.button.css('margin-left','2px')
         .css('margin-top','20px');
-    viewButton.button.tooltip({title: name,
-                               trigger: 'hover',
-                               placement: 'bottom'});
     return viewButton.button;
 };
