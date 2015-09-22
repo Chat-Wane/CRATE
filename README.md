@@ -15,6 +15,7 @@ It is based mainly on two components: LSEQ for managing the shared document, and
 * CRATE has no limit on the number of simultaneous users, we tested it until 600 participants with chrome browsers. How many can you get ;D
 * It requires no intermediate servers thanks to WebRTC
 * So you can collaborate without collaboration providers.
+* But CRATE is not as nice than Google Doc ;)
 
 The LSEQ algorithm is described in:
 > Nédelec, B., Molli, P., Mostefaoui, A., & Desmontils, E. (2013, September). [LSEQ: an adaptive structure for 
