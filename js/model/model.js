@@ -20,8 +20,10 @@ function Model(){
     this.version = {
         current: '0.1.0',
         previous: '0.0.2',
-        addedFeatures: [ 'Handle multiple documents', 'Presentation page' ],
-        updatedFeatures: [ 'General style of CRATE' ],
+        addedFeatures: [ 'Handle multiple documents',
+                         'Presentation of features',
+                         'Link to the Github project page'],
+        updatedFeatures: [ 'General style of the editor' ],
         bugFixes: [ 'A lot...' ]
     };
     
