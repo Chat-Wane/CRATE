@@ -10,10 +10,14 @@ CRATE is designed to scale for a large number of participants working on large d
 It is based mainly on two components: LSEQ for managing the shared document, and SPRAY to gossip operations on a network of browsers.
 
 The LSEQ algorithm is described in:
-Nédelec, B., Molli, P., Mostefaoui, A., & Desmontils, E. (2013, September). [LSEQ: an adaptive structure for sequences in distributed collaborative editing](http://hal.univ-nantes.fr/docs/00/92/16/33/PDF/fp025-nedelec.pdf). In Proceedings of the 2013 ACM symposium on Document engineering (pp. 37-46). ACM.
+> Nédelec, B., Molli, P., Mostefaoui, A., & Desmontils, E. (2013, September). [LSEQ: an adaptive structure for 
+> sequences in distributed collaborative editing](http://hal.univ-nantes.fr/docs/00/92/16/33/PDF/fp025-nedelec.pdf). 
+> In Proceedings of the 2013 ACM symposium on Document engineering (pp. 37-46). ACM.
 
 and in:
-Nédelec, B., Molli, P., Mostefaoui, A., & Desmontils, E. (2013). [Concurrency effects over variable-size identifiers in distributed collaborative editing](https://hal.archives-ouvertes.fr/hal-00921655/document). In Document Changes: Modeling, Detection, Storage and Visualization (Vol. 1008, pp. 0-7).
+> Nédelec, B., Molli, P., Mostefaoui, A., & Desmontils, E. (2013). [Concurrency effects over variable-size 
+> identifiers in distributed collaborative editing](https://hal.archives-ouvertes.fr/hal-00921655/document). In 
+> Document Changes: Modeling, Detection, Storage and Visualization (Vol. 1008, pp. 0-7).
 
 
 
