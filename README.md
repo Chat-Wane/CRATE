@@ -12,7 +12,7 @@ CRATE is developped within two research projects: The cominlabs project [DESCENT
 
 CRATE is designed to scale for a large number of participants working on large documents.
 It is based mainly on two components: LSEQ for managing the shared document, and SPRAY to gossip operations on a network of browsers. Compared to Google docs:
-* CRATE has no limit on the number of simultaneous users, we tested it until 600 participants with chrome browsers. How many can you get ;D
+* CRATE has no limit on the number of simultaneous users, we tested it until 600 participants typing 500000 characters. How many can you get ;D. 
 * It requires no intermediate servers thanks to WebRTC
 * So you can collaborate without collaboration providers.
 * But CRATE is not as nice than Google Doc ;)
