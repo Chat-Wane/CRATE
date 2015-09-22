@@ -47,6 +47,7 @@
     <script src="./js/view/documents.js"></script>
     <script src="./js/controller/savebutton.js"></script>
     <script src="./js/controller/adddocument.js"></script>
+    <script src="./js/controller/github.js"></script>
     <script src="./js/view/modaladddocument.js"></script>
     <script src="./js/view/features.js"></script>
     <script src="./js/model/model.js"></script>
@@ -82,11 +83,16 @@
       var vd = new Documents($("#documents"),$("#menu-center-header"));
       var vf = new Features(m.features, $("#features"));
       var vad = new RoundButton($("#menu-right-header"), 
-                                "<i class='fa fa-plus'></i>");
+                                "<i class='fa fa-plus'></i>",
+                                "add a document");
       var vmad = new ModalAddDocument($("body"));
+      var vgb = new RoundButton($("#menu-right-header"),
+                                "<i class='fa fa-github'></li>",
+                                "contribute on Github");
       
       var cad = new AddDocument(vad, vmad, vd);
-     
+      var cg = new Github(vgb);
+
       var session = null;
       
       function initialize(connectionOptions){
