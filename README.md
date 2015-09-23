@@ -5,7 +5,7 @@ browser-to-browser communication </i>
 
 CRATE is a real-time distributed and decentralized CollaboRATive Editor running
 directly in web browsers. 
-* You can test it online at http://chat-wane.github.io/CRATE/#. CRATE requires a good implementation of WebRTC. It has been tested on Google Chrome >45 and should work on recent Firefox. It will not work on Safari.
+* You can test it online at http://chat-wane.github.io/CRATE/#. CRATE requires a good implementation of WebRTC. It has been tested on Google Chrome >45. It will not work on Safari.
 * A little [video](https://www.dropbox.com/s/egf2c2do1jd331w/CRATE-video.mp4?dl=0) to explain how to use it
 
 CRATE is developped within two research projects: The cominlabs project [DESCENT](http://www.descent.cominlabs.ueb.eu/) and the ANR project [SOCIOPLUG](http://socioplug.univ-nantes.fr/). The CRATE editor is mainly developped by [GDD team](https://sites.google.com/site/gddlina/), [LINA](https://www.lina.univ-nantes.fr/), [Nantes University](http://www.univ-nantes.fr/).
