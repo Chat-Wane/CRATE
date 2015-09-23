@@ -9,11 +9,11 @@ function AddDocument(viewAction, viewModal, viewDocuments){
 
     // #1 bind the add button to its action
     viewAction.button.unbind('click');
-    viewAction.button.css('box-shadow', "0 0 0px #000000");
+    viewAction.button.css('box-shadow', "0 0 0px #ffffff");
     // #1 animate the button to signal that it is the first step to perform
     function animateButton(button){
         button.animate({'boxShadow': "0 0 30px #ffffff"}, 1500, function(){
-            button.animate({'boxShadow': '0 0 0px #000000'}, 1500, function(){
+            button.animate({'boxShadow': '0 0 0px #ffffff'}, 1500, function(){
                 animateButton(button)});
         });
     };
