@@ -4,32 +4,51 @@
 browser-to-browser communication </i>
 
 CRATE is a real-time distributed and decentralized CollaboRATive Editor running
-directly in web browsers. 
-* You can test it online at http://chat-wane.github.io/CRATE/#. CRATE requires a good implementation of WebRTC. It has been tested on Google Chrome >45. It will not work on Safari.
-* A little [video](https://www.dropbox.com/s/egf2c2do1jd331w/CRATE-video.mp4?dl=0) to explain how to use it
+directly in web browsers.
 
-CRATE is developped within two research projects: The cominlabs project [DESCENT](http://www.descent.cominlabs.ueb.eu/) and the ANR project [SOCIOPLUG](http://socioplug.univ-nantes.fr/). The CRATE editor is mainly developped by [GDD team](https://sites.google.com/site/gddlina/), [LINA](https://www.lina.univ-nantes.fr/), [Nantes University](http://www.univ-nantes.fr/).
+* You can try the [online demo](http://chat-wane.github.io/CRATE/), but first, make
+sure your browser is [WebRTC compatible](http://caniuse.com/#feat=rtcpeerconnection).
+* A short [video](https://www.dropbox.com/s/egf2c2do1jd331w/CRATE-video.mp4?dl=0)
+explains how to use it.
 
-CRATE is designed to scale for a large number of participants working on large documents.
-It is based mainly on two components: LSEQ for managing the shared document, and SPRAY to gossip operations on a network of browsers. Compared to Google docs:
-* CRATE has no limit on the number of simultaneous users. We tested it until 600 participants typing 500000 characters at ~140 characters/seconds (globally). How many can you get ;D. 
-* It requires no intermediate servers thanks to WebRTC
-* So you can collaborate without collaboration providers.
-* But CRATE is not as nice than Google Doc ;)
+CRATE aims to scale to large number of participants working on large documents.
+It relies on two main components: LSEQ [1, 2] to manage the shared document, and
+SPRAY [?] to gossip operations on a network of browsers. Compared to Google Docs:
 
-The LSEQ algorithm is described in:
-> Nédelec, B., Molli, P., Mostefaoui, A., & Desmontils, E. (2013, September). [LSEQ: an adaptive structure for 
-> sequences in distributed collaborative editing](http://hal.univ-nantes.fr/docs/00/92/16/33/PDF/fp025-nedelec.pdf). 
-> In Proceedings of the 2013 ACM symposium on Document engineering (pp. 37-46). ACM.
+* CRATE does not limit the number of simultaneous users. We tested it uptill 600
+participants typing over a million characters at a global rate of ~100
+characters per seconds. How many can you get? ;D
+* Thanks to WebRTC, you can collaborate without any service providers. Your documents
+belong to you and whom you trust.
+* Yet, CRATE is not as nice as Google Docs ;). It still lacks of
+[wysiwyg](https://en.wikipedia.org/wiki/WYSIWYG) capabilities
+and group awareness.
 
-and in:
-> Nédelec, B., Molli, P., Mostefaoui, A., & Desmontils, E. (2013). [Concurrency effects over variable-size 
-> identifiers in distributed collaborative editing](https://hal.archives-ouvertes.fr/hal-00921655/document). In 
-> Document Changes: Modeling, Detection, Storage and Visualization (Vol. 1008, pp. 0-7).
-
+CRATE is developed within two research projects: The CominLabs project
+[DESCENT](http://www.descent.cominlabs.ueb.eu/) and the ANR project
+[SocioPlug](http://socioplug.univ-nantes.fr/). The CRATE editor is mainly
+developed by [GDD team](https://sites.google.com/site/gddlina/),
+[LINA](https://www.lina.univ-nantes.fr/), [Nantes
+University](http://www.univ-nantes.fr/).
 
 CRATE is still in its very early stage of development. Therefore, the
 application may be buggy. Also, even basic functionalities are not implemented
-yet. Feel free to request functionalities, report the issues, and ask your
-questions at this [link](https://github.com/Chat-Wane/CRATE/issues).
+yet. Feel free to request functionalities, report issues, and ask your questions
+at this [link](https://github.com/Chat-Wane/CRATE/issues).
+
+## References
+
+[1] Nédelec, B., Molli, P., Mostefaoui, A., & Desmontils, E. (2013,
+September). [LSEQ: an adaptive structure for sequences in distributed
+collaborative
+editing](http://hal.univ-nantes.fr/docs/00/92/16/33/PDF/fp025-nedelec.pdf). <i>In
+Proceedings of the 2013 ACM symposium on Document engineering (pp. 37-46).</i> ACM.
+
+[2] Nédelec, B., Molli, P., Mostefaoui, A., & Desmontils,
+E. (2013). [Concurrency effects over variable-size identifiers in distributed
+collaborative
+editing](https://hal.archives-ouvertes.fr/hal-00921655/document). <i>In
+Document Changes: Modeling, Detection, Storage and Visualization (Vol. 1008,
+pp. 0-7).</i>
+
 
