@@ -6,6 +6,7 @@
         "bootstrap": "latest",
         "zeroclipboard": "latest",
         "font-awesome": "latest",
+        "jquery-shadow-animation": "latest",
         "jquery-crate": "latest"
     },
     "devDependencies": {

@@ -3,11 +3,22 @@
 function AddDocument(viewAction, viewModal, viewDocuments){
     var self = this;
     this.connectionOptions = null;
+    this.viewAction = viewAction;
     this.viewModal = viewModal;
     this.viewDocuments = viewDocuments;
 
     // #1 bind the add button to its action
     viewAction.button.unbind('click');
+    viewAction.button.css('box-shadow', "0 0 0px #000000");
+    // #1 animate the button to signal that it is the first step to perform
+    function animateButton(button){
+        button.animate({'boxShadow': "0 0 30px #ffffff"}, 1500, function(){
+            button.animate({'boxShadow': '0 0 0px #000000'}, 1500, function(){
+                animateButton(button)});
+        });
+    };
+    animateButton(viewAction.button);
+    
     viewAction.button.attr('data-toggle', 'modal')
         .attr('data-target', '#'+ viewModal.modal.attr('id'));
     // #2 initial state
@@ -58,6 +69,8 @@ function AddDocument(viewAction, viewModal, viewDocuments){
 AddDocument.prototype.justDoIt = function(signalingOptions,
                                           name,
                                           importFromJSON){
+    this.viewAction.button.stop();
+    this.viewAction.button.css('box-shadow', '0 0 0px black');
     // #0 analyse the arguments
     // (TODO) fix the uglyness of this code
     var options = { webRTCOptions: this.connectionOptions };
