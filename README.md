@@ -13,7 +13,7 @@ explains how to use it.
 
 CRATE aims to scale to large number of participants working on large documents.
 It relies on two main components: LSEQ [1, 2] to manage the shared document, and
-SPRAY [?] to gossip operations on a network of browsers. Compared to Google Docs:
+Spray [3] to gossip operations on a network of browsers. Compared to Google Docs:
 
 * CRATE does not limit the number of simultaneous users. We tested it uptill 600
 participants typing over a million characters at a global rate of ~100
@@ -51,4 +51,5 @@ editing](https://hal.archives-ouvertes.fr/hal-00921655/document). <i>In
 Document Changes: Modeling, Detection, Storage and Visualization (Vol. 1008,
 pp. 0-7).</i>
 
-
+[3] Nédelec, B., Tanke, J., Frey, D., Molli, P., Mostefaoui, A. (2015).
+[Spray, an Adaptive Random Peer Sampling Protocol](https://hal.archives-ouvertes.fr/hal-01203363/file/spray.pdf). <i>Technical Report.</i>
