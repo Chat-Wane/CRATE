@@ -8,8 +8,8 @@ function Model(){
                        "The content of documents is up to you." },
                      { icon:"fa-users",
                        feature:"Share and collaborate with your friends!",
-                       description:"You can share or join an editing session "
-                       +"in a single click. Your combined expertises will "
+                       description:"Share or join an editing session "
+                       +"in a single click. Combined expertise will "
                        +"produce a top-quality document."},
                      { icon:"fa-briefcase",
                        feature:"Keep your documents private!",
@@ -18,13 +18,18 @@ function Model(){
                        +"no privacy leaks. Basically, you own your documents."}
                     ];
     this.version = {
-        current: '0.1.0',
-        previous: '0.0.2',
-        addedFeatures: [ 'Handle multiple documents',
-                         'Presentation of features',
-                         'Link to the Github project page'],
-        updatedFeatures: [ 'General style of the editor' ],
-        bugFixes: [ 'A lot...' ]
+        current: '0.1.1',
+        previous: '0.1.0',
+        addedFeatures: [],
+        updatedFeatures: [ 'Sharing does not timeout now, it stops by '+
+                           'either clicking unshare or closing the editor'],
+        bugFixes: [ 'On joining, it gets the document, whatever the size']
     };
-    
+
+    // 0.0.2 -> 0.1.0
+    //addedFeatures: [ 'Handle multiple documents',
+    //                 'Presentation of features',
+    //                 'Link to the Github project page' ],
+    // updatedFeatures: [ 'General style of the editor' ],
+    // bugFixes: [ 'A lot...' ]
 };
