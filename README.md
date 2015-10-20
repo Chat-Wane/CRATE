@@ -29,15 +29,15 @@ The different modules that compose the editor are:
 
 * [jquery-crate](https://github.com/Chat-Wane/jquery-crate) which transforms divisions in distributed editors. It includes both the model and graphical entities.
 
- * [crate-core](https://github.com/Chat-Wane/crate-core) which includes the editor's model only.
+  * [crate-core](https://github.com/Chat-Wane/crate-core) which includes the editor's model only.
 
-   * [spray-wrtc](https://github.com/Chat-Wane/spray-wrtc) which creates a network of browsers as editing session.
+    * [spray-wrtc](https://github.com/Chat-Wane/spray-wrtc) which creates a network of browsers as editing session.
 
-   * [causal-broadcast-definition](https://github.com/Chat-Wane/CausalBroadcastDefinition) which disseminates messages following a causal order using a membership protocol (here Spray).
+    * [causal-broadcast-definition](https://github.com/Chat-Wane/CausalBroadcastDefinition) which disseminates messages following a causal order using a membership protocol (here Spray).
 
-   * [version-vector-with-exceptions](https://github.com/Chat-Wane/version-vector-with-exceptions) which allows tracking causality between semantically related operations.
+    * [version-vector-with-exceptions](https://github.com/Chat-Wane/version-vector-with-exceptions) which allows tracking causality between semantically related operations.
 
-   * [lseqtree](https://github.com/Chat-Wane/LSEQTree) as the data structure which maintains total ordered sequences to represent documents.
+    * [lseqtree](https://github.com/Chat-Wane/LSEQTree) as the data structure which maintains total ordered sequences to represent documents.
 
 ## Acknowledgements
 
