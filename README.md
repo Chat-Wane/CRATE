@@ -16,12 +16,12 @@ The short [video](https://www.dropbox.com/s/egf2c2do1jd331w/CRATE-video.mp4?dl=0
 
 ## Features
 
-CRATE aims to enable collaborative editing anywhere, at anytime, whatever the number of participants, without third party. Compared to Google Docs, (i) CRATE does not limit the number of simultaneous users, (ii) CRATE does not rely on service providers, thus your documents belong to you and whom you trust, (iii) CRATE does not include all text editing capabitities. In particular, it lacks of group awareness.
+CRATE aims to enable collaborative editing anywhere, at anytime, whatever the number of participants, without third party. Compared to Google Docs, (i) CRATE does not limit the number of simultaneous users, (ii) CRATE does not rely on service providers, thus your documents belong to you and whom you trust, (iii) CRATE does not include all text editing capabilities. In particular, it lacks of group awareness.
 
 CRATE is still in its very early stage of development. Therefore, the
 application may be buggy. Also, even basic functionalities are not implemented yet. Feel free to [request functionalities, report issues, and ask questions](https://github.com/Chat-Wane/CRATE/issues).
 
-## Developpers
+## Developers
 
 CRATE comprises the following main components (i) LSeq [1, 2] manages the shared document; (ii) Spray [3] builds the network of browsers.
 
@@ -39,7 +39,7 @@ The different modules that compose the editor are:
 
     * [lseqtree](https://github.com/Chat-Wane/LSEQTree) as the data structure which maintains total ordered sequences to represent documents.
 
-## Acknowledgements
+## Acknowledgments
 
 CRATE is developed within two research projects: The CominLabs project
 [DESCENT](http://www.descent.cominlabs.ueb.eu/) and the ANR project
