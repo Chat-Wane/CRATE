@@ -44,7 +44,9 @@ $ npm run build
 - jquery-crate
 
 Before build create-core if changes
+
 Download lseqtree-0.3.4.tgz file [here](https://drive.google.com/file/d/0B_QCPjtg9ixRblRrX3A2Q0NwcEk/view?usp=sharing)
+
 ```
 $ cd ../jquery-crate
 $ npm link ../crate-core
