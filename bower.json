@@ -7,7 +7,7 @@
         "zeroclipboard": "latest",
         "font-awesome": "latest",
         "jquery-shadow-animation": "latest",
-        "jquery-crate": "./../jquery-crate/"
+        "jquery-crate": "latest"
     },
     "devDependencies": {
         "less": "latest"
