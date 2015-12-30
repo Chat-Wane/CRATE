@@ -48,7 +48,7 @@ Before build create-core if changes
 $ cd ../jquery-crate
 $ npm link ../crate-core
 $ npm install brfs
-$ npm cache add lseqtree-0.3.4.tgz # lseqtree in npm is too fat
+$ npm cache add lseqtree-0.3.4.tgz # lseqtree in npm is too fat, download file  [here](https://drive.google.com/file/d/0B_QCPjtg9ixRblRrX3A2Q0NwcEk/view?usp=sharing) https://github.com/Chat-Wane/CRATE/files/74787/lseqtree-0.3.4.zip
 $ npm install 
 $ npm run build
 $ bower link # to prepare a local repo
