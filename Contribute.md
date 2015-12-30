@@ -20,6 +20,7 @@ $ npm install -g bower
 ```
 $ npm install -g browserify
 $ npm install -g uglifyjs 
+$ npm install -g less
 ```
 
 ## Clone repositories
@@ -28,7 +29,6 @@ $ npm install -g uglifyjs
 $ git clone https://github.com/masters-info-nantes/CRATE.git
 $ git clone https://github.com/masters-info-nantes/jquery-crate.git
 $ git clone https://github.com/masters-info-nantes/crate-core.git
-$ git clone https://github.com/masters-info-nantes/brace.git
 ```
 
 ## Build projects
@@ -38,22 +38,30 @@ $ git clone https://github.com/masters-info-nantes/brace.git
 ```
 $ cd crate-core
 $ npm install
+$ npm run build
 ```
 
 - jquery-crate
 
+Before build create-core if changes
 ```
 $ cd ../jquery-crate
+$ npm link ../crate-core
 $ npm install brfs
+$ npm cache add lseqtree-0.3.4.tgz # lseqtree in npm is too fat
 $ npm install 
-$ npm run-script build
+$ npm run build
+$ bower link # to prepare a local repo
 ```
 
 - Crate
 
+Before build jquery-crate if changes
 ```
 $ cd ../CRATE
-$ bower install 
+$ bower link jquery-crate # to get the local repo jquery-crate
+$ bower install
+$ lessc css/style.less css/generatedstyle.css 
 ```
 
 
