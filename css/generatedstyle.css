@@ -67,7 +67,7 @@ a.crate-icon {
   top: -20px;
   left: -6px;
   padding: 2px 4px;
-  color: white;
+  color: #333;
 }
 .ace_editor,
 .ace_scroller,
