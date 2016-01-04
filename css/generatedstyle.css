@@ -64,7 +64,7 @@ a.crate-icon {
 }
 .infoCaret {
   position: absolute;
-  top: -20px;
+  bottom: 6px;
   left: -6px;
   padding: 2px 4px;
   color: #333;
