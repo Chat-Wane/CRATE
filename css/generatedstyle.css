@@ -52,3 +52,25 @@ a.crate-icon {
   background: url("../img/crateicon.png") no-repeat center center;
   background-size: 32px 32px;
 }
+.remoteCaret {
+  position: absolute;
+}
+.squareCaret {
+  position: absolute;
+  top: -6px;
+  left: -2px;
+  width: 6px;
+  height: 6px;
+}
+.infoCaret {
+  position: absolute;
+  bottom: 6px;
+  left: -6px;
+  padding: 2px 4px;
+  color: #333;
+}
+.ace_editor,
+.ace_scroller,
+.ace_marker-layer {
+  overflow: visible !important;
+}

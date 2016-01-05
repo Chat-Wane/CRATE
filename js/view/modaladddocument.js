@@ -125,7 +125,7 @@ function ModalAddDocument(container){
     this.inputJoining = jQuery('<input>')
         .attr('type', 'text')
         .attr('placeholder',
-              'http://chat-wane.github.io/CRATE/index.html?session_id')
+              window.location.href +'?session_id')
         .addClass('form-control');
     jQuery('<div>').appendTo(formJoining)
         .addClass('form-group')
