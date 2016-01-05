@@ -18,13 +18,18 @@ function Model(){
                        +"no privacy leaks. Basically, you own your documents."}
                     ];
     this.version = {
-        current: '0.1.1',
-        previous: '0.1.0',
-        addedFeatures: [],
-        updatedFeatures: [ 'Sharing does not timeout now, it stops by '+
-                           'either clicking unshare or closing the editor'],
-        bugFixes: [ 'On joining, it gets the document, whatever the size']
+        current: '0.1.2',
+        previous: '0.1.1',
+        addedFeatures: ['Display the cursor of other participants'],
+        updatedFeatures: [],
+        bugFixes: []
     };
+
+    // current: '0.1.1', previous: '0.1.0',
+    //    addedFeatures: [],
+    //    updatedFeatures: [ 'Sharing does not timeout now, it stops by '+
+    //                       'either clicking unshare or closing the editor'],
+    //    bugFixes: [ 'On joining, it gets the document, whatever the size']
 
     // 0.0.2 -> 0.1.0
     //addedFeatures: [ 'Handle multiple documents',
