@@ -26,8 +26,7 @@ CRATE aims to enable collaborative editing anywhere, at anytime, whatever the
 number of participants, without third party. Compared to Google Docs, (i) CRATE
 does not limit the number of simultaneous users, (ii) CRATE does not rely on
 service providers, thus your documents belong to you and whom you trust, (iii)
-CRATE does not include all text editing capabilities. In particular, it lacks of
-group awareness.
+CRATE does not include all text editing capabilities.
 
 CRATE is still in its very early stage of development. Therefore, the
 application may be buggy. Also, even basic functionalities are not implemented
@@ -88,7 +87,7 @@ About the task bar buttons:
   remember them.
 
 * <i>The eye</i> allows users to apply a style to their document. For now, it
-  solely support the [markdown
+  solely supports the [markdown
   language](https://en.wikipedia.org/wiki/Markdown).
 
 * <i>The chain</i> allows sharing the document. An editing session is accessible
