@@ -100,7 +100,7 @@ About the task bar buttons:
   etc.
 
 ## Developers
-
+### How to build
 <b>To build</b> CRATE at home, you need [git](https://git-scm.com/),
 [bower](http://bower.io/), and [lessc](http://lesscss.org/). In a terminal, type
 the following commands:
@@ -113,6 +113,7 @@ $ lessc css/style.less css/generatedstyle.css
 ```
 Now you are able to open the <i>index.html</i> file using your web browser.
 
+### Dependencies
 CRATE comprises the following main components (i) LSeq [1, 2] manages the shared
 document; (ii) Spray [3] builds the network of browsers.
 
