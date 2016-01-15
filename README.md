@@ -1,6 +1,4 @@
-# <img
-  src="https://raw.githubusercontent.com/Chat-Wane/CRATE/master/img/crateicon.png"
-  /> CRATE
+# <img src="https://raw.githubusercontent.com/Chat-Wane/CRATE/master/img/crateicon.png" > CRATE
 
 <i>Keywords: distributed, decentralized, collaborative, real-time editor,
 network of browsers</i>
@@ -40,9 +38,13 @@ questions](https://github.com/Chat-Wane/CRATE/issues).
 
 When you open such [link](http://chat-wane.github.io/CRATE), you should see an
 empty page. To create a new empty document, click on the top-right blinking
-button. A menu appears containing 3 choices: (i) new document, (ii) open
-document, (iii) join an editing session. For now, click on the first option and
-enter the name of your document.
+button. A menu appears containing 3 choices: (i) <i>new document</i>, (ii)
+<i>open document</i>, (iii) <i>join an editing session</i>. For now, click on
+the first option and enter the name of your document.
+
+<div style="text-align:center; width:inherit"> <img
+  src="https://raw.githubusercontent.com/Chat-Wane/CRATE/master/img/new.gif"
+  style="max-width:500px"/> </div>
 
 Currently, you have an empty document that you alone can edit. To enable
 collaborative editing, you must share the access to this document. To do so,
@@ -51,18 +53,30 @@ you should see a blue spinning circle meaning that the document is accessible.
 In addition, you should see a sharing link on the bottom of the document
 containing the editing session identifier. Copy it.
 
+<div style="text-align:center; width:inherit"> <img
+  src="https://raw.githubusercontent.com/Chat-Wane/CRATE/master/img/share.gif"
+  style="max-width:500px"/> </div>
+
 Now, if you open the URL raw, a document should automatically appear trying to
 connect to the editing session. As an alternative, you can perform again the
 first step of this section but instead of creating a new document, you choose
-the third option : join an editing session. Then paste the URL in the
-appropriate field, click on the join button, and the document should appear as
+the third option : <i>join an editing session</i>. Then paste the URL in the
+relevant field, click on the join button, and the document should appear as
 well.
+
+<div style="text-align:center; width:inherit"> <img
+  src="https://raw.githubusercontent.com/Chat-Wane/CRATE/master/img/join.gif"
+  style="max-width:500px"/> </div>
 
 Be patient, establishing a connection may take time (hopefully less than 30
 seconds depending on restrictions of your network). Once the joining editor has
 established the connections, you should observe a green globe in the document's
 task bar. Soon, it will retrieve the characters composing the shared document
-and you can start the collaborative editing.
+and you will be able to start the collaborative editing.
+
+<div style="text-align:center; width:inherit"> <img
+  src="https://raw.githubusercontent.com/Chat-Wane/CRATE/master/img/writing.gif"
+  style="max-width:500px"/> </div>
 
 About the task bar buttons:
 
