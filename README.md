@@ -101,12 +101,12 @@ About the task bar buttons:
 
 ## Developers
 ### How to build
-<b>To build</b> CRATE at home, you need [git](https://git-scm.com/),
+To build CRATE at home, you need [git](https://git-scm.com/),
 [bower](http://bower.io/), and [lessc](http://lesscss.org/). In a terminal, type
 the following commands:
 ```
 $ git clone http://github.com/chat-wane/crate.git
-$cd crate
+$ cd crate
 
 $ bower install
 $ lessc css/style.less css/generatedstyle.css
