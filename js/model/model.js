@@ -18,13 +18,17 @@ function Model(){
                        +"no privacy leaks. Basically, you own your documents."}
                     ];
     this.version = {
-        current: '0.1.2',
-        previous: '0.1.1',
-        addedFeatures: ['Display the cursor of other participants'],
+        current: '0.1.3',
+        previous: '0.1.2',
+        addedFeatures: ['The editor can open multiple editing sessions at once'+
+                        ' with session identifiers seperated by "&".'],
         updatedFeatures: [],
-        bugFixes: []
+        bugFixes: ['Sharing address only carries one editing session.']
     };
 
+    // current: '0.1.2', previous: '0.1.1,
+    //    addedFeatures: ['Display the cursor of other participants'],
+    
     // current: '0.1.1', previous: '0.1.0',
     //    addedFeatures: [],
     //    updatedFeatures: [ 'Sharing does not timeout now, it stops by '+
