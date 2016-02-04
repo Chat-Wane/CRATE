@@ -32,6 +32,7 @@
     <section class="main">
       <div id="documents"></div>
       <div id="features"></div>
+      <div id="operation"></div>
     </section>
         
     <script src="./bower_components/jquery/dist/jquery.min.js"></script>
@@ -55,60 +56,6 @@
     <script src="./js/view/features.js"></script>
     <script src="./js/model/model.js"></script>
     
-    <script>
-      var peerConnectionConfig;
-      
-      $.ajax({
-        type: "POST",
-        url: "https://api.xirsys.com/getIceServers",
-        data: {
-          ident: "chatwane",
-          secret: "8105d907-564a-4213-8c91-21b0a2f7344b",
-          domain: "www.crate.com",
-          application: "crate",
-          room: "default",
-          secure: 1
-        },
-        success: function (data, status) {
-          // data.d is where the iceServers object lives
-          var object = JSON.parse(data);
-          connectionOptions = object.d;
-          initialize(connectionOptions);
-        },
-        async: true
-      });
-    </script>
-
-    <script>
-      var m = new Model();
-      
-      var vv = new VersionView(m.version, $("#version"), $("#homeIcon"));
-      var vd = new Documents($("#documents"),$("#menu-center-header"));
-      var vf = new Features(m.features, $("#features"));
-      var vad = new RoundButton($("#menu-right-header"), 
-                                "<i class='fa fa-plus'></i>",
-                                "add a document");
-      var vmad = new ModalAddDocument($("body"));
-      var vgb = new RoundButton($("#menu-right-header"),
-                                "<i class='fa fa-github'></li>",
-                                "contribute on Github");
-      
-      var cad = new AddDocument(vad, vmad, vd);
-      var cg = new Github(vgb);
-
-      var session = null;
-      
-      function initialize(connectionOptions){
-        cad.connectionOptions = connectionOptions;
-        if ((document.URL.split("?")).length>1){
-          cad.justDoIt({server:  'https://ancient-shelf-9067.herokuapp.com',
-                        session: document.URL.split('?')[1],
-                        connect: true});
-        };      
-      };
-
-      $(function(){ $('[data-toggle="popover"]').popover() });
-    </script>
-     
+    <script src="./js/main.js"></script>
   </body>
 </html>
