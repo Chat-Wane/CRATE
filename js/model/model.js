@@ -2,21 +2,26 @@
 
 function Model(){
 
-    this.features = [{ icon:"fa-quote-left",
-                       feature:"Create and edit your text documents!",
-                       description:"This feature speaks for itself. "+
-                       "The content of documents is up to you." },
-                     { icon:"fa-users",
-                       feature:"Share and collaborate with your friends!",
-                       description:"Share or join an editing session "
-                       +"in a single click. Combined expertise will "
-                       +"produce a top-quality document."},
-                     { icon:"fa-briefcase",
-                       feature:"Keep your documents private!",
-                       description:"No third-party involved in the process. "
-                       +"Thus, no censorship, no economic intelligence issues, "
-                       +"no privacy leaks. Basically, you own your documents."}
+    this.features = [{ icon:'fa-quote-left',
+                       feature:'Create and edit your text documents!',
+                       description:'This feature speaks for itself. '+
+                       'The content of documents is up to you.' },
+                     { icon:'fa-users',
+                       feature:'Share and collaborate with your friends!',
+                       description:'Share or join an editing session '
+                       +'in a single click. Combined expertise will '
+                       +'produce a top-quality document.'},
+                     { icon:'fa-briefcase',
+                       feature:'Keep your documents private!',
+                       description:'No third-party involved in the process. '
+                       +'Thus, no censorship, no economic intelligence issues, '
+                       +'no privacy leaks. Basically, you own your documents.'},
+                     { icon:'fa-cubes',
+                       feature:'How does it work?',
+                       description:'Discover the underlying components of '+
+                       'the editor by clicking on this section.'}
                     ];
+    
     this.version = {
         current: '0.1.3',
         previous: '0.1.2',

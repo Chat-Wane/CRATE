@@ -2,7 +2,7 @@
 function Features(features, container){
 
     this.container = container;
-
+    this.features = [];
     for (var i = 0; i < features.length; ++i){
         var row = jQuery('<div>').appendTo(this.container)
             .addClass('col-xs-offset-2 col-xs-8 post col-sm-offset-3 col-sm-6')
@@ -24,7 +24,8 @@ function Features(features, container){
             right.append(jQuery('<i>')
                          .addClass('fa fa-5x')
                          .addClass(features[i].icon));
-        };        
+        };
+        this.features.push(row);
     };
 
     function switchTitleDescription(i, container, row){
