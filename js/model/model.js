@@ -22,8 +22,9 @@ function Model(){
         previous: '0.1.2',
         addedFeatures: ['The editor can open multiple editing sessions at once'+
                         ' with session identifiers seperated by "&".'],
-        updatedFeatures: [],
-        bugFixes: ['Sharing address only carries one editing session.']
+        updatedFeatures: ['Preview in markdown autorefresh every 5 seconds.'],
+        bugFixes: ['Sharing address only carries one editing session.',
+                   'STUN provider has been updated.']
     };
 
     // current: '0.1.2', previous: '0.1.1,
