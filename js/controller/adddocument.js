@@ -112,6 +112,50 @@ AddDocument.prototype.justDoIt = function(signalingOptions,
         .css('display', 'inline-block')
         .css('margin-right', '10px');
     editor.header.prepend(saveDiv);
-    var vsb = new RoundButton(saveDiv, '<i class="fa fa-floppy-o"></i>', 'save')
-    var csb = new CSaveButton(vsb.button, editor);    
+    var vsb = new RoundButton(saveDiv, '<i class="fa fa-floppy-o"></i>','save');
+    var csb = new CSaveButton(vsb.button, editor);
+
+    // #3D on preview, link of crate editor are open in the window
+    // (TODO) create a main event emitter in jquery-crate plugin that trigger
+    // such behavior, e.g., on 'close', remove cell; on 'anchor', open a new
+    // editor
+    function clickHandler(event){
+        console.log("mOAAAEOFZEOFB");
+        // #1 get the address of the clicked link
+        var address = $(this).attr('href');
+        // #2 parse it and react accordingly if it contains crate address
+        address = address.split('index')[0].split('?')[0].toLowerCase();
+        current = window.location.href.split('index')[0]
+            .split('?')[0].toLowerCase();
+        if (address===current && $(this).attr('href').split('?').length>1){
+            event.preventDefault();
+            self.justDoIt({server:  'https://ancient-shelf-9067.herokuapp.com',
+                           session: $(this).attr('href').split('?')[1],
+                           connect: true});
+        };
+    };
+
+    this.isPreviewing = false;
+    this.refreshTimeout = 5000;
+    this.refresh = null;
+    var self = this;
+    
+    editor.previewButton.click(function(){
+        if (!self.isPreviewing){
+            self.isPreviewing = true;
+            self.refresh = setInterval(function(){
+                $('a').unbind('click', clickHandler);
+                $('a').click(clickHandler);
+            }, self.refreshTimeout);
+
+            $('a').unbind('click', clickHandler);
+            $('a').click(clickHandler);
+        } else {
+            self.isPreviewing = false;
+            
+            clearTimeout(self.refresh);
+            self.refresh = null;
+        };
+    });
+    
 };
