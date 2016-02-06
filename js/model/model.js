@@ -23,14 +23,21 @@ function Model(){
                     ];
     
     this.version = {
-        current: '0.1.3',
-        previous: '0.1.2',
-        addedFeatures: ['The editor can open multiple editing sessions at once'+
-                        ' with session identifiers seperated by "&".'],
-        updatedFeatures: ['Preview in markdown autorefresh every 5 seconds.'],
-        bugFixes: ['Sharing address only carries one editing session.',
-                   'STUN provider has been updated.']
+        current: '0.1.4',
+        previous: '0.1.3',
+        addedFeatures: ['Links to editing sessions in preview mode are '+
+                        'opened directly inside the editor.'],
+        updatedFeatures: [],
+        bugFixes: []
     };
+    
+    //     current: '0.1.3', previous: '0.1.2',
+    //     addedFeatures: ['The editor can open multiple editing sessions at once'+
+    //                     ' with session identifiers seperated by "&".'],
+    //     updatedFeatures: ['Preview in markdown autorefresh every 5 seconds.'],
+    //     bugFixes: ['Sharing address only carries one editing session.',
+    //                'STUN provider has been updated.']
+    // };
 
     // current: '0.1.2', previous: '0.1.1,
     //    addedFeatures: ['Display the cursor of other participants'],

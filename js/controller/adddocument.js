@@ -120,18 +120,21 @@ AddDocument.prototype.justDoIt = function(signalingOptions,
     // such behavior, e.g., on 'close', remove cell; on 'anchor', open a new
     // editor
     function clickHandler(event){
-        console.log("mOAAAEOFZEOFB");
         // #1 get the address of the clicked link
         var address = $(this).attr('href');
+        var sessions = $(this).attr('href').split('?');
         // #2 parse it and react accordingly if it contains crate address
         address = address.split('index')[0].split('?')[0].toLowerCase();
-        current = window.location.href.split('index')[0]
+        var current = window.location.href.split('index')[0]
             .split('?')[0].toLowerCase();
-        if (address===current && $(this).attr('href').split('?').length>1){
+        if (address===current && sessions.length>1){
             event.preventDefault();
-            self.justDoIt({server:  'https://ancient-shelf-9067.herokuapp.com',
-                           session: $(this).attr('href').split('?')[1],
-                           connect: true});
+            sessions = sessions[1].split('&');
+            for (var i=0; i<sessions.length; ++i){
+                self.justDoIt({server:'https://ancient-shelf-9067.herokuapp.com',
+                               session: sessions[i],
+                               connect: true});
+            };
         };
     };
 
