@@ -6,7 +6,11 @@ function AddDocument(viewAction, viewModal, viewDocuments){
     this.viewAction = viewAction;
     this.viewModal = viewModal;
     this.viewDocuments = viewDocuments;
-
+    
+    this.isPreviewing = 0;
+    this.refreshTimeout = 5000;
+    this.refresh = null;
+    
     // #1 bind the add button to its action
     viewAction.button.unbind('click');
     viewAction.button.css('box-shadow', "0 0 0px #ffffff");
@@ -64,6 +68,33 @@ function AddDocument(viewAction, viewModal, viewDocuments){
                        session: val.split('?')[1],
                        connect: true});
     });
+
+    // #3D on preview, link of crate editor are open in the window
+    // (TODO) create a main event emitter in jquery-crate plugin that trigger
+    // such behavior, e.g., on 'close', remove cell; on 'anchor', open a new
+    // editor
+    this.clickHandler = function(event){
+        // stop if it another kind of link, e.g., button or whatever
+        if (!($(this).attr('href'))){return true;}else{event.preventDefault();}
+        // #1 get the address of the clicked link
+        var address = $(this).attr('href');
+        var sessions = $(this).attr('href').split('?');
+        // #2 parse it and react accordingly if it contains crate address
+        address = address.split('index')[0].split('?')[0].toLowerCase();
+        var current = window.location.href.split('index')[0]
+            .split('?')[0].toLowerCase();
+        if (address===current && sessions.length>1){
+            sessions = sessions[1].split('&');
+            for (var i=0; i<sessions.length; ++i){
+                self.justDoIt({server:'https://ancient-shelf-9067.herokuapp.com',
+                               session: sessions[i],
+                               connect: true});
+            };
+        } else {
+            return true;
+        };
+    };
+    
 };
 
 AddDocument.prototype.justDoIt = function(signalingOptions,
@@ -103,7 +134,10 @@ AddDocument.prototype.justDoIt = function(signalingOptions,
         }, 500);;
     });
     // #3B on removal of the editor, remove the according divisions
+    editor.isPreviewing = false;
+    
     editor.closeButton.click(function(){
+        if (editor.isPreviewing){editor.previewButton.click();}
         cell.remove();
         button.remove();
     });
@@ -115,47 +149,28 @@ AddDocument.prototype.justDoIt = function(signalingOptions,
     var vsb = new RoundButton(saveDiv, '<i class="fa fa-floppy-o"></i>','save');
     var csb = new CSaveButton(vsb.button, editor);
 
-    // #3D on preview, link of crate editor are open in the window
-    // (TODO) create a main event emitter in jquery-crate plugin that trigger
-    // such behavior, e.g., on 'close', remove cell; on 'anchor', open a new
-    // editor
-    function clickHandler(event){
-        // #1 get the address of the clicked link
-        var address = $(this).attr('href');
-        var sessions = $(this).attr('href').split('?');
-        // #2 parse it and react accordingly if it contains crate address
-        address = address.split('index')[0].split('?')[0].toLowerCase();
-        var current = window.location.href.split('index')[0]
-            .split('?')[0].toLowerCase();
-        if (address===current && sessions.length>1){
-            event.preventDefault();
-            sessions = sessions[1].split('&');
-            for (var i=0; i<sessions.length; ++i){
-                self.justDoIt({server:'https://ancient-shelf-9067.herokuapp.com',
-                               session: sessions[i],
-                               connect: true});
-            };
-        };
-    };
 
-    this.isPreviewing = false;
-    this.refreshTimeout = 5000;
-    this.refresh = null;
-    var self = this;
-    
+
     editor.previewButton.click(function(){
-        if (!self.isPreviewing){
-            self.isPreviewing = true;
-            self.refresh = setInterval(function(){
-                $('a').unbind('click', clickHandler);
-                $('a').click(clickHandler);
-            }, self.refreshTimeout);
-
-            $('a').unbind('click', clickHandler);
-            $('a').click(clickHandler);
+        // #1 refresh anchors 
+        if (!editor.isPreviewing){
+            editor.isPreviewing = true;
+            self.isPreviewing += 1;
+            $('a').off('click', self.clickHandler)
+                .on('click', self.clickHandler);
         } else {
-            self.isPreviewing = false;
-            
+            editor.isPreviewing = false;
+            self.isPreviewing -= 1;
+        };
+
+        // #2 if at least one editor continues previewing, refresh anchors
+        if (self.isPreviewing>0 && !self.refresh){
+            self.refresh = setInterval(function(){
+                $('a').off('click', self.clickHandler)
+                    .on('click', self.clickHandler);
+            }, self.refreshTimeout);
+        } else if (self.isPreviewing === 0 && self.refresh) {
+            $('a').off('click', self.clickHandler);
             clearTimeout(self.refresh);
             self.refresh = null;
         };
