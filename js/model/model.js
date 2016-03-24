@@ -16,10 +16,10 @@ function Model(){
                        description:'No third-party involved in the process. '
                        +'Thus, no censorship, no economic intelligence issues, '
                        +'no privacy leaks. Basically, you own your documents.'},
-                     { icon:'fa-cubes',
-                       feature:'How does it work?',
-                       description:'Discover the underlying components of '+
-                       'the editor by clicking on this section.'}
+                     // { icon:'fa-cubes',
+                     //   feature:'How does it work?',
+                     //   description:'Discover the underlying components of '+
+                     //   'the editor by clicking on this section.'}
                     ];
     
     this.version = {

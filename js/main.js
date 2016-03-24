@@ -12,7 +12,7 @@ var vmad = new ModalAddDocument($("body"));
 var vgb = new RoundButton($("#menu-right-header"),
                           "<i class='fa fa-github'></li>",
                           "contribute on Github");
-var vl = new Layers(vf.features[vf.features.length-1]);
+//var vl = new Layers(vf.features[vf.features.length-1]);
 // #C initialize controllers
 var cad = new AddDocument(vad, vmad, vd);
 var cg = new Github(vgb);
