@@ -23,13 +23,17 @@ function Model(){
                     ];
     
     this.version = {
-        current: '0.1.4',
-        previous: '0.1.3',
-        addedFeatures: ['Links to editing sessions in preview mode are '+
-                        'opened directly inside the editor.'],
-        updatedFeatures: [],
-        bugFixes: []
+        current: '0.1.5',
+        previous: '0.1.4',
+        addedFeatures: [],
+        updatedFeatures: ['The network is more reactive.'],
+        bugFixes: ['QR-codes are working properly now.']
     };
+
+    
+    //    current: '0.1.4', previous: '0.1.3',
+    //    addedFeatures: ['Links to editing sessions in preview mode are '+
+    //                    'opened directly inside the editor.'],
     
     //     current: '0.1.3', previous: '0.1.2',
     //     addedFeatures: ['The editor can open multiple editing sessions at once'+
