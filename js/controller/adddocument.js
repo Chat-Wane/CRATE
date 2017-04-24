@@ -105,6 +105,7 @@ AddDocument.prototype.justDoIt = function(signalingOptions,
     // #0 analyse the arguments
     // (TODO) fix the uglyness of this code
     var options = { webRTCOptions: this.connectionOptions };
+    options.webRTCOptions.trickle = true;
     if (signalingOptions) { options.signalingOptions = signalingOptions; };
     if (name) { options.name = name; };
     if (importFromJSON) {
