@@ -114,7 +114,7 @@ $ lessc css/style.less css/generatedstyle.css
 Now you are able to open the <i>index.html</i> file using your web browser.
 
 ### Dependencies
-CRATE comprises the following main components (i) LSeq [1, 2] manages the shared
+CRATE comprises the following main components (i) LSeq [1, 2, 4] manages the shared
 document; (ii) Spray [3] builds the network of browsers.
 
 The different modules that compose the editor are:
@@ -150,18 +150,23 @@ University](http://www.univ-nantes.fr/).
 
 ## References
 
-[1] Nédelec, B., Molli, P., Mostefaoui, A., & Desmontils, E. (2013,
-September). [LSEQ: an adaptive structure for sequences in distributed
-collaborative
-editing](http://hal.univ-nantes.fr/docs/00/92/16/33/PDF/fp025-nedelec.pdf). <i>In
-Proceedings of the 2013 ACM symposium on Document engineering (pp. 37-46).</i> ACM.
+[1] B. Nédelec, P. Molli, A. Mostéfaoui, and E. Desmontils (September
+2013). [LSEQ: An Adaptive Structure for Sequences in Distributed Collaborative
+Editing](http://hal.univ-nantes.fr/docs/00/92/16/33/PDF/fp025-nedelec.pdf). <i>ACM
+symposium on Document engineering (pp. 37-46).</i>
 
-[2] Nédelec, B., Molli, P., Mostefaoui, A., & Desmontils,
-E. (2013). [Concurrency effects over variable-size identifiers in distributed
-collaborative
-editing](https://hal.archives-ouvertes.fr/hal-00921655/document). <i>In
-Document Changes: Modeling, Detection, Storage and Visualization (Vol. 1008,
+[2] B. Nédelec, P. Molli, A. Mostéfaoui, and E. Desmontils (2013). [Concurrency
+Effects Over Variable-Size Identifiers in Distributed Collaborative
+Editing](https://hal.archives-ouvertes.fr/hal-00921655/document). <i>In Document
+Changes: Modeling, Detection, Storage and Visualization (Vol. 1008,
 pp. 0-7).</i>
 
-[3] Nédelec, B., Tanke, J., Frey, D., Molli, P., Mostefaoui, A. (2015).
-[Spray, an Adaptive Random Peer Sampling Protocol](https://hal.archives-ouvertes.fr/hal-01203363/file/spray.pdf). <i>Technical Report.</i>
+[3] B. Nédelec, J. Tanke, D. Frey, P. Molli, and A. Mostéfaoui (2018).  [An
+Adaptive Peer-Sampling Protocol for Building Networks of
+Browsers](https://hal.inria.fr/hal-01619906/document). <i>World Wide Web,
+vol. 21.</i> Springer.
+
+[4] B. Nédelec, P. Molli, and A. Mostéfaoui (2016). [A scalable sequence
+encoding for collaborative
+editing](https://hal.archives-ouvertes.fr/hal-01552799/document). <i>Concurrency
+and Computation: Practice and Experience.</i> Wiley.
